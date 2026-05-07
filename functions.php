@@ -123,3 +123,183 @@ function nova_pet_register_elementor_locations($elementor_theme_manager) {
 	$elementor_theme_manager->register_all_core_location();
 }
 add_action('elementor/theme/register_locations', 'nova_pet_register_elementor_locations');
+
+/**
+ * Render product line cards.
+ *
+ * @param array $args Product query arguments.
+ * @return string
+ */
+function nova_pet_render_product_lines($args = array()) {
+	if (!class_exists('WooCommerce')) {
+		return '<p>' . esc_html__('WooCommerce is required to show product lines.', 'nova-pet') . '</p>';
+	}
+
+	$defaults = array(
+		'limit'   => 4,
+		'columns' => 4,
+		'title'   => esc_html__('Our Product Lines', 'nova-pet'),
+	);
+
+	$args = wp_parse_args($args, $defaults);
+
+	$query = new WP_Query(
+		array(
+			'post_type'           => 'product',
+			'post_status'         => 'publish',
+			'posts_per_page'      => absint($args['limit']),
+			'ignore_sticky_posts' => true,
+		)
+	);
+
+	ob_start();
+	?>
+	<section class="nova-product-lines">
+		<div class="site-container">
+			<?php if (!empty($args['title'])) : ?>
+				<header class="nova-section-header">
+					<h2><?php echo esc_html($args['title']); ?></h2>
+				</header>
+			<?php endif; ?>
+
+			<?php if ($query->have_posts()) : ?>
+				<div class="nova-product-grid columns-<?php echo esc_attr(absint($args['columns'])); ?>">
+					<?php
+					while ($query->have_posts()) :
+						$query->the_post();
+						global $product;
+						?>
+						<article class="nova-product-card">
+							<a href="<?php the_permalink(); ?>" class="nova-product-link">
+								<?php if (has_post_thumbnail()) : ?>
+									<?php the_post_thumbnail('woocommerce_thumbnail'); ?>
+								<?php endif; ?>
+								<h3 class="nova-product-title"><?php the_title(); ?></h3>
+							</a>
+							<?php if ($product) : ?>
+								<p class="nova-product-price"><?php echo wp_kses_post($product->get_price_html()); ?></p>
+							<?php endif; ?>
+						</article>
+					<?php endwhile; ?>
+				</div>
+			<?php else : ?>
+				<p><?php esc_html_e('No products found.', 'nova-pet'); ?></p>
+			<?php endif; ?>
+		</div>
+	</section>
+	<?php
+	wp_reset_postdata();
+	return ob_get_clean();
+}
+
+/**
+ * Product lines shortcode.
+ *
+ * Usage: [nova_product_lines limit="4" columns="4" title="Our Product Lines"]
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string
+ */
+function nova_pet_product_lines_shortcode($atts) {
+	$atts = shortcode_atts(
+		array(
+			'limit'   => 4,
+			'columns' => 4,
+			'title'   => esc_html__('Our Product Lines', 'nova-pet'),
+		),
+		$atts,
+		'nova_product_lines'
+	);
+
+	return nova_pet_render_product_lines($atts);
+}
+add_shortcode('nova_product_lines', 'nova_pet_product_lines_shortcode');
+
+/**
+ * Register custom widgets.
+ *
+ * @return void
+ */
+function nova_pet_register_custom_widgets() {
+	register_widget('Nova_Pet_Product_Lines_Widget');
+}
+add_action('widgets_init', 'nova_pet_register_custom_widgets');
+
+/**
+ * Product lines widget.
+ */
+class Nova_Pet_Product_Lines_Widget extends WP_Widget {
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct(
+			'nova_pet_product_lines_widget',
+			esc_html__('Nova Pet Product Lines', 'nova-pet'),
+			array(
+				'description' => esc_html__('Displays WooCommerce products in a card grid.', 'nova-pet'),
+			)
+		);
+	}
+
+	/**
+	 * Front-end display.
+	 *
+	 * @param array $args Widget arguments.
+	 * @param array $instance Saved values.
+	 * @return void
+	 */
+	public function widget($args, $instance) {
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo nova_pet_render_product_lines(
+			array(
+				'limit'   => isset($instance['limit']) ? absint($instance['limit']) : 4,
+				'columns' => isset($instance['columns']) ? absint($instance['columns']) : 4,
+				'title'   => isset($instance['title']) ? sanitize_text_field($instance['title']) : esc_html__('Our Product Lines', 'nova-pet'),
+			)
+		); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Back-end form.
+	 *
+	 * @param array $instance Saved values.
+	 * @return void
+	 */
+	public function form($instance) {
+		$title   = isset($instance['title']) ? $instance['title'] : esc_html__('Our Product Lines', 'nova-pet');
+		$limit   = isset($instance['limit']) ? absint($instance['limit']) : 4;
+		$columns = isset($instance['columns']) ? absint($instance['columns']) : 4;
+		?>
+		<p>
+			<label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title:', 'nova-pet'); ?></label>
+			<input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr($this->get_field_id('limit')); ?>"><?php esc_html_e('Products:', 'nova-pet'); ?></label>
+			<input class="tiny-text" id="<?php echo esc_attr($this->get_field_id('limit')); ?>" name="<?php echo esc_attr($this->get_field_name('limit')); ?>" type="number" min="1" max="12" value="<?php echo esc_attr($limit); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr($this->get_field_id('columns')); ?>"><?php esc_html_e('Columns:', 'nova-pet'); ?></label>
+			<input class="tiny-text" id="<?php echo esc_attr($this->get_field_id('columns')); ?>" name="<?php echo esc_attr($this->get_field_name('columns')); ?>" type="number" min="1" max="4" value="<?php echo esc_attr($columns); ?>">
+		</p>
+		<?php
+	}
+
+	/**
+	 * Save widget options.
+	 *
+	 * @param array $new_instance New values.
+	 * @param array $old_instance Old values.
+	 * @return array
+	 */
+	public function update($new_instance, $old_instance) {
+		$instance            = array();
+		$instance['title']   = sanitize_text_field($new_instance['title']);
+		$instance['limit']   = isset($new_instance['limit']) ? absint($new_instance['limit']) : 4;
+		$instance['columns'] = isset($new_instance['columns']) ? absint($new_instance['columns']) : 4;
+
+		return $instance;
+	}
+}

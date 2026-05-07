@@ -123,3 +123,97 @@ body {
   width: auto;
   z-index: 100000;
 }
+
+/* ========= Home Desktop (starter) ========= */
+.nova-hero {
+  padding: 5rem 0 3rem;
+  background: #f8fafc;
+}
+
+.nova-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.nova-hero h1 {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.nova-hero p {
+  margin-top: 1rem;
+  max-width: 60ch;
+  color: #334155;
+}
+
+.nova-product-lines {
+  padding: 3rem 0;
+}
+
+.nova-section-header h2 {
+  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+}
+
+.nova-product-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.nova-product-grid.columns-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.nova-product-grid.columns-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.nova-product-grid.columns-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.nova-product-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.nova-product-link img {
+  border-radius: 0.75rem;
+}
+
+.nova-product-title {
+  margin-top: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.nova-product-price {
+  margin-top: 0.35rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.nova-home-content {
+  padding: 3rem 0;
+}
+
+@media (max-width: 960px) {
+  .nova-product-grid.columns-4,
+  .nova-product-grid.columns-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .nova-product-grid.columns-4,
+  .nova-product-grid.columns-3,
+  .nova-product-grid.columns-2 {
+    grid-template-columns: 1fr;
+  }
+}
