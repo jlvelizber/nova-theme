@@ -1,0 +1,125 @@
+/*
+Theme Name: Nova Pet
+Theme URI: https://example.com/nova-pet
+Author: Nova Pet Team
+Author URI: https://example.com
+Description: Tema base ligero y compatible con Elementor y WooCommerce.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: nova-pet
+Tags: custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, e-commerce
+*/
+
+/* ========= CSS Reset (base) ========= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ========= Base Theme Styles ========= */
+:root {
+  --nova-container: 1200px;
+  --nova-gutter: 1rem;
+  --nova-text: #1e293b;
+  --nova-bg: #ffffff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  color: var(--nova-text);
+  background: var(--nova-bg);
+}
+
+.site-container {
+  width: min(100% - (var(--nova-gutter) * 2), var(--nova-container));
+  margin-inline: auto;
+}
+
+.site-main {
+  padding: 2rem 0;
+}
+
+.site-header,
+.site-footer {
+  padding: 1rem 0;
+}
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  clip: auto !important;
+  -webkit-clip-path: none;
+  clip-path: none;
+  color: #21759b;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+}
