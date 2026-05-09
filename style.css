@@ -348,6 +348,14 @@ body {
   display: block;
 }
 
+.header-search:not(.is-open) .header-search-icon-close {
+  display: none;
+}
+
+.header-search.is-open .header-search-icon-search {
+  display: none;
+}
+
 .header-lang {
   display: flex;
   align-items: center;

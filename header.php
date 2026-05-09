@@ -79,13 +79,16 @@
 					class="header-search-submit header-search-toggle"
 					aria-expanded="<?php echo get_search_query() ? 'true' : 'false'; ?>"
 					aria-controls="nova-header-search"
-					aria-label="<?php echo esc_attr(get_search_query() ? __('Submit search', 'nova-pet') : __('Open search', 'nova-pet')); ?>"
+					aria-label="<?php echo esc_attr(get_search_query() ? __('Close search', 'nova-pet') : __('Open search', 'nova-pet')); ?>"
 					data-label-open="<?php echo esc_attr__('Open search', 'nova-pet'); ?>"
-					data-label-submit="<?php echo esc_attr__('Submit search', 'nova-pet'); ?>"
+					data-label-close="<?php echo esc_attr__('Close search', 'nova-pet'); ?>"
 				>
-					<svg class="header-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+					<svg class="header-search-icon header-search-icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
 						<path d="M11 19a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" stroke-width="1.75" />
 						<path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+					</svg>
+					<svg class="header-search-icon header-search-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+						<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
 					</svg>
 				</button>
 			</form>

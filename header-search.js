@@ -18,8 +18,8 @@
 
 	function updateToggleButton() {
 		var openLabel = toggleBtn.getAttribute('data-label-open') || '';
-		var submitLabel = toggleBtn.getAttribute('data-label-submit') || '';
-		toggleBtn.setAttribute('aria-label', isOpen() ? submitLabel : openLabel);
+		var closeLabel = toggleBtn.getAttribute('data-label-close') || '';
+		toggleBtn.setAttribute('aria-label', isOpen() ? closeLabel : openLabel);
 	}
 
 	function openSearch() {
@@ -30,6 +30,14 @@
 		requestAnimationFrame(function () {
 			input.focus({ preventScroll: true });
 		});
+	}
+
+	function closeSearch() {
+		form.classList.remove('is-open');
+		toggleBtn.setAttribute('aria-expanded', 'false');
+		input.setAttribute('tabindex', '-1');
+		input.blur();
+		updateToggleButton();
 	}
 
 	function submitSearch() {
@@ -46,7 +54,7 @@
 			openSearch();
 			return;
 		}
-		submitSearch();
+		closeSearch();
 	});
 
 	input.addEventListener('keydown', function (e) {
