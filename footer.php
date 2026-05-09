@@ -23,19 +23,21 @@ if (function_exists('wc_get_page_id')) {
 	<div class="site-container site-footer-inner">
 		<div class="footer-columns" role="navigation" aria-label="<?php esc_attr_e('Footer', 'nova-pet'); ?>">
 			<div class="footer-col footer-col--brand">
-				<?php if (is_active_sidebar('footer-brand')) : ?>
+				<?php if (is_active_sidebar('footer-brand')): ?>
 					<?php dynamic_sidebar('footer-brand'); ?>
-				<?php else : ?>
+				<?php else: ?>
 					<div class="footer-fallback footer-fallback--brand">
-						<?php if (has_custom_logo()) : ?>
+						<?php if (has_custom_logo()): ?>
 							<div class="footer-branding-logo">
 								<?php the_custom_logo(); ?>
 							</div>
-						<?php else : ?>
+						<?php else: ?>
 							<p class="site-title nova-site-title nova-site-title--footer">
-								<a href="<?php echo esc_url(home_url('/')); ?>" rel="home" class="nova-site-logo-link nova-site-logo-link--footer">
+								<a href="<?php echo esc_url(home_url('/')); ?>" rel="home"
+									class="nova-site-logo-link nova-site-logo-link--footer">
 									<span class="nova-logo-text">
-										<span class="nova-logo-n nova-logo-n--footer"><?php echo esc_html($first_letter); ?></span><?php echo esc_html($rest_name); ?>
+										<span
+											class="nova-logo-n nova-logo-n--footer"><?php echo esc_html($first_letter); ?></span><?php echo esc_html($rest_name); ?>
 									</span>
 								</a>
 							</p>
@@ -59,18 +61,43 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--products">
-				<?php if (is_active_sidebar('footer-products')) : ?>
-					<?php dynamic_sidebar('footer-products'); ?>
-				<?php else : ?>
+			<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
+				<?php if (has_nav_menu('footer-products')): ?>
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'footer',
+							'menu_id' => 'footer-menu',
+							'menu_class' => 'footer-menu',
+							'container' => false,
+							'depth' => 1,
+							'fallback_cb' => false,
+
+						)
+					);
+					?>
+				<?php else: ?>
 					<div class="footer-fallback footer-fallback--products">
 						<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
 						<ul class="footer-link-list">
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Todos Los productos', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Comportamiento', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Flora Intestinal', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Articular', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Sustituto Lácteo', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Soporte Energético', 'nova-pet'); ?></a></li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Todos Los productos', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Comportamiento', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Flora Intestinal', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Articular', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Sustituto Lácteo', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Soporte Energético', 'nova-pet'); ?></a>
+							</li>
 						</ul>
 					</div>
 				<?php endif; ?>
@@ -78,19 +105,24 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--company">
-				<?php if (is_active_sidebar('footer-company')) : ?>
+				<?php if (is_active_sidebar('footer-company')): ?>
 					<?php dynamic_sidebar('footer-company'); ?>
-				<?php else : ?>
+				<?php else: ?>
 					<div class="footer-fallback footer-fallback--company">
 						<h3 class="footer-widget-title"><?php echo esc_html($blog_name ? $blog_name : 'NOVA'); ?></h3>
 						<ul class="footer-link-list">
-							<li><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Nosotros', 'nova-pet'); ?></a></li>
-							<li><a href="<?php echo esc_url(home_url('/contacto/')); ?>"><?php esc_html_e('Contacto', 'nova-pet'); ?></a></li>
+							<li><a
+									href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Nosotros', 'nova-pet'); ?></a>
+							</li>
+							<li><a
+									href="<?php echo esc_url(home_url('/contacto/')); ?>"><?php esc_html_e('Contacto', 'nova-pet'); ?></a>
+							</li>
 							<?php
 							$posts_page = get_option('page_for_posts');
 							$blog_url = $posts_page ? get_permalink((int) $posts_page) : home_url('/');
 							?>
-							<li><a href="<?php echo esc_url($blog_url); ?>"><?php esc_html_e('Blog', 'nova-pet'); ?></a></li>
+							<li><a href="<?php echo esc_url($blog_url); ?>"><?php esc_html_e('Blog', 'nova-pet'); ?></a>
+							</li>
 						</ul>
 					</div>
 				<?php endif; ?>
@@ -111,22 +143,22 @@ if (function_exists('wc_get_page_id')) {
 				);
 				?>
 			</p>
-			<?php if (has_nav_menu('footer-legal')) : ?>
+			<?php if (has_nav_menu('footer-legal')): ?>
 				<nav class="footer-legal-nav" aria-label="<?php esc_attr_e('Legal', 'nova-pet'); ?>">
 					<?php
 					wp_nav_menu(
 						array(
 							'theme_location' => 'footer-legal',
-							'menu_id'        => 'footer-legal-menu',
-							'menu_class'     => 'footer-legal-menu',
-							'container'      => false,
-							'depth'          => 1,
-							'fallback_cb'    => false,
+							'menu_id' => 'footer-legal-menu',
+							'menu_class' => 'footer-legal-menu',
+							'container' => false,
+							'depth' => 1,
+							'fallback_cb' => false,
 						)
 					);
 					?>
 				</nav>
-			<?php else : ?>
+			<?php else: ?>
 				<ul class="footer-legal-menu footer-legal-menu--fallback" id="footer-legal-menu">
 					<?php
 					$privacy = function_exists('get_privacy_policy_url') ? get_privacy_policy_url() : '';
@@ -137,10 +169,12 @@ if (function_exists('wc_get_page_id')) {
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo esc_url(home_url('/terms-of-service/')); ?>"><?php esc_html_e('Terms of service', 'nova-pet'); ?></a>
+						<a
+							href="<?php echo esc_url(home_url('/terms-of-service/')); ?>"><?php esc_html_e('Terms of service', 'nova-pet'); ?></a>
 					</li>
 					<li>
-						<a href="<?php echo esc_url(home_url('/cookie-settings/')); ?>"><?php esc_html_e('Cookie settings', 'nova-pet'); ?></a>
+						<a
+							href="<?php echo esc_url(home_url('/cookie-settings/')); ?>"><?php esc_html_e('Cookie settings', 'nova-pet'); ?></a>
 					</li>
 				</ul>
 			<?php endif; ?>
@@ -152,4 +186,5 @@ if (function_exists('wc_get_page_id')) {
 
 <?php wp_footer(); ?>
 </body>
+
 </html>
