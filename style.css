@@ -268,14 +268,14 @@ body {
   align-items: center;
   max-width: 100%;
   border-radius: 999px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
   padding: 0.15rem;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .header-search.is-open {
   padding: 0.15rem 0.15rem 0.15rem 0.65rem;
+  background-color: var(--nova-bg);
+  border:1px solid #e0e0e0!important;
 }
 
 .header-search:focus-within {
