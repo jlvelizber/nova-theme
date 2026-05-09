@@ -67,11 +67,10 @@ if (function_exists('wc_get_page_id')) {
 						array(
 							'theme_location' => 'footer',
 							'menu_id' => 'footer-menu',
-							'menu_class' => 'footer-menu',
+							'menu_class' => 'footer-menu footer-link-list',
 							'container' => false,
 							'depth' => 1,
-							'fallback_cb' => false,
-							'class' => 'footer-link-list',
+							'fallback_cb' => false
 
 						)
 					);
