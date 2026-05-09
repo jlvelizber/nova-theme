@@ -71,6 +71,7 @@ if (function_exists('wc_get_page_id')) {
 							'container' => false,
 							'depth' => 1,
 							'fallback_cb' => false,
+							'class' => 'footer-link-list',
 
 						)
 					);
