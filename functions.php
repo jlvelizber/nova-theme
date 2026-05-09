@@ -76,6 +76,14 @@ function nova_pet_scripts() {
 		true
 	);
 
+	wp_enqueue_script(
+		'nova-pet-header-search',
+		get_template_directory_uri() . '/header-search.js',
+		array(),
+		wp_get_theme()->get('Version'),
+		true
+	);
+
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}

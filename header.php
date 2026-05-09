@@ -62,7 +62,7 @@
 		</div>
 
 		<div class="header-utilities">
-			<form class="header-search" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+			<form class="header-search js-header-search<?php echo get_search_query() ? ' is-open' : ''; ?>" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
 				<label class="screen-reader-text" for="nova-header-search"><?php esc_html_e('Search', 'nova-pet'); ?></label>
 				<input
 					type="search"
@@ -72,8 +72,17 @@
 					value="<?php echo esc_attr(get_search_query()); ?>"
 					placeholder="<?php esc_attr_e('Search…', 'nova-pet'); ?>"
 					autocomplete="off"
+					<?php echo get_search_query() ? '' : 'tabindex="-1"'; ?>
 				>
-				<button type="submit" class="header-search-submit" aria-label="<?php esc_attr_e('Submit search', 'nova-pet'); ?>">
+				<button
+					type="button"
+					class="header-search-submit header-search-toggle"
+					aria-expanded="<?php echo get_search_query() ? 'true' : 'false'; ?>"
+					aria-controls="nova-header-search"
+					aria-label="<?php echo esc_attr(get_search_query() ? __('Submit search', 'nova-pet') : __('Open search', 'nova-pet')); ?>"
+					data-label-open="<?php echo esc_attr__('Open search', 'nova-pet'); ?>"
+					data-label-submit="<?php echo esc_attr__('Submit search', 'nova-pet'); ?>"
+				>
 					<svg class="header-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
 						<path d="M11 19a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" stroke-width="1.75" />
 						<path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
