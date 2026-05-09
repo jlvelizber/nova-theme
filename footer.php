@@ -61,6 +61,7 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--products">
+				<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
 				<?php if (has_nav_menu('footer')): ?>
 					<?php
 					wp_nav_menu(
@@ -70,14 +71,13 @@ if (function_exists('wc_get_page_id')) {
 							'menu_class' => 'footer-menu footer-link-list',
 							'container' => false,
 							'depth' => 1,
-							'fallback_cb' => false
+							'fallback_cb' => false,
 
 						)
 					);
 					?>
 				<?php else: ?>
 					<div class="footer-fallback footer-fallback--products">
-						<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
 						<ul class="footer-link-list">
 							<li><a
 									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Todos Los productos', 'nova-pet'); ?></a>
