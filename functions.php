@@ -55,6 +55,7 @@ if (!function_exists('nova_pet_setup')) {
 			'nova-pet',
 			get_template_directory() . '/languages'
 		);
+	}
 }
 add_action('after_setup_theme', 'nova_pet_setup');
 
