@@ -72,10 +72,11 @@ a {
   --nova-header-fg: #333333;
   --nova-accent-lime: #a4c639;
   --nova-header-break: 960px;
+  --nova-white: #ffffff;
 }
 
 body {
-  font-family: inherit;
+  font-family: 'Montserrat', sans-serif;
   color: var(--nova-text);
   background: var(--nova-bg);
 }
@@ -369,7 +370,7 @@ body {
   padding: 0.35rem 0.65rem 0.35rem 0.45rem;
   border-radius: 999px;
   background: var(--nova-accent-lime);
-  color: #ffffff;
+  color: var(--nova-white);
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1;

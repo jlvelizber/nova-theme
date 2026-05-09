@@ -110,7 +110,7 @@
 					?>
 					<div class="header-lang" role="navigation" aria-label="<?php esc_attr_e('Languages', 'nova-pet'); ?>">
 						<a class="header-lang-pill" href="<?php echo esc_url($lang_es_url); ?>">
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
 								<path fill="#f1c142" d="M1 10H31V22H1z"></path>
 								<path d="M5,4H27c2.208,0,4,1.792,4,4v3H1v-3c0-2.208,1.792-4,4-4Z" fill="#a0251e"></path>
 								<path d="M5,21H27c2.208,0,4,1.792,4,4v3H1v-3c0-2.208,1.792-4,4-4Z"
@@ -137,7 +137,7 @@
 							<span class="header-lang-name"><?php esc_html_e('Spa', 'nova-pet'); ?></span>
 						</a>
 						<a class="header-lang-pill" href="<?php echo esc_url($lang_en_url); ?>">
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
 								<rect x="1" y="4" width="30" height="24" rx="4" ry="4" fill="#fff"></rect>
 								<path
 									d="M1.638,5.846H30.362c-.711-1.108-1.947-1.846-3.362-1.846H5c-1.414,0-2.65,.738-3.362,1.846Z"
