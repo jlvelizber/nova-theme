@@ -183,7 +183,7 @@ function nova_pet_render_product_lines($args = array()) {
 	$defaults = array(
 		'limit'   => 4,
 		'columns' => 4,
-		'title'   => esc_html__('Our Product Lines', 'nova-pet'),
+		'title'   => esc_html__('', 'nova-pet'),
 	);
 
 	$args = wp_parse_args($args, $defaults);
@@ -208,26 +208,50 @@ function nova_pet_render_product_lines($args = array()) {
 			<?php endif; ?>
 
 			<?php if ($query->have_posts()) : ?>
-				<div class="nova-product-grid columns-<?php echo esc_attr(absint($args['columns'])); ?>">
+				<div class="nova-product-grid nova-product-grid--showcase">
 					<?php
 					$product_count = 0;
 					while ($query->have_posts()) :
 						$query->the_post();
 						global $product;
+
+						$short_desc = '';
+						if ($product instanceof WC_Product && $product->get_short_description()) {
+							$short_desc = wp_trim_words(wp_strip_all_tags($product->get_short_description()), 22);
+						}
+						if ('' === $short_desc) {
+							$short_desc = wp_trim_words(wp_strip_all_tags(get_the_excerpt()), 22);
+						}
+
+						$is_featured = ( 0 === $product_count );
+						$card_class  = $is_featured ? 'nova-product-card nova-product-card--featured' : 'nova-product-card nova-product-card--compact';
+						$thumb_size  = $is_featured ? 'woocommerce_single' : 'woocommerce_thumbnail';
 						?>
-						<article class="nova-product-card <?php echo $product_count === 0 ? 'span-col-2' : 'span-col-1'; ?>">
-							<a href="<?php the_permalink(); ?>" class="nova-product-link">
-								<?php if (has_post_thumbnail()) : ?>
-									<?php the_post_thumbnail('woocommerce_thumbnail'); ?>
-								<?php endif; ?>
-								<h3 class="nova-product-title"><?php the_title(); ?></h3>
+						<article class="<?php echo esc_attr($card_class); ?>">
+							<a href="<?php the_permalink(); ?>" class="nova-product-card__link">
+								<div class="nova-product-card__inner">
+									<div class="nova-product-card__text">
+										<h3 class="nova-product-title"><?php the_title(); ?></h3>
+										<?php if ('' !== $short_desc) : ?>
+											<p class="nova-product-desc"><?php echo esc_html($short_desc); ?></p>
+										<?php endif; ?>
+										<span class="nova-product-learn">
+											<?php esc_html_e('Learn', 'nova-pet'); ?>
+											<span class="nova-product-learn__chevron" aria-hidden="true">&gt;</span>
+										</span>
+									</div>
+									<?php if (has_post_thumbnail()) : ?>
+										<div class="nova-product-card__media">
+											<?php the_post_thumbnail($thumb_size, array('class' => 'nova-product-card__img')); ?>
+										</div>
+									<?php endif; ?>
+								</div>
 							</a>
-							<?php if ($product) : ?>
-								<p class="nova-product-price"><?php echo wp_kses_post($product->get_price_html()); ?></p>
-							<?php endif; ?>
 						</article>
-						<?php $product_count++; ?>
-					<?php endwhile; ?>
+						<?php
+						++$product_count;
+					endwhile;
+					?>
 				</div>
 			<?php else : ?>
 				<p><?php esc_html_e('No products found.', 'nova-pet'); ?></p>
