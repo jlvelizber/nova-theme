@@ -84,6 +84,14 @@ body {
   background: var(--nova-bg);
 }
 
+.span-col-2 {
+  grid-column: span 2 / span 2;
+}
+
+.span-col-1 {
+  grid-column: span 1 / span 1;
+}
+
 .site-container {
   width: min(100% - (var(--nova-gutter) * 2), var(--nova-container));
   margin-inline: auto;
