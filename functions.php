@@ -244,7 +244,7 @@ function nova_pet_render_product_lines($args = array()) {
 											<p class="nova-product-desc"><?php echo esc_html($short_desc); ?></p>
 										<?php endif; ?>
 										<span class="nova-product-learn">
-											<?php esc_html_e('Learn', 'nova-pet'); ?>
+											<?php esc_html_e('Ver más', 'nova-pet'); ?>
 											<span class="nova-product-learn__chevron" aria-hidden="true">&gt;</span>
 										</span>
 									</div>
