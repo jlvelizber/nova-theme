@@ -250,9 +250,16 @@ body {
 .primary-menu .current-menu-item > a,
 .primary-menu a:hover,
 .primary-menu a:focus-visible {
-  color: #111111;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  color: var(--nova-header-fg)!important;
+  text-decoration: none;
+  background-color: var(--nova-accent-lime)!important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  color: var(--nova-white)!important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .header-utilities {
@@ -370,7 +377,7 @@ body {
   padding: 0.35rem 0.65rem 0.35rem 0.45rem;
   border-radius: 999px;
   background: var(--nova-accent-lime);
-  color: var(--nova-white);
+  color: var(--nova-white)!important;
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: 1;
@@ -382,6 +389,7 @@ body {
   filter: brightness(1.05);
   outline: 2px solid rgba(51, 51, 51, 0.25);
   outline-offset: 2px;
+  color: var(--nova-white)!important;
 }
 
 .header-lang-code {
