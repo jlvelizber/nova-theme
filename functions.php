@@ -37,8 +37,9 @@ if (!function_exists('nova_pet_setup')) {
 
 		register_nav_menus(
 			array(
-				'primary' => esc_html__('Primary Menu', 'nova-pet'),
-				'footer'  => esc_html__('Footer Menu', 'nova-pet'),
+				'primary'      => esc_html__('Primary Menu', 'nova-pet'),
+				'footer'       => esc_html__('Footer Menu', 'nova-pet'),
+				'footer-legal' => esc_html__('Footer legal bar', 'nova-pet'),
 			)
 		);
 
@@ -105,6 +106,42 @@ function nova_pet_widgets_init() {
 			'after_widget'  => '</section>',
 			'before_title'  => '<h2 class="widget-title">',
 			'after_title'   => '</h2>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__('Footer: brand column', 'nova-pet'),
+			'id'            => 'footer-brand',
+			'description'   => esc_html__('Logo and intro text (left column).', 'nova-pet'),
+			'before_widget' => '<section id="%1$s" class="footer-widget widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3 class="footer-widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__('Footer: products column', 'nova-pet'),
+			'id'            => 'footer-products',
+			'description'   => esc_html__('Product links or navigation (middle column).', 'nova-pet'),
+			'before_widget' => '<section id="%1$s" class="footer-widget widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3 class="footer-widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__('Footer: company column', 'nova-pet'),
+			'id'            => 'footer-company',
+			'description'   => esc_html__('Company links (right column).', 'nova-pet'),
+			'before_widget' => '<section id="%1$s" class="footer-widget widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3 class="footer-widget-title">',
+			'after_title'   => '</h3>',
 		)
 	);
 }
