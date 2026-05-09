@@ -276,7 +276,7 @@ function nova_pet_product_lines_shortcode($atts) {
 		array(
 			'limit'   => 4,
 			'columns' => 4,
-			'title'   => esc_html__('Our Product Lines', 'nova-pet'),
+			'title'   => esc_html__('', 'nova-pet'),
 		),
 		$atts,
 		'nova_product_lines'
@@ -326,7 +326,7 @@ class Nova_Pet_Product_Lines_Widget extends WP_Widget {
 			array(
 				'limit'   => isset($instance['limit']) ? absint($instance['limit']) : 4,
 				'columns' => isset($instance['columns']) ? absint($instance['columns']) : 4,
-				'title'   => isset($instance['title']) ? sanitize_text_field($instance['title']) : esc_html__('Our Product Lines', 'nova-pet'),
+				'title'   => isset($instance['title']) ? sanitize_text_field($instance['title']) : esc_html__('', 'nova-pet'),
 			)
 		); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -339,7 +339,7 @@ class Nova_Pet_Product_Lines_Widget extends WP_Widget {
 	 * @return void
 	 */
 	public function form($instance) {
-		$title   = isset($instance['title']) ? $instance['title'] : esc_html__('Our Product Lines', 'nova-pet');
+		$title   = isset($instance['title']) ? $instance['title'] : esc_html__('', 'nova-pet');
 		$limit   = isset($instance['limit']) ? absint($instance['limit']) : 4;
 		$columns = isset($instance['columns']) ? absint($instance['columns']) : 4;
 		?>
