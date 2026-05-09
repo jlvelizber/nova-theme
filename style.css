@@ -744,7 +744,7 @@ body {
 .nova-product-card {
   border: 1px solid #e5e7eb;
   border-radius: 1.125rem;
-  padding: clamp(1.5rem, 3vw, 2.35rem);
+  padding: clamp(1.5rem, 3vw, 1.35rem);
   background: #fff;
   color: #111111;
   min-height: 0;

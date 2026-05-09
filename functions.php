@@ -47,7 +47,14 @@ if (!function_exists('nova_pet_setup')) {
 		add_theme_support('wc-product-gallery-zoom');
 		add_theme_support('wc-product-gallery-lightbox');
 		add_theme_support('wc-product-gallery-slider');
-	}
+
+		/**
+		 * Load Theme Translations
+		 */
+		load_theme_textdomain(
+			'nova-pet',
+			get_template_directory() . '/languages'
+		);
 }
 add_action('after_setup_theme', 'nova_pet_setup');
 
