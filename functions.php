@@ -215,8 +215,8 @@ function nova_pet_render_product_lines($args = array()) {
 						$query->the_post();
 						global $product;
 						?>
-						<article class="nova-product-card">
-							<a href="<?php the_permalink(); ?>" class="nova-product-link <?php echo $product_count === 0 ? 'span-col-2' : 'span-col-1'; ?>">
+						<article class="nova-product-card <?php echo $product_count === 0 ? 'span-col-2' : 'span-col-1'; ?>">
+							<a href="<?php the_permalink(); ?>" class="nova-product-link">
 								<?php if (has_post_thumbnail()) : ?>
 									<?php the_post_thumbnail('woocommerce_thumbnail'); ?>
 								<?php endif; ?>
