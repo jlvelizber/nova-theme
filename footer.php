@@ -61,8 +61,7 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--products">
-			<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
-				<?php if (has_nav_menu('footer-products')): ?>
+				<?php if (has_nav_menu('footer')): ?>
 					<?php
 					wp_nav_menu(
 						array(

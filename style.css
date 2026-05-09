@@ -73,7 +73,7 @@ a {
   --nova-accent-lime: #a4c639;
   --nova-header-break: 960px;
   --nova-white: #ffffff;
-  --nova-footer-bg: #6e6e6e;
+  --nova-footer-bg: #A7A8A9;
   --nova-footer-fg: #ffffff;
   --nova-footer-rule: rgba(255, 255, 255, 0.35);
 }
@@ -512,7 +512,7 @@ body {
 
 .footer-columns {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: start;
   padding-bottom: 2rem;
@@ -520,6 +520,16 @@ body {
 
 .footer-col {
   min-width: 0;
+}
+
+.footer-col--brand {
+  grid-column: span 2 / span 2;
+}
+.footer-col--products {
+  grid-column: span 1 / span 1;
+}
+.footer-col--company {
+  grid-column: span 1 / span 1;
 }
 
 .nova-site-title--footer {
@@ -579,7 +589,7 @@ body {
   font-size: 1rem;
   font-weight: 700;
   margin: 0 0 1rem;
-  color: var(--nova-footer-fg);
+  color: var(--nova-white)!important;
 }
 
 .footer-link-list {
@@ -591,6 +601,15 @@ body {
 .footer-link-list a {
   text-decoration: none;
   padding: 0.1rem 0;
+  color: var(--nova-white)!important;
+  transition: color 0.22s ease, text-decoration 0.22s ease;
+}
+
+.footer-link-list a:hover,
+.footer-link-list a:focus-visible {
+  text-decoration: underline;
+  color: var(--nova-accent-lime)!important;
+
 }
 
 .footer-widget .menu {
