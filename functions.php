@@ -9,6 +9,8 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+require_once get_template_directory() . '/inc/feature-cards.php';
+
 if (!function_exists('nova_pet_setup')) {
 	/**
 	 * Sets up theme defaults and registers support for WordPress features.
