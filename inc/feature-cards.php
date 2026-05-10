@@ -360,10 +360,12 @@ function nova_pet_feature_cards_render_body($label, $title, $text, $action) {
 	if ($text) {
 		echo '<p class="nova-card__text">' . esc_html($text) . '</p>';
 	}
-	echo '<span class="nova-card__action">';
-	echo esc_html($action);
-	echo '<span class="nova-card__chevron" aria-hidden="true">&gt;</span>';
-	echo '</span>';
+	if($action) {
+		echo '<span class="nova-card__action">';
+		echo esc_html($action);
+		echo '<span class="nova-card__chevron" aria-hidden="true">&gt;</span>';
+		echo '</span>';
+	}
 }
 
 /**
