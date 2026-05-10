@@ -122,6 +122,34 @@ function nova_pet_get_feature_cards_html(array $cards) {
 }
 
 /**
+ * HTML de una sola tarjeta (sin section ni grid del tema). Para columnas Elementor o [nova_card].
+ *
+ * @param array<string, mixed> $card Raw o normalizada.
+ * @return string
+ */
+function nova_pet_get_single_card_html(array $card) {
+	$n = nova_pet_normalize_feature_card($card);
+	if (!$n) {
+		return '';
+	}
+	$path = locate_template('template-parts/feature-card-item.php');
+	if (!$path) {
+		return '';
+	}
+	ob_start();
+	load_template(
+		$path,
+		false,
+		array(
+			'card'      => $n,
+			'split_row' => 0,
+			'placement' => 'single',
+		)
+	);
+	return ob_get_clean();
+}
+
+/**
  * Collects [nova_card] while parsing [nova_feature_cards]…[/nova_feature_cards].
  */
 final class Nova_Pet_Feature_Cards_Shortcode_Buffer {
@@ -142,31 +170,36 @@ final class Nova_Pet_Feature_Cards_Shortcode_Buffer {
 }
 
 /**
- * Inner shortcode: [nova_card ...] (only inside [nova_feature_cards]).
+ * Shortcode [nova_card]: alone outputs one card (for Elementor Shortcode widget / columnas).
+ * Inside [nova_feature_cards]…[/] se acumula para la rejilla del tema.
  *
  * @param array<string, string>|string $atts Attributes.
  * @return string
  */
 function nova_pet_nova_card_shortcode($atts) {
-	if (!Nova_Pet_Feature_Cards_Shortcode_Buffer::$open) {
-		return '';
-	}
-
 	if (!is_array($atts)) {
 		$atts = array();
 	}
 
-	$parsed = nova_pet_normalize_feature_card($atts);
-	if ($parsed) {
-		Nova_Pet_Feature_Cards_Shortcode_Buffer::$cards[] = $parsed;
+	if (Nova_Pet_Feature_Cards_Shortcode_Buffer::$open) {
+		$parsed = nova_pet_normalize_feature_card($atts);
+		if ($parsed) {
+			Nova_Pet_Feature_Cards_Shortcode_Buffer::$cards[] = $parsed;
+		}
+		return '';
 	}
 
-	return '';
+	$parsed = nova_pet_normalize_feature_card($atts);
+	if (!$parsed) {
+		return '';
+	}
+
+	return nova_pet_get_single_card_html($parsed);
 }
 add_shortcode('nova_card', 'nova_pet_nova_card_shortcode');
 
 /**
- * Wrapper: [nova_feature_cards] … [/nova_feature_cards]
+ * Wrapper opcional: [nova_feature_cards] … [/nova_feature_cards] — rejilla + site-container del tema.
  *
  * @param array<string, string>|string $atts Attributes.
  * @param string|null                  $content Inner shortcodes.
@@ -191,6 +224,48 @@ function nova_pet_feature_cards_wrapper_shortcode($atts, $content = null) {
 	return nova_pet_get_feature_cards_html($cards);
 }
 add_shortcode('nova_feature_cards', 'nova_pet_feature_cards_wrapper_shortcode');
+
+/**
+ * CSS classes for one card (grid placement classes solo si placement === grid).
+ *
+ * @param array<string, mixed> $card       Normalized card.
+ * @param int                  $split_row  Índice de tarjeta horizontal (1 o 2) en modo grid.
+ * @param string               $placement  grid|single.
+ * @return array<int, string>
+ */
+function nova_pet_get_feature_card_classes(array $card, $split_row = 0, $placement = 'grid') {
+	$classes = array('nova-card');
+	if (empty($card['layout'])) {
+		return $classes;
+	}
+
+	$layout = $card['layout'];
+	$grid   = ('grid' === $placement);
+
+	if ('stack' === $layout) {
+		$classes[] = 'nova-card--stack';
+		if (empty($card['stack_media_first'])) {
+			$classes[] = 'nova-card--stack-media-last';
+		}
+		if ($grid && !empty($card['lead'])) {
+			$classes[] = 'nova-card--lead';
+		}
+	} else {
+		$classes[] = 'nova-card--split';
+		if (!empty($card['split_reverse'])) {
+			$classes[] = 'nova-card--split-reverse';
+		}
+		if ($grid) {
+			if (1 === (int) $split_row) {
+				$classes[] = 'nova-card--split-r1';
+			} elseif (2 === (int) $split_row) {
+				$classes[] = 'nova-card--split-r2';
+			}
+		}
+	}
+
+	return $classes;
+}
 
 /**
  * Whether any card uses the tall left column.

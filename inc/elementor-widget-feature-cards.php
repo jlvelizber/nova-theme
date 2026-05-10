@@ -47,6 +47,28 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 	 */
 	protected function register_controls() {
 		$this->start_controls_section(
+			'section_layout',
+			array(
+				'label' => esc_html__('Layout', 'nova-pet'),
+			)
+		);
+
+		$this->add_control(
+			'cards_only',
+			array(
+				'label'       => esc_html__('Solo tarjetas (sin contenedor del tema)', 'nova-pet'),
+				'description' => esc_html__('Sin section, sin site-container ni rejilla: solo el HTML de cada tarjeta. Usa columnas/secciones de Elementor para colocarlas.', 'nova-pet'),
+				'type'        => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'    => esc_html__('Sí', 'nova-pet'),
+				'label_off'   => esc_html__('No', 'nova-pet'),
+				'return_value' => 'yes',
+				'default'     => '',
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_cards',
 			array(
 				'label' => esc_html__('Cards', 'nova-pet'),
@@ -81,8 +103,8 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'lead_card',
 			array(
-				'label'        => esc_html__('Tall left column (grid)', 'nova-pet'),
-				'description'  => esc_html__('Only applies to vertical cards (image top or bottom).', 'nova-pet'),
+				'label'        => esc_html__('Tall left column (theme grid)', 'nova-pet'),
+				'description'  => esc_html__('Solo si “Solo tarjetas” está desactivado: columna izquierda alta.', 'nova-pet'),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => esc_html__('Yes', 'nova-pet'),
 				'label_off'    => esc_html__('No', 'nova-pet'),
@@ -156,6 +178,8 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
+		$cards_only = !empty($settings['cards_only']) && 'yes' === $settings['cards_only'];
+
 		$rows = array();
 		foreach ($settings['cards'] as $item) {
 			$pos = isset($item['image_position']) ? $item['image_position'] : 'top';
@@ -187,6 +211,14 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 			if ($n) {
 				$rows[] = $n;
 			}
+		}
+
+		if ($cards_only) {
+			foreach ($rows as $row) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo nova_pet_get_single_card_html($row);
+			}
+			return;
 		}
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
