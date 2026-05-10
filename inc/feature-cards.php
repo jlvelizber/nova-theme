@@ -196,7 +196,20 @@ function nova_pet_nova_card_shortcode($atts) {
 
 	return nova_pet_get_single_card_html($parsed);
 }
-add_shortcode('nova_card', 'nova_pet_nova_card_shortcode');
+
+/**
+ * Registra shortcodes en init (compatibilidad Elementor / plugins).
+ * Etiquetas: nova_card y nova-card; nova_feature_cards y nova-feature-cards.
+ *
+ * @return void
+ */
+function nova_pet_register_feature_cards_shortcodes() {
+	add_shortcode('nova_card', 'nova_pet_nova_card_shortcode');
+	add_shortcode('nova-card', 'nova_pet_nova_card_shortcode');
+	add_shortcode('nova_feature_cards', 'nova_pet_feature_cards_wrapper_shortcode');
+	add_shortcode('nova-feature-cards', 'nova_pet_feature_cards_wrapper_shortcode');
+}
+add_action('init', 'nova_pet_register_feature_cards_shortcodes', 20);
 
 /**
  * Wrapper opcional: [nova_feature_cards] … [/nova_feature_cards] — rejilla + site-container del tema.
@@ -223,7 +236,6 @@ function nova_pet_feature_cards_wrapper_shortcode($atts, $content = null) {
 
 	return nova_pet_get_feature_cards_html($cards);
 }
-add_shortcode('nova_feature_cards', 'nova_pet_feature_cards_wrapper_shortcode');
 
 /**
  * CSS classes for one card (grid placement classes solo si placement === grid).
