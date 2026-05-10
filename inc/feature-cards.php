@@ -103,10 +103,26 @@ function nova_pet_render_feature_cards(array $cards) {
 		return;
 	}
 
-	$path = nova_pet_resolve_theme_template('template-parts/feature-cards.php');
-	if ($path) {
-		load_template($path, false, array('cards' => $cards));
+	$grid_classes = array('nova-feature-cards__grid');
+	if (!nova_pet_feature_cards_grid_has_lead($cards)) {
+		$grid_classes[] = 'nova-feature-cards__grid--flat';
 	}
+	echo '<section class="nova-feature-cards" aria-label="' . esc_attr__('Highlights', 'nova-pet') . '">';
+	echo '<div class="site-container nova-feature-cards__inner">';
+	echo '<div class="' . esc_attr(implode(' ', $grid_classes)) . '">';
+
+	$split_row = 0;
+	foreach ($cards as $card) {
+		if (!is_array($card) || empty($card['layout'])) {
+			continue;
+		}
+		if ('split' === $card['layout']) {
+			++$split_row;
+		}
+		nova_pet_render_feature_card_article($card, $split_row, 'grid');
+	}
+
+	echo '</div></div></section>';
 }
 
 /**
@@ -122,10 +138,10 @@ function nova_pet_get_feature_cards_html(array $cards) {
 }
 
 /**
- * HTML de una sola tarjeta (sin section ni grid del tema). Para columnas Elementor o [nova_card].
+ * Busca una plantilla en tema hijo/padre (para overrides opcionales).
  *
- * @param array<string, mixed> $card Raw o normalizada.
- * @return string
+ * @param string $relative_path Ruta relativa al directorio del tema.
+ * @return string Ruta absoluta o cadena vacía.
  */
 function nova_pet_resolve_theme_template($relative_path) {
 	$relative_path = ltrim(str_replace('\\', '/', (string) $relative_path), '/');
@@ -149,23 +165,8 @@ function nova_pet_get_single_card_html(array $card) {
 	if (!$n) {
 		return '';
 	}
-	$path = nova_pet_resolve_theme_template('template-parts/feature-card-item.php');
-	if (!$path) {
-		if (defined('WP_DEBUG') && WP_DEBUG) {
-			return '<!-- nova-card: no se encontró template-parts/feature-card-item.php -->';
-		}
-		return '';
-	}
 	ob_start();
-	load_template(
-		$path,
-		false,
-		array(
-			'card'      => $n,
-			'split_row' => 0,
-			'placement' => 'single',
-		)
-	);
+	nova_pet_render_feature_card_article($n, 0, 'single');
 	return ob_get_clean();
 }
 
@@ -363,6 +364,64 @@ function nova_pet_feature_cards_render_body($label, $title, $text, $action) {
 	echo esc_html($action);
 	echo '<span class="nova-card__chevron" aria-hidden="true">&gt;</span>';
 	echo '</span>';
+}
+
+/**
+ * Imprime una tarjeta (HTML completo). No depende de archivos en template-parts.
+ *
+ * @param array<string, mixed> $card      Tarjeta normalizada.
+ * @param int                    $split_row Índice para columnas en modo grid.
+ * @param string                 $placement grid|single.
+ * @return void
+ */
+function nova_pet_render_feature_card_article(array $card, $split_row = 0, $placement = 'grid') {
+	if (empty($card['layout'])) {
+		return;
+	}
+
+	$layout = $card['layout'];
+	$url    = isset($card['url']) ? esc_url($card['url']) : '#';
+	$label  = isset($card['label']) ? $card['label'] : '';
+	$title  = isset($card['title']) ? $card['title'] : '';
+	$text   = isset($card['text']) ? $card['text'] : '';
+	$action = isset($card['action']) ? $card['action'] : __('Learn', 'nova-pet');
+	$image  = isset($card['image']) ? esc_url($card['image']) : '';
+	$alt    = isset($card['image_alt']) ? $card['image_alt'] : '';
+	if ('' === $alt && $title) {
+		$alt = wp_strip_all_tags($title);
+	}
+
+	$classes = nova_pet_get_feature_card_classes($card, (int) $split_row, $placement);
+	echo '<article class="' . esc_attr(implode(' ', $classes)) . '">';
+	echo '<a href="' . esc_url($url) . '" class="nova-card__link">';
+
+	if ('stack' === $layout && !empty($card['stack_media_first'])) {
+		echo '<div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
+		if ($image) {
+			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
+		}
+		echo '</div><div class="nova-card__body">';
+		nova_pet_feature_cards_render_body($label, $title, $text, $action);
+		echo '</div>';
+	} elseif ('stack' === $layout) {
+		echo '<div class="nova-card__body">';
+		nova_pet_feature_cards_render_body($label, $title, $text, $action);
+		echo '</div><div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
+		if ($image) {
+			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
+		}
+		echo '</div>';
+	} else {
+		echo '<div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
+		if ($image) {
+			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
+		}
+		echo '</div><div class="nova-card__body">';
+		nova_pet_feature_cards_render_body($label, $title, $text, $action);
+		echo '</div>';
+	}
+
+	echo '</a></article>';
 }
 
 /**
