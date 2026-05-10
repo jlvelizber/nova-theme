@@ -698,10 +698,6 @@ body {
 }
 
 /* ========= Feature cards (stack + split) ========= */
-.nova-feature-cards {
-  padding: clamp(2rem, 5vw, 4rem) 0;
-}
-
 .nova-feature-cards__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
