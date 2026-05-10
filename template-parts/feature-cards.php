@@ -22,7 +22,7 @@ $split_row = 0;
 				if ('split' === $card['layout']) {
 					++$split_row;
 				}
-				$path = locate_template('template-parts/feature-card-item.php');
+				$path = nova_pet_resolve_theme_template('template-parts/feature-card-item.php');
 				if ($path) {
 					load_template(
 						$path,

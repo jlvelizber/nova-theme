@@ -103,7 +103,7 @@ function nova_pet_render_feature_cards(array $cards) {
 		return;
 	}
 
-	$path = locate_template('template-parts/feature-cards.php');
+	$path = nova_pet_resolve_theme_template('template-parts/feature-cards.php');
 	if ($path) {
 		load_template($path, false, array('cards' => $cards));
 	}
@@ -127,13 +127,33 @@ function nova_pet_get_feature_cards_html(array $cards) {
  * @param array<string, mixed> $card Raw o normalizada.
  * @return string
  */
+function nova_pet_resolve_theme_template($relative_path) {
+	$relative_path = ltrim(str_replace('\\', '/', (string) $relative_path), '/');
+	$located       = locate_template($relative_path);
+	if ($located && is_readable($located)) {
+		return $located;
+	}
+	$parent = trailingslashit(get_template_directory()) . $relative_path;
+	if (is_readable($parent)) {
+		return $parent;
+	}
+	$child = trailingslashit(get_stylesheet_directory()) . $relative_path;
+	if (is_readable($child)) {
+		return $child;
+	}
+	return '';
+}
+
 function nova_pet_get_single_card_html(array $card) {
 	$n = nova_pet_normalize_feature_card($card);
 	if (!$n) {
 		return '';
 	}
-	$path = locate_template('template-parts/feature-card-item.php');
+	$path = nova_pet_resolve_theme_template('template-parts/feature-card-item.php');
 	if (!$path) {
+		if (defined('WP_DEBUG') && WP_DEBUG) {
+			return '<!-- nova-card: no se encontró template-parts/feature-card-item.php -->';
+		}
 		return '';
 	}
 	ob_start();
@@ -173,13 +193,34 @@ final class Nova_Pet_Feature_Cards_Shortcode_Buffer {
  * Shortcode [nova_card]: alone outputs one card (for Elementor Shortcode widget / columnas).
  * Inside [nova_feature_cards]…[/] se acumula para la rejilla del tema.
  *
- * @param array<string, string>|string $atts Attributes.
+ * @param array<string, string>|string|null $atts Attributes (WordPress puede pasar '' o null si no hay atributos).
+ * @param string|null                       $content Unused.
+ * @param string                            $tag Shortcode tag (nova_card / nova-card).
  * @return string
  */
-function nova_pet_nova_card_shortcode($atts) {
-	if (!is_array($atts)) {
+function nova_pet_nova_card_shortcode($atts, $content = null, $tag = '') {
+	unset($content, $tag);
+
+	if ($atts === null || $atts === false) {
+		$atts = array();
+	} elseif (!is_array($atts)) {
 		$atts = array();
 	}
+
+	$atts = shortcode_atts(
+		array(
+			'image'            => '',
+			'alt'              => '',
+			'label'            => '',
+			'title'            => '',
+			'text'             => '',
+			'action'           => '',
+			'url'              => '',
+			'image_position'   => 'left',
+			'lead'             => '',
+		),
+		$atts
+	);
 
 	if (Nova_Pet_Feature_Cards_Shortcode_Buffer::$open) {
 		$parsed = nova_pet_normalize_feature_card($atts);
@@ -209,7 +250,12 @@ function nova_pet_register_feature_cards_shortcodes() {
 	add_shortcode('nova_feature_cards', 'nova_pet_feature_cards_wrapper_shortcode');
 	add_shortcode('nova-feature-cards', 'nova_pet_feature_cards_wrapper_shortcode');
 }
-add_action('init', 'nova_pet_register_feature_cards_shortcodes', 20);
+
+add_action('init', 'nova_pet_register_feature_cards_shortcodes', 5);
+
+if (function_exists('add_shortcode')) {
+	nova_pet_register_feature_cards_shortcodes();
+}
 
 /**
  * Wrapper opcional: [nova_feature_cards] … [/nova_feature_cards] — rejilla + site-container del tema.
