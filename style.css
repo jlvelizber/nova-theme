@@ -1094,6 +1094,23 @@ a.nova-menu-link:focus-visible {
   padding: 3rem 0;
 }
 
+#nova-faq-home {
+  color: var(--nova-text)!important;
+}
+
+#nova-faq-home h3 {
+  color: var(--nova-text)!important;
+}
+
+#nova-faq-home p {
+  color: var(--nova-text)!important;
+}
+
+#nova-faq-home section {
+  border: 1px solid --nova-footer-bg!important;
+  border-radius: 10px!important;
+}
+
 @media (max-width: 960px) {
   .nova-product-grid.columns-4,
   .nova-product-grid.columns-3 {
