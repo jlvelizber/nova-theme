@@ -757,10 +757,8 @@ body {
   width: 100%;
   object-fit: cover !important;
   display: block;
-  height: stretch;
-  object-fit: cover;
-  object-position: center;
-  object-fit: cover;
+  height: stretch!important;
+  object-position: center!important;
 }
 
 .nova-card__body {
