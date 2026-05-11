@@ -254,7 +254,9 @@ body {
   gap: clamp(0.75rem, 2vw, 1.75rem);
 }
 
-.primary-menu a {
+/* Enlaces con aspecto del menú: usar class="nova-menu-link" en cualquier <a> */
+.primary-menu a,
+a.nova-menu-link {
   font-weight: 400;
   color: var(--nova-header-fg);
   padding: 0.25rem 0.5rem;
@@ -270,7 +272,11 @@ body {
 
 .primary-menu .current-menu-item > a,
 .primary-menu a:hover,
-.primary-menu a:focus-visible {
+.primary-menu a:focus-visible,
+a.nova-menu-link.nova-menu-link--current,
+a.nova-menu-link[aria-current="page"],
+a.nova-menu-link:hover,
+a.nova-menu-link:focus-visible {
   color: var(--nova-white) !important;
   text-decoration: none;
   background-color: var(--nova-accent-lime) !important;
@@ -281,7 +287,8 @@ body {
   box-shadow: 0 4px 14px rgba(164, 198, 57, 0.35);
 }
 
-.primary-menu a:focus-visible {
+.primary-menu a:focus-visible,
+a.nova-menu-link:focus-visible {
   outline: 2px solid var(--nova-accent-lime);
   outline-offset: 3px;
 }
@@ -357,6 +364,7 @@ body {
   }
 
   .primary-menu a,
+  a.nova-menu-link,
   .header-lang-pill {
     transition: none;
   }
@@ -364,6 +372,10 @@ body {
   .primary-menu .current-menu-item > a,
   .primary-menu a:hover,
   .primary-menu a:focus-visible,
+  a.nova-menu-link.nova-menu-link--current,
+  a.nova-menu-link[aria-current="page"],
+  a.nova-menu-link:hover,
+  a.nova-menu-link:focus-visible,
   .header-lang-pill:hover,
   .header-lang-pill:focus-visible {
     transform: none;
