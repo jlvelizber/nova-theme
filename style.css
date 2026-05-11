@@ -291,7 +291,7 @@ a.elementor-button-link:focus-visible {
 }
 
 a.elementor-button-link {
-  padding: 0.25rem 0.5rem!important;
+  padding:1rem!important;
 }
 
 .primary-menu a:focus-visible,
