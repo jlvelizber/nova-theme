@@ -256,7 +256,8 @@ body {
 
 /* Enlaces con aspecto del menú: usar class="nova-menu-link" en cualquier <a> */
 .primary-menu a,
-a.nova-menu-link {
+a.nova-menu-link,
+a.elementor-button-link {
   font-weight: 400;
   color: var(--nova-header-fg);
   padding: 0.25rem 0.5rem;
@@ -276,7 +277,9 @@ a.nova-menu-link {
 a.nova-menu-link.nova-menu-link--current,
 a.nova-menu-link[aria-current="page"],
 a.nova-menu-link:hover,
-a.nova-menu-link:focus-visible {
+a.nova-menu-link:focus-visible,
+a.elementor-button-link:hover,
+a.elementor-button-link:focus-visible {
   color: var(--nova-white) !important;
   text-decoration: none;
   background-color: var(--nova-accent-lime) !important;
