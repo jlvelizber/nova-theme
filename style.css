@@ -290,6 +290,10 @@ a.elementor-button-link:focus-visible {
   box-shadow: 0 4px 14px rgba(164, 198, 57, 0.35);
 }
 
+a.elementor-button-link {
+  padding: 0.25rem 0.5rem;
+}
+
 .primary-menu a:focus-visible,
 a.nova-menu-link:focus-visible {
   outline: 2px solid var(--nova-accent-lime);
