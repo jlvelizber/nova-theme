@@ -1107,7 +1107,7 @@ a.nova-menu-link:focus-visible {
 }
 
 #nova-faq-home section {
-  border: 1px solid --nova-footer-bg!important;
+  border: 1px solid var(--nova-footer-bg)!important;
   border-radius: 10px!important;
 }
 
