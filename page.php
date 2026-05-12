@@ -1,16 +1,19 @@
 <?php
 /**
- * The template for displaying all pages.
+ * The template for displaying all single posts.
  *
  * @package Nova_Pet
  */
 
 get_header();
+?>
+
+<?php
 while (have_posts()) :
 	the_post();
 
 	$hero_thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
-	if ($hero_thumb) :
+	// if ($hero_thumb) :
 		$categories = get_the_category();
 		$hero_label = !empty($categories) ? $categories[0]->name : esc_html__('Article', 'nova-pet');
 		$deck        = has_excerpt() ? get_the_excerpt() : '';
@@ -33,30 +36,29 @@ while (have_posts()) :
 			</div>
 		</section>
 		<?php
-	endif;
+	// endif;
 	?>
-?>
 
 <main id="primary" class="site-main site-container">
-	<?php
-	while (have_posts()) :
-		the_post();
-		?>
-		<article id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+			<?php if (!has_post_thumbnail()) : ?>
+				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+			<?php endif; ?>
 			<div class="entry-content">
 				<?php the_content(); ?>
 			</div>
-			<?php wp_link_pages(); ?>
 		</article>
+
+		<?php the_post_navigation(); ?>
 
 		<?php
 		if (comments_open() || get_comments_number()) {
 			comments_template();
 		}
-	endwhile;
-	?>
+endwhile;
+?>
 </main>
 
 <?php
+get_sidebar();
 get_footer();
