@@ -101,6 +101,80 @@ body {
   padding: 2rem 0;
 }
 
+/* Single post hero (imagen destacada bajo el menú) */
+.nova-single-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(280px, 42vw, 480px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2d2d2d;
+  background-image: var(--nova-single-hero-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.nova-single-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 24, 39, 0.55) 0%,
+    rgba(17, 24, 39, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.nova-single-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--nova-container);
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--nova-gutter);
+  text-align: center;
+  color: #ffffff;
+}
+
+.nova-single-hero__label {
+  margin: 0 0 0.65rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.nova-single-hero__title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.nova-single-hero__deck {
+  margin: 0 auto;
+  max-width: 42rem;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  line-height: 1.6;
+  font-weight: 400;
+  opacity: 0.94;
+}
+
+body.single-post.has-post-thumbnail .site-main {
+  padding-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nova-single-hero {
+    background-attachment: scroll;
+  }
+}
+
 .site-header {
   padding: 1rem 0;
 }
