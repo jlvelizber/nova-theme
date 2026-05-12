@@ -1259,10 +1259,17 @@ a.nova-menu-link:focus-visible {
 }
 
 /* ========= Masonry showcase (Elementor) =========
-   En el contenedor: Avanzado → ID CSS → nova-masonry-gallery
-   Estructura recomendada: Container en modo Grid, 3 columnas, 9 hijos (una celda por bloque).
-   Modificadores opcionales en clase CSS del hijo: nova-masonry-tile--grey | nova-masonry-tile--white | nova-masonry-tile--tall
+   ID en la PRIMERA fila de la cuadrícula 3×3: Avanzado → ID CSS → nova-masonry-gallery
+   (Las dos filas siguientes deben ser las dos secciones hermanas inmediatas, como en tu HTML.)
+
+   Estructura soportada:
+   A) Clásica (section/column): wrap con hijo directo #nova-masonry-gallery + 2 inner-section hermanas.
+   B) Container: #nova-masonry-gallery > .e-con-inner con hijos directos.
+
+   Clases opcionales en COLUMNA: nova-masonry-tile--grey | nova-masonry-tile--white | nova-masonry-tile--tall
+   En el wrap padre: is-masonry-flat (sin alturas dobles en columna central)
    ========= */
+
 #nova-masonry-gallery {
   --nova-masonry-gap: 1px;
   --nova-masonry-grey-bg: #a8a8aa;
@@ -1273,7 +1280,138 @@ a.nova-menu-link:focus-visible {
   --nova-masonry-radius: 0;
 }
 
-/* Contenedor interno Elementor (Grid / Flex container) */
+/* ----- A) Elementor clásico: 3 inner-section en columna, ID en la primera fila ----- */
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--nova-masonry-gap, 1px);
+  align-items: stretch;
+  background: #d1d1d3;
+  padding: var(--nova-masonry-gap, 1px);
+  border-radius: var(--nova-masonry-radius, 0);
+}
+
+/* Título / bloque previo a la galería: ancho completo */
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > section.elementor-inner-section:first-of-type {
+  grid-column: 1 / -1;
+}
+
+/* Las 3 filas de la galería “aplanan” para que las 9 columnas entren en la rejilla del wrap */
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery + .elementor-inner-section,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery + .elementor-inner-section + .elementor-inner-section {
+  display: contents;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery > .elementor-container,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery + .elementor-inner-section > .elementor-container,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > #nova-masonry-gallery + .elementor-inner-section + .elementor-inner-section > .elementor-container {
+  display: contents;
+}
+
+/* Cada celda = columna interior */
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--nova-masonry-radius, 0);
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.06);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column:hover {
+  z-index: 1;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px rgba(17, 24, 39, 0.08),
+    0 12px 28px rgba(17, 24, 39, 0.08);
+}
+
+/* Columna central de cada fila visual (hijos 3, 6, 9 del grid = ítems 3,6,9 tras el título en posición 1) */
+.elementor-widget-wrap:has(> #nova-masonry-gallery):not(.is-masonry-flat) > .elementor-column.elementor-inner-column:nth-child(3n) {
+  grid-row: span 2;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery).is-masonry-flat > .elementor-column.elementor-inner-column {
+  grid-row: auto !important;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--tall {
+  grid-row: span 2;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-wrap {
+  height: 100%;
+  min-height: 100%;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column:has(.elementor-widget-image):not(:has(.elementor-widget-heading)) {
+  min-height: 220px;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-image .elementor-widget-container,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-image figure {
+  height: 100%;
+  margin: 0;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-heading-title,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-text-editor {
+  text-align: center;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-heading-title {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) .elementor-widget-text-editor {
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  line-height: 1.5;
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--grey {
+  background-color: var(--nova-masonry-grey-bg);
+  color: var(--nova-masonry-grey-fg);
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--grey .elementor-heading-title {
+  color: var(--nova-masonry-grey-fg);
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--white {
+  background-color: var(--nova-masonry-white-bg);
+  color: var(--nova-masonry-white-fg);
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--white .elementor-heading-title,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--white .elementor-widget-text-editor {
+  color: var(--nova-masonry-white-fg);
+}
+
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--grey,
+.elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--white {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(1.25rem, 4vw, 2.75rem);
+  text-align: center;
+}
+
+/* ----- B) Elementor Container (.e-con-inner) ----- */
+
 #nova-masonry-gallery > .e-con-inner {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1286,22 +1424,18 @@ a.nova-menu-link:focus-visible {
   border-radius: var(--nova-masonry-radius);
 }
 
-/* Ritmo masonry: celdas centrales de cada fila un poco más altas (columna del medio) */
 #nova-masonry-gallery > .e-con-inner > .elementor-element:nth-child(3n + 2) {
   grid-row: span 2;
 }
 
-/* Celda alta manual (p. ej. foto grande) */
 #nova-masonry-gallery > .e-con-inner > .elementor-element.nova-masonry-tile--tall {
   grid-row: span 2;
 }
 
-/* Anula span en modo compacto si añades clase en el padre */
 #nova-masonry-gallery.is-masonry-flat > .e-con-inner > .elementor-element {
   grid-row: auto !important;
 }
 
-/* Cada celda: borde suave y contenido centrado */
 #nova-masonry-gallery > .e-con-inner > .elementor-element {
   position: relative;
   min-height: 0;
@@ -1319,13 +1453,11 @@ a.nova-menu-link:focus-visible {
     0 12px 28px rgba(17, 24, 39, 0.08);
 }
 
-/* Imágenes a cara de celda */
 #nova-masonry-gallery > .e-con-inner .elementor-widget-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  vertical-align: middle;
 }
 
 #nova-masonry-gallery > .e-con-inner .elementor-widget-image .elementor-widget-container,
@@ -1334,12 +1466,10 @@ a.nova-menu-link:focus-visible {
   margin: 0;
 }
 
-/* Encapsular altura para columnas de solo imagen */
 #nova-masonry-gallery > .e-con-inner > .elementor-element:has(.elementor-widget-image):not(:has(.elementor-widget-heading)) {
   min-height: 220px;
 }
 
-/* Textos centrados estilo mockup */
 #nova-masonry-gallery > .e-con-inner .elementor-widget-heading .elementor-heading-title,
 #nova-masonry-gallery > .e-con-inner .elementor-widget-text-editor {
   text-align: center;
@@ -1357,7 +1487,6 @@ a.nova-menu-link:focus-visible {
   line-height: 1.5;
 }
 
-/* Modificadores de color (clase en el hijo del Container → pestaña Avanzado → Clases CSS) */
 #nova-masonry-gallery > .e-con-inner > .elementor-element.nova-masonry-tile--grey {
   background-color: var(--nova-masonry-grey-bg);
   color: var(--nova-masonry-grey-fg);
@@ -1378,7 +1507,6 @@ a.nova-menu-link:focus-visible {
   color: var(--nova-masonry-white-fg);
 }
 
-/* Textos: padding y centrado en celdas con modificador */
 #nova-masonry-gallery > .e-con-inner > .elementor-element.nova-masonry-tile--grey,
 #nova-masonry-gallery > .e-con-inner > .elementor-element.nova-masonry-tile--white {
   display: flex;
@@ -1389,18 +1517,20 @@ a.nova-menu-link:focus-visible {
   text-align: center;
 }
 
-/* Sección clásica (sin Container): columnas internas */
-#nova-masonry-gallery.elementor-section .elementor-inner-section .elementor-column-wrap,
-#nova-masonry-gallery.elementor-section .elementor-inner-section .elementor-widget-wrap {
-  height: 100%;
-}
-
 @media (max-width: 900px) {
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column:nth-child(3n),
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column.nova-masonry-tile--tall {
+    grid-row: auto;
+  }
+
   #nova-masonry-gallery > .e-con-inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* Sin filas dobles en tablet para evitar huecos raros */
   #nova-masonry-gallery > .e-con-inner > .elementor-element:nth-child(3n + 2),
   #nova-masonry-gallery > .e-con-inner > .elementor-element.nova-masonry-tile--tall {
     grid-row: auto;
@@ -1408,21 +1538,30 @@ a.nova-menu-link:focus-visible {
 }
 
 @media (max-width: 560px) {
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) {
+    grid-template-columns: 1fr;
+  }
+
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column {
+    grid-row: auto !important;
+  }
+
   #nova-masonry-gallery > .e-con-inner {
     grid-template-columns: 1fr;
   }
 
-  #nova-masonry-gallery > .e-con-inner > .elementor-element,
-  #nova-masonry-gallery > .e-con-inner > .elementor-element:nth-child(odd) {
+  #nova-masonry-gallery > .e-con-inner > .elementor-element {
     grid-row: auto !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column,
   #nova-masonry-gallery > .e-con-inner > .elementor-element {
     transition: none;
   }
 
+  .elementor-widget-wrap:has(> #nova-masonry-gallery) > .elementor-column.elementor-inner-column:hover,
   #nova-masonry-gallery > .e-con-inner > .elementor-element:hover {
     transform: none;
   }
