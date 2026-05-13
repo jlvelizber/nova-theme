@@ -10,9 +10,11 @@ get_header();
 
 <main id="primary" class="site-main site-container">
 	<?php if (have_posts()) : ?>
-		<header class="page-header">
-			<h1 class="page-title"><?php single_post_title(); ?></h1>
-		</header>
+		<?php if (!woocommerce_products_will_display()) : ?>
+			<header class="page-header">
+				<h1 class="page-title"><?php single_post_title(); ?></h1>
+			</header>
+		<?php endif; ?>
 
 		<?php while (have_posts()) : the_post(); ?>
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

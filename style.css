@@ -446,7 +446,8 @@ a.nova-menu-link:focus-visible {
 
   .primary-menu a,
   a.nova-menu-link,
-  .header-lang-pill {
+  .header-lang-pill,
+  .nova-button-submit {
     transition: none;
   }
 
@@ -507,7 +508,7 @@ a.nova-menu-link:focus-visible {
   gap: 0.35rem;
   padding: 0.35rem 0.65rem 0.35rem 0.45rem;
   border-radius: 999px;
-  background: var(--nova-accent-lime);
+  background: var(--nova-accent-lime)!important;
   color: var(--nova-white) !important;
   font-size: 0.8125rem;
   font-weight: 600;
