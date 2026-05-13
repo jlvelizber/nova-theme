@@ -9,7 +9,7 @@ get_header();
 ?>
 
 <main id="primary" class="site-main site-container">
-	<?php woocommerce_content(); ?>
+
 </main>
 
 <?php
