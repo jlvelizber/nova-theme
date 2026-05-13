@@ -159,6 +159,51 @@ function nova_pet_shop_filter_term_options() {
 }
 
 /**
+ * Background image URL for the shop product banner card.
+ *
+ * Priority:
+ * 1. Product meta `_nova_pet_banner_background`: attachment ID (integer) or absolute `http(s)` URL.
+ * 2. Product featured image / main gallery image.
+ *
+ * @param WC_Product $product Product.
+ * @return string URL or empty string.
+ */
+function nova_pet_get_product_shop_banner_background_url($product) {
+	if (!$product instanceof WC_Product) {
+		return '';
+	}
+
+	$meta_key = apply_filters('nova_pet_banner_background_meta_key', '_nova_pet_banner_background');
+	$raw       = $product->get_meta($meta_key, true);
+	$url       = '';
+
+	if ('' !== $raw && null !== $raw) {
+		if (is_numeric($raw)) {
+			$attachment_id = (int) $raw;
+			if ($attachment_id && wp_attachment_is_image($attachment_id)) {
+				$found = wp_get_attachment_image_url($attachment_id, 'large');
+				$url   = $found ? $found : '';
+			}
+		} elseif (is_string($raw)) {
+			$raw = trim($raw);
+			if ('' !== $raw && preg_match('#^https?://#i', $raw) && filter_var($raw, FILTER_VALIDATE_URL)) {
+				$url = $raw;
+			}
+		}
+	}
+
+	if (!$url) {
+		$url = get_the_post_thumbnail_url($product->get_id(), 'large');
+		if (!$url && $product->get_image_id()) {
+			$fallback = wp_get_attachment_image_url((int) $product->get_image_id(), 'large');
+			$url      = $fallback ? $fallback : '';
+		}
+	}
+
+	return is_string($url) ? $url : '';
+}
+
+/**
  * Enqueue shop loop assets.
  *
  * @return void

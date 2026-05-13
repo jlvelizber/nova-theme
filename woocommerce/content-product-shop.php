@@ -4,6 +4,11 @@
  *
  * @package Nova_Pet
  * @see    WC templates/content-product.php
+ *
+ * Custom product meta (optional):
+ * - `_nova_pet_banner_background`: attachment ID or full `https://…` URL for card background (overrides product image).
+ * - `_nova_pet_loop_pet_image_id`: attachment ID for center “pet” image.
+ * - `_nova_pet_loop_tagline`: short line above title.
  */
 
 defined('ABSPATH') || exit;
@@ -20,10 +25,9 @@ foreach ($axes as $key => $parent_slug) {
 	$data['data-nova-' . $key] = nova_pet_wc_product_category_slugs_under_parent($product->get_id(), $parent_slug);
 }
 
-$bg_url = get_the_post_thumbnail_url($product->get_id(), 'large');
-if (!$bg_url && $product->get_image_id()) {
-	$bg_url = wp_get_attachment_image_url($product->get_image_id(), 'large');
-}
+$bg_url = function_exists('nova_pet_get_product_shop_banner_background_url')
+	? nova_pet_get_product_shop_banner_background_url($product)
+	: '';
 
 $pet_image_id = (int) $product->get_meta('_nova_pet_loop_pet_image_id');
 $tagline      = $product->get_meta('_nova_pet_loop_tagline');
@@ -39,12 +43,6 @@ $short = wp_trim_words($short, 36, '…');
 $title = get_the_title();
 
 $permalink = apply_filters('woocommerce_loop_product_link', $product->get_permalink(), $product);
-$link_open = apply_filters(
-	'woocommerce_loop_product_link_open',
-	'<a href="' . esc_url($permalink) . '" class="woocommerce-LoopProduct-link woocommerce-loop-product__link nova-loop-banner__img-link">',
-	$product
-);
-$link_close = apply_filters('woocommerce_loop_product_link_close', '</a>', $product);
 ?>
 <li <?php wc_product_class('', $product); ?>
 	<?php
@@ -53,7 +51,7 @@ $link_close = apply_filters('woocommerce_loop_product_link_close', '</a>', $prod
 	}
 	?>
 >
-	<div class="nova-loop-banner">
+	<a class="nova-loop-banner nova-loop-banner--product-link" href="<?php echo esc_url($permalink); ?>">
 		<?php if ($bg_url) : ?>
 			<div class="nova-loop-banner__bg" style="background-image:url('<?php echo esc_url($bg_url); ?>');" aria-hidden="true"></div>
 			<div class="nova-loop-banner__bg nova-loop-banner__bg--blur" style="background-image:url('<?php echo esc_url($bg_url); ?>');" aria-hidden="true"></div>
@@ -62,9 +60,9 @@ $link_close = apply_filters('woocommerce_loop_product_link_close', '</a>', $prod
 
 		<div class="nova-loop-banner__inner">
 			<div class="nova-loop-banner__pack">
-				<?php echo $link_open; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<?php echo $product->get_image('woocommerce_single', array('class' => 'nova-loop-banner__pack-img')); ?>
-				<?php echo $link_close; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<span class="nova-loop-banner__pack-frame">
+					<?php echo $product->get_image('woocommerce_single', array('class' => 'nova-loop-banner__pack-img')); ?>
+				</span>
 			</div>
 
 			<div class="nova-loop-banner__pet"<?php echo $pet_image_id ? '' : ' hidden'; ?>>
@@ -81,17 +79,13 @@ $link_close = apply_filters('woocommerce_loop_product_link_close', '</a>', $prod
 				<?php endif; ?>
 
 				<h2 class="nova-loop-banner__title">
-					<a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($title); ?></a>
+					<span class="nova-loop-banner__title-text"><?php echo esc_html($title); ?></span>
 				</h2>
 
 				<?php if ('' !== $short) : ?>
 					<p class="nova-loop-banner__excerpt"><?php echo esc_html($short); ?></p>
 				<?php endif; ?>
-
-				<a class="nova-loop-banner__cta" href="<?php echo esc_url($permalink); ?>">
-					<?php esc_html_e('Ver producto', 'nova-pet'); ?>
-				</a>
 			</div>
 		</div>
-	</div>
+	</a>
 </li>
