@@ -500,7 +500,8 @@ a.nova-menu-link:focus-visible {
   gap: 0.4rem;
 }
 
-.header-lang-pill {
+.header-lang-pill, 
+.nova-button-submit {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -518,14 +519,17 @@ a.nova-menu-link:focus-visible {
 }
 
 .header-lang-pill:hover,
-.header-lang-pill:focus-visible {
+.nova-button-submit:hover,
+.header-lang-pill:focus-visible,
+.nova-button-submit:focus-visible {
   filter: brightness(1.08);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(51, 51, 51, 0.14);
   color: var(--nova-white) !important;
 }
 
-.header-lang-pill:focus-visible {
+.header-lang-pill:focus-visible,
+.nova-button-submit:focus-visible {
   outline: 2px solid rgba(51, 51, 51, 0.35);
   outline-offset: 2px;
 }

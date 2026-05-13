@@ -262,7 +262,7 @@ function nova_pet_shop_output_filter_bar() {
 				</div>
 			<?php endforeach; ?>
 			<div class="nova-shop-filters__actions">
-				<button type="button" class="nova-shop-filters__submit button">
+				<button type="button" class="nova-shop-filters__submit button nova-button-submit">
 					<?php esc_html_e('Filtrar', 'nova-pet'); ?>
 				</button>
 			</div>
