@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all single posts.
+ * The template for displaying all pages.
  *
  * @package Nova_Pet
  */
@@ -12,28 +12,9 @@ get_header();
 while (have_posts()) :
 	the_post();
 
-	$hero_thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
-	if ($hero_thumb) :
-		$deck        = has_excerpt() ? get_the_excerpt() : '';
-		if ('' === $deck) {
-			$deck = wp_trim_words(get_post_field('post_content', get_the_ID()), 28, '…');
-		}
-		?>
-		<section
-			class="nova-single-hero"
-			style="<?php echo esc_attr('--nova-single-hero-image: url(' . esc_url($hero_thumb) . ');'); ?>"
-			aria-label="<?php esc_attr_e('Post header', 'nova-pet'); ?>"
-		>
-			<div class="nova-single-hero__overlay" aria-hidden="true"></div>
-			<div class="nova-single-hero__inner site-container">
-				<h1 class="nova-single-hero__title"><?php the_title(); ?></h1>
-				<?php if ($deck) : ?>
-					<p class="nova-single-hero__deck"><?php echo esc_html(wp_strip_all_tags($deck)); ?></p>
-				<?php endif; ?>
-			</div>
-		</section>
-		<?php
-	endif;
+	if (function_exists('nova_pet_render_post_hero')) {
+		nova_pet_render_post_hero();
+	}
 	?>
 
 <main id="primary" class="site-main site-container">
