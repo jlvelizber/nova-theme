@@ -1919,3 +1919,155 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
     justify-self: center;
   }
 }
+
+/* ========= Shortcode: related / random products ========= */
+.nova-related-products {
+  margin: 2rem 0;
+}
+
+.nova-related-products__header {
+  margin-bottom: 1.25rem;
+}
+
+.nova-related-products__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.nova-related-products__empty {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.nova-related-products__grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.nova-related-products__grid--cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.nova-related-products__grid--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.nova-related-products__grid--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.nova-related-products__grid--cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.nova-related-card {
+  height: 100%;
+}
+
+.nova-related-card__link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #e8eaef;
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.nova-related-card__link:hover,
+.nova-related-card__link:focus-visible {
+  border-color: #cfd6e4;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.nova-related-card__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 100%;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.nova-related-card__text {
+  text-align: left;
+}
+
+.nova-related-card__tagline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.5rem;
+}
+
+.nova-related-card__heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0f172a;
+  margin: 0 0 0.65rem;
+}
+
+.nova-related-card__excerpt {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0 0 0.75rem;
+}
+
+.nova-related-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.nova-related-card__link:hover .nova-related-card__cta,
+.nova-related-card__link:focus-visible .nova-related-card__cta {
+  text-decoration: underline;
+}
+
+.nova-related-card__cta-chevron {
+  font-weight: 700;
+}
+
+.nova-related-card__media {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 1;
+  min-height: 140px;
+  padding-top: 0.5rem;
+}
+
+.nova-related-card__img {
+  max-height: 160px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .nova-related-products__grid--cols-3,
+  .nova-related-products__grid--cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .nova-related-products__grid,
+  .nova-related-products__grid--cols-2,
+  .nova-related-products__grid--cols-3,
+  .nova-related-products__grid--cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
