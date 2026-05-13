@@ -274,3 +274,5 @@ function nova_pet_shop_output_filter_bar() {
 	<?php
 }
 add_action('woocommerce_before_shop_loop', 'nova_pet_shop_output_filter_bar', 15);
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
