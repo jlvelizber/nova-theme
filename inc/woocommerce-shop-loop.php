@@ -23,6 +23,19 @@ function nova_pet_is_shop_loop_context() {
 		return true;
 	}
 
+	// Shop page when assigned as a Page (covers some permalink / query edge cases).
+	if (function_exists('wc_get_page_id')) {
+		$shop_id = wc_get_page_id('shop');
+		if ($shop_id > 0 && is_page($shop_id)) {
+			return true;
+		}
+	}
+
+	// Product archive without a dedicated shop page.
+	if (is_post_type_archive('product')) {
+		return true;
+	}
+
 	if (is_search()) {
 		global $wp_query;
 		$pt = $wp_query->get('post_type');
@@ -193,28 +206,6 @@ function nova_pet_product_loop_start($html) {
 	return preg_replace('/class="products/', 'class="products nova-products', $html, 1);
 }
 add_filter('woocommerce_product_loop_start', 'nova_pet_product_loop_start', 10, 1);
-
-/**
- * Use banner product template only on main product archives (not related / shortcodes).
- *
- * @param string $template      Located template path.
- * @param string $template_name Template file name.
- * @param string $template_path WC template path segment.
- * @return string
- */
-function nova_pet_locate_shop_content_product($template, $template_name, $template_path) {
-	if ('content-product.php' !== $template_name || !nova_pet_is_shop_loop_context()) {
-		return $template;
-	}
-
-	$custom = trailingslashit(get_template_directory()) . 'woocommerce/content-product-shop.php';
-	if (is_readable($custom)) {
-		return $custom;
-	}
-
-	return $template;
-}
-add_filter('woocommerce_locate_template', 'nova_pet_locate_shop_content_product', 50, 3);
 
 /**
  * Output filter bar before the product loop.
