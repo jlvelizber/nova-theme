@@ -134,7 +134,7 @@ body {
   max-width: var(--nova-container);
   padding: clamp(2.5rem, 6vw, 4.5rem) var(--nova-gutter);
   text-align: center;
-  color: #ffffff;
+  color: var(--nova-white)!important;
 }
 
 .nova-single-hero__label {
@@ -152,7 +152,7 @@ body {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  color: #ffffff;
+  color: var(--nova-white)!important;
   text-wrap: balance;
 }
 

@@ -14,8 +14,6 @@ while (have_posts()) :
 
 	$hero_thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
 	if ($hero_thumb) :
-		$categories = get_the_category();
-		$hero_label = !empty($categories) ? $categories[0]->name : esc_html__('Article', 'nova-pet');
 		$deck        = has_excerpt() ? get_the_excerpt() : '';
 		if ('' === $deck) {
 			$deck = wp_trim_words(get_post_field('post_content', get_the_ID()), 28, '…');
@@ -28,7 +26,6 @@ while (have_posts()) :
 		>
 			<div class="nova-single-hero__overlay" aria-hidden="true"></div>
 			<div class="nova-single-hero__inner site-container">
-				<p class="nova-single-hero__label"><?php echo esc_html($hero_label); ?></p>
 				<h1 class="nova-single-hero__title"><?php the_title(); ?></h1>
 				<?php if ($deck) : ?>
 					<p class="nova-single-hero__deck"><?php echo esc_html(wp_strip_all_tags($deck)); ?></p>
@@ -60,5 +57,4 @@ endwhile;
 </main>
 
 <?php
-get_sidebar();
 get_footer();
