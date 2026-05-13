@@ -30,8 +30,8 @@ $bg_url = function_exists('nova_pet_get_product_shop_banner_background_url')
 	: '';
 
 $pet_image_id = (int) $product->get_meta('_nova_pet_loop_pet_image_id');
-$tagline      = $product->get_meta('_nova_pet_loop_tagline');
-$tagline      = is_string($tagline) ? $tagline : '';
+$terms   = get_the_terms( $product->get_id(), 'product_cat' );
+$tagline      =  !empty($terms) ? reset($terms)->name : '';
 
 $short = $product->get_short_description();
 $short = $short ? wp_strip_all_tags($short) : '';
