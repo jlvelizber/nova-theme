@@ -13,7 +13,7 @@ while (have_posts()) :
 	the_post();
 
 	$hero_thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
-	// if ($hero_thumb) :
+	if ($hero_thumb) :
 		$categories = get_the_category();
 		$hero_label = !empty($categories) ? $categories[0]->name : esc_html__('Article', 'nova-pet');
 		$deck        = has_excerpt() ? get_the_excerpt() : '';
@@ -36,7 +36,7 @@ while (have_posts()) :
 			</div>
 		</section>
 		<?php
-	// endif;
+	endif;
 	?>
 
 <main id="primary" class="site-main site-container">
