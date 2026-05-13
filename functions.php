@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 require_once get_template_directory() . '/inc/feature-cards.php';
+require_once get_template_directory() . '/inc/woocommerce-shop-loop.php';
 
 if (!function_exists('nova_pet_setup')) {
 	/**

@@ -1640,3 +1640,282 @@ a.nova-menu-link:focus-visible {
     transform: none;
   }
 }
+
+/* ========= WooCommerce shop: filters + banner loop ========= */
+.nova-shop-filters {
+  background: #eceef2;
+  padding: 1.25rem 0;
+  margin-bottom: 1.75rem;
+  border-radius: 0;
+}
+
+.nova-shop-filters__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.25rem 1.75rem;
+}
+
+.nova-shop-filters__field {
+  flex: 1 1 160px;
+  max-width: 240px;
+  min-width: 140px;
+}
+
+.nova-shop-filters__label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #2a2a2a;
+}
+
+.nova-shop-filters__select-wrap {
+  position: relative;
+  background: #fff;
+  border: 1px solid #cfd3dc;
+  border-radius: 10px;
+}
+
+.nova-shop-filters__select {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.65rem 2.25rem 0.65rem 0.85rem;
+  font-size: 0.9375rem;
+  color: #444;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nova-shop-filters__select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 0.85rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: -0.15rem;
+  border-right: 2px solid #555;
+  border-bottom: 2px solid #555;
+  transform: rotate(45deg) translateY(-50%);
+  pointer-events: none;
+}
+
+.nova-shop-filters__actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.nova-shop-filters__submit.button,
+.nova-shop-filters__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.65rem;
+  padding: 0 1.75rem;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #1a1a1a;
+  background: #c8e632;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.nova-shop-filters__submit:hover {
+  filter: brightness(1.05);
+}
+
+.nova-shop-filters__empty {
+  margin-top: 0.75rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.woocommerce ul.products.nova-products {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.woocommerce ul.products.nova-products::before,
+.woocommerce ul.products.nova-products::after {
+  display: none;
+}
+
+.woocommerce ul.products.nova-products li.product {
+  width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0;
+  list-style: none;
+}
+
+.nova-loop-banner {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+.nova-loop-banner__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.nova-loop-banner__bg--blur {
+  filter: blur(14px);
+  transform: scale(1.06);
+  opacity: 0.9;
+}
+
+.nova-loop-banner__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    rgba(20, 30, 40, 0.15) 0%,
+    rgba(20, 30, 40, 0.35) 45%,
+    rgba(20, 30, 40, 0.55) 100%
+  );
+}
+
+.nova-loop-banner__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(120px, 200px) minmax(100px, 180px) minmax(0, 1fr);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  align-items: center;
+  padding: clamp(1.25rem, 3vw, 2.25rem) clamp(1rem, 3vw, 2.5rem);
+  min-height: 260px;
+}
+
+.nova-loop-banner__pack {
+  position: relative;
+  z-index: 2;
+}
+
+.nova-loop-banner__img-link {
+  display: block;
+  line-height: 0;
+}
+
+.nova-loop-banner__pack-img {
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+.nova-loop-banner__pet {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.nova-loop-banner__pet-img {
+  max-height: 200px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.2));
+}
+
+.nova-loop-banner__copy {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.nova-loop-banner__tagline {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  opacity: 0.95;
+}
+
+.nova-loop-banner__title {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.65rem;
+}
+
+.nova-loop-banner__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nova-loop-banner__title a:hover {
+  text-decoration: underline;
+}
+
+.nova-loop-banner__excerpt {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+  opacity: 0.92;
+  max-width: 42ch;
+}
+
+.nova-loop-banner__cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+}
+
+.nova-loop-banner__cta:hover {
+  background: #fff;
+}
+
+@media (max-width: 782px) {
+  .nova-shop-filters__actions {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .nova-shop-filters__submit {
+    width: 100%;
+  }
+
+  .nova-loop-banner__inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .nova-loop-banner__copy {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .nova-loop-banner__inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .nova-loop-banner__excerpt {
+    max-width: none;
+    margin-inline: auto;
+  }
+
+  .nova-loop-banner__pack,
+  .nova-loop-banner__pet {
+    justify-self: center;
+  }
+}
