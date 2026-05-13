@@ -162,7 +162,7 @@ function nova_pet_shop_filter_term_options() {
  * Background image URL for the shop product banner card.
  *
  * Priority:
- * 1. Product meta `_nova_pet_banner_background`: attachment ID (integer) or absolute `http(s)` URL.
+ * 1. Product meta `nova_pet_banner_background`: attachment ID (integer) or absolute `http(s)` URL.
  * 2. Product featured image / main gallery image.
  *
  * @param WC_Product $product Product.
@@ -173,7 +173,7 @@ function nova_pet_get_product_shop_banner_background_url($product) {
 		return '';
 	}
 
-	$meta_key = apply_filters('nova_pet_banner_background_meta_key', '_nova_pet_banner_background');
+	$meta_key = apply_filters('nova_pet_banner_background_meta_key', 'nova_pet_banner_background');
 	$raw       = $product->get_meta($meta_key, true);
 	$url       = '';
 

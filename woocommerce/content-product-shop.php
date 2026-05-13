@@ -6,7 +6,7 @@
  * @see    WC templates/content-product.php
  *
  * Custom product meta (optional):
- * - `_nova_pet_banner_background`: attachment ID or full `https://…` URL for card background (overrides product image).
+ * - `nova_pet_banner_background`: attachment ID or full `https://…` URL for card background (overrides product image).
  * - `_nova_pet_loop_pet_image_id`: attachment ID for center “pet” image.
  * - `_nova_pet_loop_tagline`: short line above title.
  */
