@@ -36,6 +36,3 @@ if ($core && is_readable($core)) {
 	require $core;
 	return;
 }
-
-add_filter( 'woocommerce_show_page_title', '__return_false' ); // Hide the page title on product pages
-

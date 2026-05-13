@@ -6,12 +6,15 @@
  */
 
 get_header();
+
+
+add_filter( 'woocommerce_show_page_title', '__return_false' ); // Hide the page title on product pages
+
+
 ?>
 
 <main id="primary" class="site-main site-container">
-	<?php woocommerce_content(
-		array('title' => false) // Hide the page title and breadcrumb on product pages
-	); ?>
+	<?php woocommerce_content(); ?>
 </main>
 
 <?php
