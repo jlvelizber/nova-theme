@@ -86,11 +86,6 @@ if (post_password_required()) {
 			}
 			?>
 
-			<div class="nova-single-product__purchase">
-				<?php woocommerce_template_single_price(); ?>
-				<?php woocommerce_template_single_add_to_cart(); ?>
-			</div>
-
 			<?php
 			$long      = $product->get_description();
 			$show_long = apply_filters('nova_pet_single_product_show_long_description', true, $product);
