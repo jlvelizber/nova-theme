@@ -9,6 +9,7 @@ get_header();
 
 add_filter('woocommerce_show_page_title', '__return_false'); // Title shown in hero when present.
 
+
 if (function_exists('nova_pet_render_woocommerce_archive_hero')) {
 	nova_pet_render_woocommerce_archive_hero();
 }
