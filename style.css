@@ -2091,10 +2091,7 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
 }
 
 .woocommerce div.product.nova-single-product {
-  float: none;
-  width: 100%;
-  max-width: none;
-  margin: 0;
+  margin: 0 auto!important;
   padding: 0;
 }
 
