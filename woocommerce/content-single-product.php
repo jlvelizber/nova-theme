@@ -68,16 +68,14 @@ if (post_password_required()) {
 
 			<div class="nova-single-product__intro entry-content">
 				<?php
-				$short = $product->get_short_description();
-				if ($short) {
-					echo apply_filters('woocommerce_short_description', wc_format_content($short)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				} else {
-					$desc = $product->get_description();
-					if ($desc) {
-						echo wp_kses_post(wpautop(wp_trim_words(wp_strip_all_tags($desc), 80, '…')));
-					}
-				}
-				?>
+				$long      = $product->get_description();
+				$show_long = apply_filters('nova_pet_single_product_show_long_description', true, $product);
+				if ($show_long && $long) :
+					?>
+					<div class="nova-single-product__long-desc entry-content">
+						<?php echo apply_filters('the_content', $long); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<?php
@@ -85,17 +83,6 @@ if (post_password_required()) {
 				nova_pet_render_single_product_accordions($product);
 			}
 			?>
-
-			<?php
-			$long      = $product->get_description();
-			$show_long = apply_filters('nova_pet_single_product_show_long_description', true, $product);
-			if ($show_long && $long) :
-				?>
-				<div class="nova-single-product__long-desc entry-content">
-					<?php echo apply_filters('the_content', $long); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</div>
-			<?php endif; ?>
-
 		</div>
 	</div>
 
