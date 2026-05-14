@@ -13,6 +13,7 @@ require_once get_template_directory() . '/inc/feature-cards.php';
 require_once get_template_directory() . '/inc/hero-section.php';
 require_once get_template_directory() . '/inc/single-product-layout.php';
 require_once get_template_directory() . '/inc/related-products-shortcode.php';
+require_once get_template_directory() . '/inc/product-faq-section.php';
 require_once get_template_directory() . '/inc/woocommerce-shop-loop.php';
 
 if (!function_exists('nova_pet_setup')) {

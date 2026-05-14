@@ -3,6 +3,7 @@
  * Single product — editorial layout: primary strip (product) + secondary strip (upsells / related).
  *
  * Meta accordions: nova_product_ingredients, nova_product_presentation, nova_product_beneffits.
+ * FAQs (below related): meta `nova_product_faqs` — see `inc/product-faq-section.php`.
  *
  * @package WooCommerce\Templates
  * @version 3.6.0
@@ -97,6 +98,15 @@ if (post_password_required()) {
 			do_action('woocommerce_after_single_product_summary');
 			?>
 		</div>
+	</section>
+
+	<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php esc_attr_e('Product questions', 'nova-pet'); ?>">
+		<?php
+		/**
+		 * FAQ cards (product meta). Default callback: `nova_pet_output_product_faq_after_related`.
+		 */
+		do_action('nova_pet_after_product_related', $product);
+		?>
 	</section>
 
 	<?php

@@ -2377,6 +2377,126 @@ body.nova-pet-single-product .nova-single-product__strip--secondary section.prod
   padding-top: 0;
 }
 
+/* ========= Product FAQ (below related, meta-driven) ========= */
+.nova-single-product__strip--faq {
+  flex: 0 0 auto;
+  width: 100%;
+  background-color: #f4f5f7;
+  box-sizing: border-box;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.nova-product-faq {
+  width: 100%;
+}
+
+.nova-product-faq__inner {
+  width: min(100%, 40rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nova-product-faq__header {
+  text-align: center;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.nova-product-faq__title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+.nova-product-faq__subtitle {
+  margin: 0.65rem auto 0;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
+.nova-product-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.nova-product-faq__item {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.nova-product-faq__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.35rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.nova-product-faq__summary::-webkit-details-marker {
+  display: none;
+}
+
+.nova-product-faq__summary::marker {
+  content: "";
+}
+
+.nova-product-faq__question {
+  flex: 1;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.nova-product-faq__toggle {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #374151;
+}
+
+.nova-product-faq__toggle::after {
+  content: "+";
+}
+
+.nova-product-faq__item[open] .nova-product-faq__toggle::after {
+  content: "\00d7";
+  font-size: 1.5rem;
+}
+
+.nova-product-faq__body {
+  padding: 0 1.35rem 1.35rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #4b5563;
+}
+
+.nova-product-faq__body p:first-child {
+  margin-top: 0;
+}
+
+.nova-product-faq__body p:last-child {
+  margin-bottom: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nova-product-accordion__icon {
     transition: none;
