@@ -91,10 +91,8 @@ if (post_password_required()) {
 		<div class="nova-single-product__strip-inner">
 			<?php
 			/**
-			 * Hook: woocommerce_after_single_product_summary.
-			 *
-			 * @hooked woocommerce_upsell_display - 15
-			 * @hooked woocommerce_output_related_products - 20
+			 * Upsells (WooCommerce default) then related grid (see `nova_pet_single_product_output_related_section`
+			 * in `inc/related-products-shortcode.php`, replaces `woocommerce_output_related_products`).
 			 */
 			do_action('woocommerce_after_single_product_summary');
 			?>

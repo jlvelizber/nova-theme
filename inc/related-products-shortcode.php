@@ -1,6 +1,6 @@
 <?php
 /**
- * Shortcode: related or random products in a compact card grid (Elementor-friendly).
+ * Related / random product grid — shared renderer + shortcode.
  *
  * @package Nova_Pet
  */
@@ -27,7 +27,7 @@ function nova_pet_related_shortcode_context_product_id($from_atts) {
 }
 
 /**
- * Build list of product IDs for the shortcode.
+ * Build list of product IDs for the grid.
  *
  * @param int  $context_id Source product for related mode.
  * @param int  $count      How many products.
@@ -70,50 +70,59 @@ function nova_pet_related_shortcode_collect_ids($context_id, $count, $random) {
 }
 
 /**
- * Shortcode output.
+ * Render the related products grid (used by shortcode and single product strip).
  *
- * @param array $atts Shortcode attributes.
- * @return string
+ * @param array $args {
+ *     @type int    $count                 Products to show (1–12).
+ *     @type int    $columns               Grid columns 1–4.
+ *     @type bool   $random                Random vs related.
+ *     @type int    $product_id            Context product (related source / random exclude).
+ *     @type string $title                 Section heading (optional).
+ *     @type string $subtitle              Subheading below title (optional).
+ *     @type string $link_text             CTA text inside each card.
+ *     @type string $section_class         Extra class on outer `<section>`.
+ *     @type bool   $show_empty_message    If true, output paragraph when no products (shortcode UX).
+ * }
+ * @return string HTML.
  */
-function nova_pet_related_products_shortcode($atts) {
+function nova_pet_render_related_products_section($args = array()) {
 	if (!class_exists('WooCommerce')) {
 		return '';
 	}
 
-	$atts = shortcode_atts(
-		array(
-			'count'       => '3',
-			'columns'     => '3',
-			'random'      => 'no',
-			'product_id'  => '',
-			'title'       => '',
-			'link_text'   => '',
-		),
-		$atts,
-		'nova_related_products'
+	$defaults = array(
+		'count'               => 3,
+		'columns'             => 3,
+		'random'              => false,
+		'product_id'          => 0,
+		'title'               => '',
+		'subtitle'            => '',
+		'link_text'           => '',
+		'section_class'       => '',
+		'show_empty_message'  => true,
 	);
 
-	$count   = absint($atts['count']);
+	$args = wp_parse_args($args, $defaults);
+
+	$count = absint($args['count']);
 	if ($count < 1) {
 		$count = 3;
 	}
 	if ($count > 12) {
 		$count = 12;
 	}
-	$columns = absint($atts['columns']);
+
+	$columns = absint($args['columns']);
 	$columns = $columns >= 1 && $columns <= 4 ? $columns : 3;
 
-	$random = in_array(
-		strtolower((string) $atts['random']),
-		array('1', 'true', 'yes', 'rand', 'random'),
-		true
-	);
-
-	$context_id = nova_pet_related_shortcode_context_product_id($atts['product_id']);
-	$ids        = nova_pet_related_shortcode_collect_ids($context_id, $count, $random);
+	$context_id = nova_pet_related_shortcode_context_product_id((int) $args['product_id']);
+	$ids        = nova_pet_related_shortcode_collect_ids($context_id, $count, (bool) $args['random']);
 
 	if (empty($ids)) {
-		return '<p class="nova-related-products__empty">' . esc_html__('No hay productos para mostrar.', 'nova-pet') . '</p>';
+		if (!empty($args['show_empty_message'])) {
+			return '<p class="nova-related-products__empty">' . esc_html__('No hay productos para mostrar.', 'nova-pet') . '</p>';
+		}
+		return '';
 	}
 
 	$query = new WP_Query(
@@ -127,18 +136,35 @@ function nova_pet_related_products_shortcode($atts) {
 		)
 	);
 
-	$section_title = trim((string) $atts['title']);
-	$link_text     = trim((string) $atts['link_text']);
+	$section_title = trim((string) $args['title']);
+	$subtitle      = trim((string) $args['subtitle']);
+	$link_text     = trim((string) $args['link_text']);
 	if ('' === $link_text) {
 		$link_text = __('Ver más', 'nova-pet');
 	}
 
+	$section_classes = array('nova-related-products');
+	if (!empty($args['section_class'])) {
+		$extra = explode(' ', (string) $args['section_class']);
+		foreach ($extra as $c) {
+			$c = sanitize_html_class(trim($c));
+			if ('' !== $c) {
+				$section_classes[] = $c;
+			}
+		}
+	}
+
 	ob_start();
 	?>
-	<section class="nova-related-products" data-columns="<?php echo esc_attr((string) $columns); ?>">
-		<?php if ('' !== $section_title) : ?>
+	<section class="<?php echo esc_attr(implode(' ', array_unique($section_classes))); ?>" data-columns="<?php echo esc_attr((string) $columns); ?>">
+		<?php if ('' !== $section_title || '' !== $subtitle) : ?>
 			<header class="nova-related-products__header">
-				<h2 class="nova-related-products__title"><?php echo esc_html($section_title); ?></h2>
+				<?php if ('' !== $section_title) : ?>
+					<h2 class="nova-related-products__title"><?php echo esc_html($section_title); ?></h2>
+				<?php endif; ?>
+				<?php if ('' !== $subtitle) : ?>
+					<p class="nova-related-products__subtitle"><?php echo esc_html($subtitle); ?></p>
+				<?php endif; ?>
 			</header>
 		<?php endif; ?>
 
@@ -196,4 +222,82 @@ function nova_pet_related_products_shortcode($atts) {
 	wp_reset_postdata();
 	return ob_get_clean();
 }
+
+/**
+ * Shortcode output.
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string
+ */
+function nova_pet_related_products_shortcode($atts) {
+	$atts = shortcode_atts(
+		array(
+			'count'      => '3',
+			'columns'    => '3',
+			'random'     => 'no',
+			'product_id' => '',
+			'title'      => '',
+			'subtitle'   => '',
+			'link_text'  => '',
+		),
+		$atts,
+		'nova_related_products'
+	);
+
+	$random = in_array(
+		strtolower((string) $atts['random']),
+		array('1', 'true', 'yes', 'rand', 'random'),
+		true
+	);
+
+	return nova_pet_render_related_products_section(
+		array(
+			'count'               => absint($atts['count']),
+			'columns'             => absint($atts['columns']),
+			'random'              => $random,
+			'product_id'          => absint($atts['product_id']),
+			'title'               => (string) $atts['title'],
+			'subtitle'            => (string) $atts['subtitle'],
+			'link_text'           => (string) $atts['link_text'],
+			'show_empty_message'  => true,
+		)
+	);
+}
 add_shortcode('nova_related_products', 'nova_pet_related_products_shortcode');
+
+/**
+ * Single product: output related grid in summary hook (replaces WooCommerce default).
+ *
+ * @return void
+ */
+function nova_pet_single_product_output_related_section() {
+	if (!function_exists('is_product') || !is_product()) {
+		return;
+	}
+
+	global $product;
+	if (!$product instanceof WC_Product) {
+		return;
+	}
+
+	$defaults = array(
+		'count'               => apply_filters('nova_pet_single_related_count', 3, $product),
+		'columns'             => 3,
+		'random'              => false,
+		'product_id'          => $product->get_id(),
+		'title'               => __('También te puede interesar', 'nova-pet'),
+		'subtitle'            => '',
+		'link_text'           => '',
+		'section_class'       => 'nova-related-products--single-strip',
+		'show_empty_message'  => false,
+	);
+
+	$args = apply_filters('nova_pet_single_product_related_section_args', $defaults, $product);
+
+	$html = nova_pet_render_related_products_section($args);
+	if ('' !== $html) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $html;
+	}
+}
+add_action('woocommerce_after_single_product_summary', 'nova_pet_single_product_output_related_section', 20);

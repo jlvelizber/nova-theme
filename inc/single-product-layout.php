@@ -46,8 +46,8 @@ function nova_pet_single_product_layout_wp() {
 
 	remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20); //remove breadcrumb
 	remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10); //remove sidebar
-	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10); //remove tabs
-	remove_action('woocommerce_after_single_product_summary', 'woocommerce_related_products', 15);//remove related products
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
+	remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 }
 add_action('wp', 'nova_pet_single_product_layout_wp', 5);
 
@@ -147,7 +147,7 @@ function nova_pet_render_single_product_accordions($product) {
 	echo '<div class="nova-single-product__accordions">';
 	foreach ($sections as $index => $row) {
 		?>
-		<details class="nova-product-accordion" id="nova-accordion-<?php echo esc_attr($row['id']); ?>">>
+		<details class="nova-product-accordion" id="nova-accordion-<?php echo esc_attr($row['id']); ?>">
 			<summary class="nova-product-accordion__summary">
 				<span class="nova-product-accordion__label"><?php echo esc_html($row['label']); ?></span>
 				<span class="nova-product-accordion__icon" aria-hidden="true"></span>
