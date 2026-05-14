@@ -146,7 +146,7 @@ function nova_pet_render_single_product_accordions($product) {
 	echo '<div class="nova-single-product__accordions">';
 	foreach ($sections as $index => $row) {
 		?>
-		<details class="nova-product-accordion" id="nova-accordion-<?php echo esc_attr($row['id']); ?>"<?php echo 0 === $index ? ' open' : ''; ?>>
+		<details class="nova-product-accordion" id="nova-accordion-<?php echo esc_attr($row['id']); ?>">>
 			<summary class="nova-product-accordion__summary">
 				<span class="nova-product-accordion__label"><?php echo esc_html($row['label']); ?></span>
 				<span class="nova-product-accordion__icon" aria-hidden="true"></span>
