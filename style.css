@@ -2078,49 +2078,74 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   }
 }
 
-/* ========= Single product (editorial layout) ========= */
+/* ========= Single product (editorial layout — mockup) ========= */
+body.nova-pet-single-product {
+  background-color: #eeeff2;
+}
+
+body.nova-pet-single-product #primary.site-main.site-main--wc-product {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4.5rem);
+  background-color: #eeeff2;
+}
+
+body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocommerce {
+  max-width: none;
+}
+
 .woocommerce div.product.nova-single-product {
   float: none;
   width: 100%;
   max-width: none;
-  padding-bottom: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nova-single-product__canvas {
+  width: 100%;
 }
 
 .nova-single-product__shell {
+  width: min(100%, 40rem);
   margin-left: auto;
   margin-right: auto;
 }
 
 .nova-single-product__breadcrumb {
-  margin: 0 0 1.5rem;
+  margin: 0 0 clamp(1.25rem, 3vw, 2rem);
   font-size: 0.8125rem;
-  color: #64748b;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #6b7280;
 }
 
 .nova-single-product__breadcrumb a {
-  color: #64748b;
+  color: #6b7280;
   text-decoration: none;
 }
 
 .nova-single-product__breadcrumb a:hover {
-  color: #0f172a;
+  color: #111827;
   text-decoration: underline;
 }
 
 .nova-single-product__bc-delimiter {
-  margin: 0 0.2rem;
-  color: #94a3b8;
+  margin: 0 0.35rem;
+  color: #9ca3af;
+  font-weight: 400;
 }
 
 .nova-single-product__gallery-wrap {
-  margin: 0 auto 2rem;
+  margin: 0 auto clamp(1.75rem, 4vw, 2.75rem);
   text-align: center;
 }
 
 .nova-single-product__gallery-wrap .woocommerce-product-gallery {
   float: none;
   width: 100% !important;
-  max-width: 400px;
+  max-width: min(100%, 28rem);
   margin-left: auto;
   margin-right: auto;
 }
@@ -2129,28 +2154,45 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   margin: 0 auto;
 }
 
+.nova-single-product__gallery-wrap .woocommerce-product-gallery__image,
+.nova-single-product__gallery-wrap .woocommerce-product-gallery__image img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nova-single-product__gallery-wrap .woocommerce-product-gallery__image img {
+  max-height: min(60vw, 28rem);
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .nova-single-product__gallery-wrap .flex-control-thumbs {
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .nova-single-product__header {
   text-align: left;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(1rem, 2.5vw, 1.35rem);
 }
 
 .nova-single-product__title {
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-size: clamp(1.875rem, 4.5vw, 2.5rem);
   font-weight: 700;
-  line-height: 1.2;
-  color: #0f172a;
-  margin: 0 0 0.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin: 0 0 0.4rem;
 }
 
 .nova-single-product__category {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  line-height: 1.35;
+  color: #111827;
 }
 
 .nova-single-product__category-link {
@@ -2164,53 +2206,30 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 
 .nova-single-product__intro {
   font-size: 1rem;
-  line-height: 1.6;
-  color: #334155;
-  margin-bottom: 1.5rem;
+  line-height: 1.65;
+  color: #374151;
+  margin: 0 0 clamp(1.75rem, 4vw, 2.25rem);
+}
+
+.nova-single-product__intro p {
+  margin: 0 0 0.75rem;
 }
 
 .nova-single-product__intro p:last-child {
   margin-bottom: 0;
 }
 
-.nova-single-product__purchase {
-  padding: 1.25rem 0 1.75rem;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 0;
-}
-
-.nova-single-product__purchase .price {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 1rem;
-}
-
-.nova-single-product__purchase form.cart {
-  margin: 0;
-}
-
-.nova-single-product__long-desc {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
-  font-size: 1rem;
-  line-height: 1.65;
-  color: #334155;
-}
-
-/* Accordions (meta-driven) */
+/* Accordions */
 .nova-single-product__accordions {
-  margin-top: 0;
+  margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
 }
 
 .nova-product-accordion {
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #d1d5db;
 }
 
 .nova-product-accordion:first-of-type {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #d1d5db;
 }
 
 .nova-product-accordion__summary {
@@ -2218,12 +2237,12 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1.125rem 0;
   cursor: pointer;
   list-style: none;
   font-size: 1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #111827;
 }
 
 .nova-product-accordion__summary::-webkit-details-marker {
@@ -2236,18 +2255,18 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 
 .nova-product-accordion__icon {
   flex-shrink: 0;
-  width: 0.65rem;
-  height: 0.65rem;
-  border-right: 2px solid #475569;
-  border-bottom: 2px solid #475569;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid #4b5563;
+  border-bottom: 2px solid #4b5563;
   transform: rotate(45deg);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
   transition: transform 0.2s ease;
 }
 
 .nova-product-accordion[open] .nova-product-accordion__icon {
   transform: rotate(-135deg);
-  margin-top: 0.25rem;
+  margin-top: 0.2rem;
 }
 
 .nova-product-accordion__body {
@@ -2256,12 +2275,46 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 
 .nova-product-accordion__content {
   font-size: 0.9375rem;
-  line-height: 1.6;
-  color: #475569;
+  line-height: 1.65;
+  color: #4b5563;
 }
 
 .nova-product-accordion__content p:last-child {
   margin-bottom: 0;
+}
+
+/* Purchase (after accordions, mockup flow) */
+.nova-single-product__purchase {
+  padding: 1.5rem 0 0;
+  margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+  border-top: 1px solid #d1d5db;
+}
+
+.nova-single-product__purchase .price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.nova-single-product__purchase form.cart {
+  margin: 0;
+}
+
+.nova-single-product__long-desc {
+  padding-top: 1.5rem;
+  margin: 0 0 2rem;
+  border-top: 1px solid #d1d5db;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #374151;
+}
+
+body.nova-pet-single-product .related.products,
+body.nova-pet-single-product section.products {
+  margin-top: 0;
+  padding-top: clamp(2rem, 5vw, 3rem);
+  border-top: 1px solid #d1d5db;
 }
 
 @media (prefers-reduced-motion: reduce) {

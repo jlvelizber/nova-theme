@@ -2,6 +2,10 @@
 /**
  * The Template for displaying all single products.
  *
+ * Nota: si el tema define `woocommerce.php`, WooCommerce carga el producto con
+ * `woocommerce_content()` y solo incluye `content-single-product.php`; este archivo
+ * no se usa salvo que quites `woocommerce.php` o cambies el flujo de plantillas.
+ *
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 1.6.4

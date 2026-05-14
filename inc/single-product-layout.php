@@ -10,6 +10,31 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Body class for single product editorial layout.
+ *
+ * @param string[] $classes Body classes.
+ * @return string[]
+ */
+function nova_pet_single_product_body_class($classes) {
+	if (function_exists('is_product') && is_product()) {
+		$classes[] = 'nova-pet-single-product';
+	}
+	return $classes;
+}
+add_filter('body_class', 'nova_pet_single_product_body_class');
+
+/**
+ * Remove WooCommerce default HTML wrappers (theme `woocommerce.php` already provides `<main>`).
+ *
+ * @return void
+ */
+function nova_pet_remove_woocommerce_content_wrappers() {
+	remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+	remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+}
+add_action('woocommerce_init', 'nova_pet_remove_woocommerce_content_wrappers');
+
+/**
  * Configure WooCommerce single product display.
  *
  * @return void

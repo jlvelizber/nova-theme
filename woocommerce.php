@@ -14,10 +14,12 @@ if (function_exists('nova_pet_render_woocommerce_archive_hero')) {
 }
 ?>
 
-<main id="primary" class="site-main site-container <?php if(is_product()) : ?> site-container--full <?php endif; ?>">
+<main id="primary" class="site-main site-container<?php echo is_product() ? ' site-container--full site-main--wc-product' : ''; ?>">
 	<?php woocommerce_content(); ?>
 </main>
 
 <?php
-get_sidebar();
+if (!function_exists('is_product') || !is_product()) {
+	get_sidebar();
+}
 get_footer();
