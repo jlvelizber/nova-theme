@@ -2082,25 +2082,63 @@ body.nova-pet-single-product {
 body.nova-pet-single-product #primary.site-main.site-main--wc-product {
   width: 100%;
   max-width: 100%;
-  margin: 0 auto!important;
+  margin: 0 auto !important;
   background-color: var(--nova-header-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocommerce {
   max-width: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .woocommerce div.product.nova-single-product {
-  margin: 0 auto!important;
+  float: none;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto !important;
   padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.nova-single-product__strip--primary {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.nova-single-product__strip--secondary {
+  flex: 0 0 auto;
+  width: 100%;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.nova-single-product__strip-inner {
+  width: min(100% - (var(--nova-gutter) * 2), var(--nova-container));
+  margin-inline: auto;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
 }
 
 .nova-single-product__canvas {
   width: 100%;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .nova-single-product__shell {
-  width: 100%;
+  width: min(100%, 40rem);
   margin-left: auto;
   margin-right: auto;
 }
@@ -2301,10 +2339,10 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   color: #374151;
 }
 
-body.nova-pet-single-product .related.products,
-body.nova-pet-single-product section.products {
+body.nova-pet-single-product .nova-single-product__strip--secondary .related.products,
+body.nova-pet-single-product .nova-single-product__strip--secondary section.products {
   margin-top: 0;
-  padding-top: clamp(2rem, 5vw, 3rem);
+  padding-top: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
