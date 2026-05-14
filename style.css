@@ -2138,7 +2138,7 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
 }
 
 .nova-single-product__shell {
-  width: min(100%, 40rem);
+  width: min(100%, 75rem);
   margin-left: auto;
   margin-right: auto;
 }

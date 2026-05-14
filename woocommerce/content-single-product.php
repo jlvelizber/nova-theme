@@ -65,30 +65,6 @@ if (post_password_required()) {
 				</header>
 
 				<div class="nova-single-product__intro entry-content">
-					<?php
-					$short = $product->get_short_description();
-					if ($short) {
-						echo apply_filters('woocommerce_short_description', wc_format_content($short)); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					} else {
-						$desc = $product->get_description();
-						if ($desc) {
-							echo wp_kses_post(wpautop(wp_trim_words(wp_strip_all_tags($desc), 80, '…')));
-						}
-					}
-					?>
-				</div>
-
-				<?php
-				if (function_exists('nova_pet_render_single_product_accordions')) {
-					nova_pet_render_single_product_accordions($product);
-				}
-				?>
-
-				<div class="nova-single-product__purchase">
-					<?php woocommerce_template_single_price(); ?>
-					<?php woocommerce_template_single_add_to_cart(); ?>
-				</div>
-
 				<?php
 				$long      = $product->get_description();
 				$show_long = apply_filters('nova_pet_single_product_show_long_description', true, $product);
@@ -99,6 +75,14 @@ if (post_password_required()) {
 					</div>
 				<?php endif; ?>
 
+				</div>
+
+				<?php
+				if (function_exists('nova_pet_render_single_product_accordions')) {
+					nova_pet_render_single_product_accordions($product);
+				}
+				?>
+				
 			</div>
 		</div>
 	</section>
