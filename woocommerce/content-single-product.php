@@ -85,6 +85,7 @@ if (post_password_required()) {
 			?>
 		</div>
 	</div>
+</div>
 
 	<?php
 	/**
@@ -101,6 +102,5 @@ if (post_password_required()) {
 		WC()->structured_data->generate_product_data($product);
 	}
 	?>
-</div>
 
-<!-- <?php do_action('woocommerce_after_single_product'); ?> -->
+<?php do_action('woocommerce_after_single_product'); ?>
