@@ -79,11 +79,6 @@ if (post_password_required()) {
 			?>
 		</div>
 
-		<div class="nova-single-product__purchase">
-			<?php woocommerce_template_single_price(); ?>
-			<?php woocommerce_template_single_add_to_cart(); ?>
-		</div>
-
 		<?php
 		if (function_exists('nova_pet_render_single_product_accordions')) {
 			nova_pet_render_single_product_accordions($product);
@@ -117,4 +112,4 @@ if (post_password_required()) {
 	?>
 </div>
 
-<?php do_action('woocommerce_after_single_product'); ?>
+<!-- <?php do_action('woocommerce_after_single_product'); ?> -->
