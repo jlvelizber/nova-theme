@@ -97,6 +97,12 @@ body {
   margin-inline: auto;
 }
 
+.site-container--full {
+  width: 100%!important;
+  max-width: 100%!important;
+  padding: 0;
+}
+
 .site-main {
   padding: 2rem 0;
 }
@@ -2081,7 +2087,6 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 }
 
 .nova-single-product__shell {
-  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
 }
