@@ -27,7 +27,7 @@ if (post_password_required()) {
 	return;
 }
 ?>
-<div id="product-<?php the_ID(); ?>" <?php wc_product_class('nova-single-product', $product); ?>>
+<div id="product-<?php the_ID(); ?>" <?php wc_product_class('nova-single-product site-container', $product); ?>>
 
 	<div class="nova-single-product__canvas">
 		<div class="nova-single-product__shell">
