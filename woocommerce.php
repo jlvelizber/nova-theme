@@ -14,7 +14,7 @@ if (function_exists('nova_pet_render_woocommerce_archive_hero')) {
 }
 ?>
 
-<main id="primary" class="site-main site-container<?php echo is_product() ? ' site-container--full site-main--wc-product' : ''; ?>">
+<main id="primary" class="site-main site-container<?php echo is_product() ? 'site-main--wc-product' : ''; ?>">
 	<?php woocommerce_content(); ?>
 </main>
 

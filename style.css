@@ -97,11 +97,7 @@ body {
   margin-inline: auto;
 }
 
-.site-container--full {
-  width: 100%!important;
-  max-width: 100%!important;
-  padding: 0;
-}
+
 
 .site-main {
   padding: 2rem 0;
@@ -2087,7 +2083,7 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product {
   width: 100%;
   max-width: 100%;
   margin: 0 auto!important;
-  background-color: var(--nova-bg);
+  background-color: var(--nova-header-bg);
 }
 
 body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocommerce {
