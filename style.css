@@ -2329,15 +2329,6 @@ a.nova-menu-link:focus-visible {
   min-width: 140px;
 }
 
-/** Shop filters mobile **/
-@media (max-width: 768px) {
-  .nova-shop-filters__field {
-    flex: 1 1 100%;
-    max-width: 100%;
-    min-width: 100%;
-  }
-}
-
 .nova-shop-filters__label {
   display: block;
   font-size: 0.8125rem;
@@ -2558,6 +2549,12 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   .nova-shop-filters__actions {
     width: 100%;
     margin-left: 0;
+  }
+
+  .nova-shop-filters__field {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
 
   .nova-shop-filters__submit {
