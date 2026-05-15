@@ -292,7 +292,8 @@ body.nova-post-detail .site-main {
 }
 
 .nova-post-content__inner {
-  width: min(100% - (var(--nova-gutter) * 2), 42rem);
+  width: min(100% - (var(--nova-gutter) * 2), 48rem);
+  padding: 8rem 0;
 }
 
 .nova-post-article .entry-content {
