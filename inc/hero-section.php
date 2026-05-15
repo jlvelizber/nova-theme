@@ -110,10 +110,14 @@ function nova_pet_get_blog_archive_hero_data() {
 		$image_url = apply_filters('nova_pet_blog_archive_hero_image_url', '');
 	}
 
-	return array(
-		'image_url'  => is_string($image_url) ? $image_url : '',
-		'title'      => $title,
-		'deck'       => $deck,
+	return apply_filters(
+		'nova_pet_blog_archive_hero_data',
+		array(
+			'image_url'  => is_string($image_url) ? $image_url : '',
+			'title'      => $title,
+			'deck'       => $deck,
+		),
+		$page_id
 	);
 }
 

@@ -14,6 +14,7 @@ require_once get_template_directory() . '/inc/hero-section.php';
 require_once get_template_directory() . '/inc/single-post-layout.php';
 require_once get_template_directory() . '/inc/related-posts.php';
 require_once get_template_directory() . '/inc/blog-archive.php';
+require_once get_template_directory() . '/inc/customizer.php';
 require_once get_template_directory() . '/inc/single-product-layout.php';
 require_once get_template_directory() . '/inc/related-products-shortcode.php';
 require_once get_template_directory() . '/inc/product-faq-section.php';
@@ -160,6 +161,18 @@ function nova_pet_widgets_init() {
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="footer-widget-title">',
 			'after_title'   => '</h3>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__('Blog archive (below grid)', 'nova-pet'),
+			'id'            => 'nova-blog-archive-below',
+			'description'   => esc_html__('Widgets appear below the article grid on the blog index and category archives.', 'nova-pet'),
+			'before_widget' => '<section id="%1$s" class="widget nova-blog-archive-widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widget-title">',
+			'after_title'   => '</h2>',
 		)
 	);
 }

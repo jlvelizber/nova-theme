@@ -10,6 +10,24 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Show the category filter pills on blog archive screens.
+ *
+ * @return bool
+ */
+function nova_pet_blog_archive_show_category_filters() {
+	return (bool) apply_filters('nova_pet_blog_archive_show_category_filters', true);
+}
+
+/**
+ * Whether the category filter query omits terms with no posts.
+ *
+ * @return bool
+ */
+function nova_pet_blog_archive_category_query_hide_empty() {
+	return (bool) apply_filters('nova_pet_blog_archive_category_query_hide_empty', true);
+}
+
+/**
  * Section title and subtitle below the hero on blog listings.
  *
  * @return array{title: string, subtitle: string}
@@ -33,7 +51,7 @@ function nova_pet_get_blog_archive_filter_categories() {
 	$categories = get_categories(
 		array(
 			'taxonomy'   => 'category',
-			'hide_empty' => true,
+			'hide_empty' => nova_pet_blog_archive_category_query_hide_empty(),
 			'orderby'    => 'name',
 			'order'      => 'ASC',
 		)
@@ -160,13 +178,20 @@ function nova_pet_render_blog_archive_content() {
 				<?php endif; ?>
 			</header>
 
-			<?php nova_pet_render_blog_archive_filters(); ?>
-
+			<?php if (nova_pet_blog_archive_show_category_filters()) : ?>
+				<?php nova_pet_render_blog_archive_filters(); ?>
+			<?php endif; ?>
 			<?php if (have_posts()) : ?>
 				<?php nova_pet_render_post_cards_grid(null, $columns); ?>
 				<?php nova_pet_render_blog_archive_pagination(); ?>
 			<?php else : ?>
 				<p class="nova-blog-archive__empty"><?php esc_html_e('No articles found in this category.', 'nova-pet'); ?></p>
+			<?php endif; ?>
+
+			<?php if (is_active_sidebar('nova-blog-archive-below')) : ?>
+				<div class="nova-blog-archive__widgets">
+					<?php dynamic_sidebar('nova-blog-archive-below'); ?>
+				</div>
 			<?php endif; ?>
 		</div>
 	</main>

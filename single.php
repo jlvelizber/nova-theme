@@ -47,7 +47,11 @@ while (have_posts()) :
 			?>
 
 			<?php
-			if (comments_open() || get_comments_number()) {
+			if (
+				function_exists('nova_pet_comments_visible_on_posts')
+				&& nova_pet_comments_visible_on_posts()
+				&& (comments_open() || get_comments_number())
+			) {
 				comments_template();
 			}
 			?>

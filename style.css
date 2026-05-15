@@ -619,6 +619,17 @@ body.nova-blog-listing .site-main {
   font-weight: 600;
 }
 
+.nova-blog-archive__widgets {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid #e5e7eb;
+}
+
+.nova-blog-archive__widgets .widget-title {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
 /* Related blog posts */
 .nova-post-related {
   background: #f2f2f2;
