@@ -99,15 +99,17 @@ if (post_password_required()) {
 			?>
 		</div>
 	</section>
-
-	<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php esc_attr_e('Product questions', 'nova-pet'); ?>">
-		<?php
-		/**
-		 * FAQ cards (product meta). Default callback: `nova_pet_output_product_faq_after_related`.
-		 */
-		do_action('nova_pet_after_product_related', $product);
+	<!-- FAQ section -->
+	<?php
+	 // if the product has a FAQ section, show it
+	 if (has_action('nova_pet_after_product_related', $product)) :
 		?>
-	</section>
+		<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php esc_attr_e('Product questions', 'nova-pet'); ?>">
+			<?php
+			do_action('nova_pet_after_product_related', $product);
+			?>
+		</section>
+	<?php endif; ?>
 
 	<?php
 	if (function_exists('WC') && WC()->structured_data) {
