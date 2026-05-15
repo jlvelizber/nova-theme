@@ -6,59 +6,55 @@
  */
 
 get_header();
-?>
 
-<?php
 while (have_posts()) :
 	the_post();
 
-	$hero_thumb = get_the_post_thumbnail_url(get_the_ID(), 'full');
-	// if ($hero_thumb) :
-		$categories = get_the_category();
-		$hero_label = !empty($categories) ? $categories[0]->name : esc_html__('Article', 'nova-pet');
-		$deck        = has_excerpt() ? get_the_excerpt() : '';
-		if ('' === $deck) {
-			$deck = wp_trim_words(get_post_field('post_content', get_the_ID()), 28, '…');
-		}
-		?>
-		<section
-			class="nova-single-hero"
-			style="<?php echo esc_attr('--nova-single-hero-image: url(' . esc_url($hero_thumb) . ');'); ?>"
-			aria-label="<?php esc_attr_e('Post header', 'nova-pet'); ?>"
-		>
-			<div class="nova-single-hero__overlay" aria-hidden="true"></div>
-			<div class="nova-single-hero__inner site-container">
-				<p class="nova-single-hero__label"><?php echo esc_html($hero_label); ?></p>
-				<h1 class="nova-single-hero__title"><?php the_title(); ?></h1>
-				<?php if ($deck) : ?>
-					<p class="nova-single-hero__deck"><?php echo esc_html(wp_strip_all_tags($deck)); ?></p>
-				<?php endif; ?>
-			</div>
-		</section>
-		<?php
-	// endif;
+	if (function_exists('nova_pet_render_single_post_hero')) {
+		nova_pet_render_single_post_hero();
+	}
 	?>
 
-<main id="primary" class="site-main site-container">
-		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-			<?php if (!has_post_thumbnail()) : ?>
-				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-			<?php endif; ?>
-			<div class="entry-content">
-				<?php the_content(); ?>
-			</div>
-		</article>
-
-		<?php the_post_navigation(); ?>
+	<main id="primary" class="site-main nova-post-content">
+		<div class="nova-post-content__inner site-container">
+			<article id="post-<?php the_ID(); ?>" <?php post_class('nova-post-article'); ?>>
+				<div class="entry-content">
+					<?php the_content(); ?>
+				</div>
+			</article>
+		</div>
 
 		<?php
-		if (comments_open() || get_comments_number()) {
-			comments_template();
+		if (function_exists('nova_pet_render_post_footer_share')) {
+			nova_pet_render_post_footer_share();
 		}
-endwhile;
-?>
-</main>
+		?>
 
-<?php
-get_sidebar();
+		<?php
+		if (function_exists('nova_pet_output_single_post_related')) {
+			nova_pet_output_single_post_related();
+		}
+		?>
+
+		<div class="nova-post-content__inner site-container nova-post-content__inner--after">
+			<?php
+			the_post_navigation(
+				array(
+					'prev_text' => '<span class="nova-post-nav__label">' . esc_html__('Previous', 'nova-pet') . '</span><span class="nova-post-nav__title">%title</span>',
+					'next_text' => '<span class="nova-post-nav__label">' . esc_html__('Next', 'nova-pet') . '</span><span class="nova-post-nav__title">%title</span>',
+				)
+			);
+			?>
+
+			<?php
+			if (comments_open() || get_comments_number()) {
+				comments_template();
+			}
+			?>
+		</div>
+	</main>
+
+	<?php
+endwhile;
+
 get_footer();

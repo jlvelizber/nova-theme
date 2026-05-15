@@ -171,9 +171,534 @@ body.single-post.has-post-thumbnail .site-main {
   padding-top: 1.5rem;
 }
 
+/* ========= Single post detail (blog) ========= */
+body.nova-post-detail .site-main {
+  padding-top: 0;
+}
+
+.nova-post-hero {
+  background-color: #f2f2f2;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.nova-post-hero__inner {
+  width: min(100% - (var(--nova-gutter) * 2), var(--nova-container));
+}
+
+.nova-post-hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .nova-post-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+.nova-post-hero__breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.nova-post-hero__breadcrumb-list a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nova-post-hero__breadcrumb-list a:hover {
+  color: #111827;
+}
+
+.nova-post-hero__breadcrumb-sep {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.nova-post-hero__title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #111827;
+  text-wrap: balance;
+}
+
+.nova-post-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 1.75rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.nova-post-hero__meta-sep {
+  color: #9ca3af;
+}
+
+.nova-post-hero__media {
+  min-height: 12rem;
+}
+
+.nova-post-hero__figure {
+  margin: 0;
+  height: 100%;
+  min-height: clamp(220px, 32vw, 380px);
+}
+
+.nova-post-hero__image {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.nova-post-hero__media-placeholder {
+  width: 100%;
+  min-height: clamp(220px, 32vw, 380px);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+}
+
+.nova-post-content {
+  background: #ffffff;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.nova-post-content__inner {
+  width: min(100% - (var(--nova-gutter) * 2), 42rem);
+}
+
+.nova-post-article .entry-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #374151;
+}
+
+.nova-post-article .entry-content > *:first-child {
+  margin-top: 0;
+}
+
+.nova-post-article .entry-content h2,
+.nova-post-article .entry-content h3,
+.nova-post-article .entry-content h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #111827;
+}
+
+.nova-post-article .entry-content h2 {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+.nova-post-article .entry-content p {
+  margin-bottom: 1.25rem;
+}
+
+.nova-post-article .entry-content ul,
+.nova-post-article .entry-content ol {
+  margin: 0 0 1.25rem 1.25rem;
+  list-style: disc;
+}
+
+.nova-post-article .entry-content ol {
+  list-style: decimal;
+}
+
+.nova-post-article .entry-content a {
+  color: #111827;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.nova-post-article .entry-content a:hover {
+  color: #4b5563;
+}
+
+.nova-post-article .entry-content img {
+  border-radius: 12px;
+  margin-block: 1.5rem;
+}
+
+.nova-post-content .post-navigation {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .nova-post-content .post-navigation {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.nova-post-content .post-navigation a {
+  display: block;
+  font-size: 0.9375rem;
+  color: #374151;
+  text-decoration: none;
+}
+
+.nova-post-content .post-navigation a:hover {
+  color: #111827;
+}
+
+.nova-post-nav__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9ca3af;
+  margin-bottom: 0.25rem;
+}
+
+.nova-post-nav__title {
+  font-weight: 600;
+  color: #111827;
+}
+
+.nova-post-content .comment-respond,
+.nova-post-content .comments-area {
+  margin-top: 2.5rem;
+}
+
+.nova-post-content__inner--after {
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* Post footer: share + tags */
+.nova-post-share {
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding-block: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.nova-post-share__inner {
+  width: min(100% - (var(--nova-gutter) * 2), 42rem);
+  margin-inline: auto;
+}
+
+.nova-post-share__row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .nova-post-share__row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.nova-post-share__title {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.nova-post-share__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nova-post-share__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.nova-post-share__btn:hover,
+.nova-post-share__btn:focus-visible {
+  border-color: #9ca3af;
+  color: #111827;
+  outline: none;
+}
+
+.nova-post-share__btn.is-copied {
+  border-color: var(--nova-accent-lime, #a4c639);
+  color: #111827;
+}
+
+.nova-post-share__tags-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .nova-post-share__tags-wrap {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.nova-post-share__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nova-post-share__tag {
+  display: inline-block;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #111827;
+  background: #f3f4f6;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.nova-post-share__tag:hover,
+.nova-post-share__tag:focus-visible {
+  background: #e5e7eb;
+  outline: none;
+}
+
+/* Related blog posts */
+.nova-post-related {
+  background: #f2f2f2;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.nova-post-related__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.nova-post-related__head-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+  .nova-post-related__head-row {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+}
+
+.nova-post-related__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+.nova-post-related__subtitle {
+  margin: 0;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
+.nova-post-related__view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  background: var(--nova-accent-lime, #a4c639);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: filter 0.15s ease;
+}
+
+.nova-post-related__view-all:hover,
+.nova-post-related__view-all:focus-visible {
+  filter: brightness(0.95);
+  outline: none;
+}
+
+.nova-post-related__grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.nova-post-related__grid--cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.nova-post-related__grid--cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.nova-post-related__grid--cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 959px) {
+  .nova-post-related__grid--cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .nova-post-related__grid,
+  .nova-post-related__grid--cols-2,
+  .nova-post-related__grid--cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nova-post-card {
+  height: 100%;
+}
+
+.nova-post-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nova-post-card__link:hover,
+.nova-post-card__link:focus-visible {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  outline: none;
+}
+
+.nova-post-card__media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.nova-post-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nova-post-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.15rem 1.25rem 1.25rem;
+}
+
+.nova-post-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.nova-post-card__category {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.nova-post-card__read {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.nova-post-card__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.nova-post-card__excerpt {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #6b7280;
+  flex: 1;
+}
+
+.nova-post-card__more {
+  margin-top: auto;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.nova-post-card__more-chevron {
+  margin-left: 0.15rem;
+}
+
+.nova-post-card__link:hover .nova-post-card__more,
+.nova-post-card__link:focus-visible .nova-post-card__more {
+  color: #4b5563;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nova-single-hero {
     background-attachment: scroll;
+  }
+
+  .nova-post-share__btn,
+  .nova-post-card__link,
+  .nova-post-related__view-all {
+    transition: none;
   }
 }
 

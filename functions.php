@@ -11,6 +11,8 @@ if (!defined('ABSPATH')) {
 
 require_once get_template_directory() . '/inc/feature-cards.php';
 require_once get_template_directory() . '/inc/hero-section.php';
+require_once get_template_directory() . '/inc/single-post-layout.php';
+require_once get_template_directory() . '/inc/related-posts.php';
 require_once get_template_directory() . '/inc/single-product-layout.php';
 require_once get_template_directory() . '/inc/related-products-shortcode.php';
 require_once get_template_directory() . '/inc/product-faq-section.php';
