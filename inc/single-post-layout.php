@@ -387,6 +387,12 @@ function nova_pet_render_single_post_hero($post_id = null) {
 						echo wp_kses_post(implode('<span class="nova-post-hero__meta-sep" aria-hidden="true">·</span>', $meta_bits));
 						?>
 					</p>
+					<?php if (!empty(nova_pet_get_post_share_links($post_id))) : ?>
+						<div class="nova-post-hero__share">
+							<p class="nova-post-hero__share-label"><?php esc_html_e('Share article', 'nova-pet'); ?></p>
+							<?php nova_pet_render_post_share_buttons($post_id); ?>
+						</div>
+					<?php endif; ?>
 				</div>
 				<div class="nova-post-hero__media">
 					<?php if (has_post_thumbnail($post_id)) : ?>

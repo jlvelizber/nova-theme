@@ -250,6 +250,17 @@ body.nova-post-detail .site-main {
   color: #9ca3af;
 }
 
+.nova-post-hero__share {
+  margin-top: 1.75rem;
+}
+
+.nova-post-hero__share-label {
+  margin: 0 0 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+}
+
 .nova-post-hero__media {
   min-height: 12rem;
 }
