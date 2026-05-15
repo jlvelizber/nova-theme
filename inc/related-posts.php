@@ -85,6 +85,115 @@ function nova_pet_get_post_card_category_label($post_id) {
 }
 
 /**
+ * Render a single blog post card (shared: related strip + archive grid).
+ *
+ * @param int|null $post_id Post ID. Defaults to current post in the loop.
+ * @param string   $read_more Read-more link label.
+ * @return void
+ */
+function nova_pet_render_post_card($post_id = null, $read_more = '') {
+	if (null === $post_id) {
+		$post_id = get_the_ID();
+	}
+	$post_id = (int) $post_id;
+	if ($post_id <= 0) {
+		return;
+	}
+
+	if ('' === $read_more) {
+		$read_more = __('Read more', 'nova-pet');
+	}
+
+	$category = nova_pet_get_post_card_category_label($post_id);
+	$minutes  = nova_pet_get_reading_time_minutes($post_id);
+	$excerpt  = nova_pet_get_post_card_excerpt($post_id);
+	$permalink = get_permalink($post_id);
+	$title     = get_the_title($post_id);
+	?>
+	<article class="nova-post-card">
+		<a href="<?php echo esc_url($permalink); ?>" class="nova-post-card__link">
+			<?php if (has_post_thumbnail($post_id)) : ?>
+				<div class="nova-post-card__media">
+					<?php
+					echo get_the_post_thumbnail(
+						$post_id,
+						'medium_large',
+						array(
+							'class'    => 'nova-post-card__img',
+							'loading'  => 'lazy',
+							'decoding' => 'async',
+						)
+					);
+					?>
+				</div>
+			<?php endif; ?>
+			<div class="nova-post-card__body">
+				<div class="nova-post-card__meta">
+					<?php if ($category) : ?>
+						<span class="nova-post-card__category"><?php echo esc_html($category); ?></span>
+					<?php endif; ?>
+					<span class="nova-post-card__read">
+						<?php
+						echo esc_html(
+							sprintf(
+								/* translators: %d: minutes */
+								_n('%d min read', '%d min read', $minutes, 'nova-pet'),
+								$minutes
+							)
+						);
+						?>
+					</span>
+				</div>
+				<h3 class="nova-post-card__title"><?php echo esc_html($title); ?></h3>
+				<?php if ('' !== $excerpt) : ?>
+					<p class="nova-post-card__excerpt"><?php echo esc_html($excerpt); ?></p>
+				<?php endif; ?>
+				<span class="nova-post-card__more">
+					<?php echo esc_html($read_more); ?>
+					<span class="nova-post-card__more-chevron" aria-hidden="true">&gt;</span>
+				</span>
+			</div>
+		</a>
+	</article>
+	<?php
+}
+
+/**
+ * Render a grid of post cards from the main query or a WP_Query instance.
+ *
+ * @param WP_Query|null $query   Query object. Uses global main query when null.
+ * @param int           $columns Grid columns (1–3).
+ * @return void
+ */
+function nova_pet_render_post_cards_grid($query = null, $columns = 2) {
+	$columns = max(1, min(3, (int) $columns));
+	$using_custom = $query instanceof WP_Query;
+
+	if (!$using_custom) {
+		global $wp_query;
+		$query = $wp_query;
+	}
+
+	if (!$query instanceof WP_Query || !$query->have_posts()) {
+		return;
+	}
+	?>
+	<div class="nova-post-related__grid nova-post-related__grid--cols-<?php echo esc_attr((string) $columns); ?>">
+		<?php
+		while ($query->have_posts()) :
+			$query->the_post();
+			nova_pet_render_post_card();
+		endwhile;
+		?>
+	</div>
+	<?php
+
+	if ($using_custom) {
+		wp_reset_postdata();
+	}
+}
+
+/**
  * Excerpt text for a post card.
  *
  * @param int $post_id Post ID.
@@ -206,63 +315,7 @@ function nova_pet_render_related_posts_section($args = array()) {
 			</header>
 
 			<?php if ($query->have_posts()) : ?>
-				<div class="nova-post-related__grid nova-post-related__grid--cols-<?php echo esc_attr((string) $columns); ?>">
-					<?php
-					while ($query->have_posts()) :
-						$query->the_post();
-						$card_id    = get_the_ID();
-						$category   = nova_pet_get_post_card_category_label($card_id);
-						$minutes    = nova_pet_get_reading_time_minutes($card_id);
-						$excerpt    = nova_pet_get_post_card_excerpt($card_id);
-						?>
-						<article class="nova-post-card">
-							<a href="<?php the_permalink(); ?>" class="nova-post-card__link">
-								<?php if (has_post_thumbnail()) : ?>
-									<div class="nova-post-card__media">
-										<?php
-										the_post_thumbnail(
-											'medium_large',
-											array(
-												'class'   => 'nova-post-card__img',
-												'loading' => 'lazy',
-												'decoding' => 'async',
-											)
-										);
-										?>
-									</div>
-								<?php endif; ?>
-								<div class="nova-post-card__body">
-									<div class="nova-post-card__meta">
-										<?php if ($category) : ?>
-											<span class="nova-post-card__category"><?php echo esc_html($category); ?></span>
-										<?php endif; ?>
-										<span class="nova-post-card__read">
-											<?php
-											echo esc_html(
-												sprintf(
-													/* translators: %d: minutes */
-													_n('%d min read', '%d min read', $minutes, 'nova-pet'),
-													$minutes
-												)
-											);
-											?>
-										</span>
-									</div>
-									<h3 class="nova-post-card__title"><?php the_title(); ?></h3>
-									<?php if ('' !== $excerpt) : ?>
-										<p class="nova-post-card__excerpt"><?php echo esc_html($excerpt); ?></p>
-									<?php endif; ?>
-									<span class="nova-post-card__more">
-										<?php echo esc_html($read_more); ?>
-										<span class="nova-post-card__more-chevron" aria-hidden="true">&gt;</span>
-									</span>
-								</div>
-							</a>
-						</article>
-						<?php
-					endwhile;
-					?>
-				</div>
+				<?php nova_pet_render_post_cards_grid($query, $columns); ?>
 			<?php endif; ?>
 		</div>
 	</section>
