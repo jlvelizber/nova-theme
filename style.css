@@ -2815,6 +2815,14 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   min-height: 0;
 }
 
+@media (max-width: 768px) {
+  .nova-single-product__strip--primary {
+    width: min(100% - (var(--nova-gutter) * 2), var(--nova-container));
+    margin-inline: auto;
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+}
+
 .nova-single-product__strip--secondary {
   flex: 0 0 auto;
   width: 100%;
