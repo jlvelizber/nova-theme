@@ -9,6 +9,10 @@ if (!isset($cards) || !is_array($cards) || empty($cards)) {
 	return;
 }
 
+if (function_exists('nova_pet_feature_cards_apply_grid_layout')) {
+	$cards = nova_pet_feature_cards_apply_grid_layout($cards);
+}
+
 $split_row = 0;
 ?>
 <section class="nova-feature-cards" aria-label="<?php esc_attr_e('Highlights', 'nova-pet'); ?>">

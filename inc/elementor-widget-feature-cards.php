@@ -104,12 +104,15 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 			'lead_card',
 			array(
 				'label'        => esc_html__('Tall left column (theme grid)', 'nova-pet'),
-				'description'  => esc_html__('Solo si “Solo tarjetas” está desactivado: columna izquierda alta.', 'nova-pet'),
+				'description'  => esc_html__(
+					'Actívalo en la primera tarjeta vertical (imagen arriba). Si usas 1 tarjeta vertical + 2 horizontales, el tema también lo aplica automáticamente.',
+					'nova-pet'
+				),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'label_on'     => esc_html__('Yes', 'nova-pet'),
 				'label_off'    => esc_html__('No', 'nova-pet'),
 				'return_value' => 'yes',
-				'default'      => '',
+				'default'      => 'yes',
 			)
 		);
 

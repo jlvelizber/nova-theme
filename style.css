@@ -1515,14 +1515,14 @@ a.nova-menu-link:focus-visible {
 
 .nova-card__img {
   width: 100%;
-  object-fit: cover !important;
+  height: 100%;
+  object-fit: cover!important;
   display: block;
-  height: stretch!important;
   object-position: center!important;
 }
 
 .nova-card__body {
-  padding: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1.25rem, 3vw, 1rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -1596,6 +1596,48 @@ a.nova-menu-link:focus-visible {
 .nova-card--lead {
   grid-column: 1;
   grid-row: 1 / -1;
+  min-height: 100%;
+  align-self: stretch;
+}
+
+/* Lead + stack: fill full height of the left column (both grid rows). */
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--lead.nova-card--stack {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: 100%;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--lead.nova-card--stack .nova-card__link {
+  flex: 1 1 auto;
+  min-height: 100%;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--lead.nova-card--stack .nova-card__media {
+  flex: 1 1 58%;
+  min-height: clamp(12rem, 28vw, 22rem);
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--lead.nova-card--stack .nova-card__body {
+  flex: 1 1 auto;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split {
+  min-height: 100%;
+  height: 100%;
+  align-self: stretch;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split .nova-card__link {
+  min-height: 100%;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split .nova-card__media {
+  min-height: 100%;
+}
+
+.nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split .nova-card__img {
+  min-height: 100%;
 }
 
 /* Horizontal: image left, copy right */

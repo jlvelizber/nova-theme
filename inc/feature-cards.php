@@ -103,6 +103,8 @@ function nova_pet_render_feature_cards(array $cards) {
 		return;
 	}
 
+	$cards = nova_pet_feature_cards_apply_grid_layout($cards);
+
 	$grid_classes = array('nova-feature-cards__grid');
 	if (!nova_pet_feature_cards_grid_has_lead($cards)) {
 		$grid_classes[] = 'nova-feature-cards__grid--flat';
@@ -324,6 +326,53 @@ function nova_pet_get_feature_card_classes(array $card, $split_row = 0, $placeme
 	}
 
 	return $classes;
+}
+
+/**
+ * Apply classic 3-card layout: first vertical card spans full left column.
+ *
+ * When the first card is stack (image top/bottom) and at least two cards are
+ * horizontal (split), the first card is marked as lead unless another card
+ * already has lead set.
+ *
+ * @param array<int, array<string, mixed>> $cards Normalized cards.
+ * @return array<int, array<string, mixed>>
+ */
+function nova_pet_feature_cards_apply_grid_layout(array $cards) {
+	$cards = array_values($cards);
+	if (count($cards) < 3) {
+		return $cards;
+	}
+
+	$split_count = 0;
+	foreach ($cards as $c) {
+		if (!empty($c['layout']) && 'split' === $c['layout']) {
+			++$split_count;
+		}
+	}
+
+	if ($split_count < 2) {
+		return $cards;
+	}
+
+	$first = $cards[0];
+	if (empty($first['layout']) || 'stack' !== $first['layout']) {
+		return $cards;
+	}
+
+	$has_explicit_lead = false;
+	foreach ($cards as $c) {
+		if (!empty($c['lead'])) {
+			$has_explicit_lead = true;
+			break;
+		}
+	}
+
+	if (!$has_explicit_lead) {
+		$cards[0]['lead'] = true;
+	}
+
+	return $cards;
 }
 
 /**
