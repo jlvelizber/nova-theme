@@ -1518,7 +1518,7 @@ a.nova-menu-link:focus-visible {
   height: 100%!important;
   object-fit: cover!important;
   display: block;
-  object-position: center!important;
+  object-position: right center!important;
 }
 
 .nova-card__body {
