@@ -2024,7 +2024,6 @@ a.nova-menu-link:focus-visible {
   grid-auto-rows: var(--nova-masonry-row-base);
   grid-auto-flow: dense;
   align-items: stretch;
-  background: #d1d1d3;
   padding: var(--nova-masonry-gap);
   border-radius: var(--nova-masonry-radius);
 }
