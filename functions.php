@@ -325,6 +325,7 @@ add_shortcode('nova_product_lines', 'nova_pet_product_lines_shortcode');
  */
 function nova_pet_register_custom_widgets() {
 	register_widget('Nova_Pet_Product_Lines_Widget');
+	// Nova_Pet_Faq_Section_Widget is registered in inc/product-faq-section.php.
 }
 add_action('widgets_init', 'nova_pet_register_custom_widgets');
 

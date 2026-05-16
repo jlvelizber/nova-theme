@@ -3240,13 +3240,18 @@ body.nova-pet-single-product .nova-single-product__strip--secondary section.prod
 }
 
 /* ========= Product FAQ (below related, meta-driven) ========= */
-.nova-single-product__strip--faq {
+.nova-single-product__strip--faq,
+.nova-faq-strip {
   flex: 0 0 auto;
   width: 100%;
   background-color: #f4f5f7;
   box-sizing: border-box;
   padding-block: clamp(2.5rem, 6vw, 4rem);
   padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.nova-faq-strip__container {
+  width: 100%;
 }
 
 .nova-product-faq {
