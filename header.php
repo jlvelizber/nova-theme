@@ -134,7 +134,7 @@
 									d="M12.531,14.533h-4.28l.003,2.572v1.485c0,.432,.226,.822,.591,1.019,.473,.252,1.024,.391,1.552,.391s1.064-.135,1.544-.391c.364-.197,.591-.587,.591-1.019v-4.057Z"
 									fill="#a0251e"></path>
 							</svg>
-							<span class="header-lang-name"><?php esc_html_e('ESP', 'nova-pet'); ?></span>
+							<span class="header-lang-name"><?php esc_html_e('ES', 'nova-pet'); ?></span>
 						</a>
 						<a class="header-lang-pill" href="<?php echo esc_url($lang_en_url); ?>">
 							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
