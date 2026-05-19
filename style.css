@@ -3388,15 +3388,15 @@ CUSTOM STYLES - CONTAT FORM STYLES
 }
 
 .wpforms-submit {
-  background-color: var(--nova-accent-lime);
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  background-color: var(--nova-accent-lime)!important;
+  color: #fff!important;
+  border: none!important;
+  padding: 10px 20px!important;
+  border-radius: 5px!important;
+  cursor: pointer!important;
+  transition: background-color 0.3s ease!important;
 }
 
 .wpforms-submit:hover {
-  background-color: #8b9e3c;
+  background-color: #8b9e3c!important;
 }
