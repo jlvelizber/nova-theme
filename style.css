@@ -3369,3 +3369,13 @@ body.nova-pet-single-product .nova-single-product__strip--secondary section.prod
     transition: none;
   }
 }
+
+/**
+CUSTOM STYLES - CONTAT FORM STYLES 
+**/
+.wpforms-field-large {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #000;
+}
