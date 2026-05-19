@@ -3373,9 +3373,16 @@ body.nova-pet-single-product .nova-single-product__strip--secondary section.prod
 /**
 CUSTOM STYLES - CONTAT FORM STYLES 
 **/
+.wpforms-field-label{
+  font-weight: 500!important;
+}
 .wpforms-field-large {
   border-left: none!important;
   border-right: none!important;
   border-top: none!important;
   border-bottom: 1px solid #000!important;
+}
+
+.wpforms-field-large:focus {
+  border-bottom: 1px solid #dbdbdb!important;
 }
