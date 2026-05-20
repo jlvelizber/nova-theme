@@ -137,7 +137,7 @@ function nova_pet_render_post_card($post_id = null, $read_more = '') {
 						echo esc_html(
 							sprintf(
 								/* translators: %d: minutes */
-								_n('%d min read', '%d min read', $minutes, 'nova-pet'),
+								_n('%d min de lectura', '%d min de lectura', $minutes, 'nova-pet'),
 								$minutes
 							)
 						);
@@ -254,7 +254,7 @@ function nova_pet_render_related_posts_section($args = array()) {
 
 	if (empty($ids)) {
 		if (!empty($args['show_empty_message'])) {
-			return '<p class="nova-post-related__empty">' . esc_html__('No related articles found.', 'nova-pet') . '</p>';
+			return '<p class="nova-post-related__empty">' . esc_html__('No se encontraron artículos relacionados.', 'nova-pet') . '</p>';
 		}
 		return '';
 	}
@@ -344,11 +344,11 @@ function nova_pet_output_single_post_related($post_id = null) {
 		'count'              => apply_filters('nova_pet_single_related_posts_count', 3, $post_id),
 		'columns'            => 3,
 		'label'              => nova_pet_get_blog_index_label(),
-		'title'              => __('Related articles', 'nova-pet'),
-		'subtitle'           => __('Continue reading on veterinary nutrition and animal health', 'nova-pet'),
+		'title'              => __('Artículos relacionados', 'nova-pet'),
+		'subtitle'           => __('Continua leyendo sobre nutrición veterinaria y salud animal', 'nova-pet'),
 		'view_all_url'       => nova_pet_get_blog_index_url(),
-		'view_all_text'      => __('View all', 'nova-pet'),
-		'read_more_text'     => __('Read more', 'nova-pet'),
+		'view_all_text'      => __('Ver todos', 'nova-pet'),
+		'read_more_text'     => __('Ver más', 'nova-pet'),
 		'section_class'      => 'nova-post-related--single',
 		'show_empty_message' => false,
 	);
@@ -391,7 +391,7 @@ function nova_pet_related_posts_shortcode($atts) {
 			'post_id'            => $post_id,
 			'count'              => absint($atts['count']),
 			'columns'            => absint($atts['columns']),
-			'title'              => (string) $atts['title'] ?: __('Related articles', 'nova-pet'),
+			'title'              => (string) $atts['title'] ?: __('Artículos relacionados', 'nova-pet'),
 			'subtitle'           => (string) $atts['subtitle'],
 			'show_empty_message' => true,
 		)
