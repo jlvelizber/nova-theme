@@ -380,7 +380,7 @@ function nova_pet_render_single_post_hero($post_id = null) {
 						$meta_bits[] = '<span class="nova-post-hero__meta-read">' . esc_html(
 							sprintf(
 								/* translators: %d: minutes */
-								_n('%d min read', '%d min read', $minutes, 'nova-pet'),
+								_n('%d min de lectura', '%d min de lectura', $minutes, 'nova-pet'),
 								$minutes
 							)
 						) . '</span>';
