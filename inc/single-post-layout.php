@@ -98,7 +98,7 @@ function nova_pet_get_post_author_line($post_id = null) {
 	return apply_filters(
 		'nova_pet_post_author_line',
 		/* translators: %s: author display name */
-		sprintf(__('By %s', 'nova-pet'), $name),
+		sprintf(__('Por %s', 'nova-pet'), $name),
 		$post_id,
 		$name
 	);
@@ -132,25 +132,25 @@ function nova_pet_get_post_share_links($post_id) {
 	$links = array(
 		array(
 			'key'      => 'copy',
-			'label'    => __('Copy link', 'nova-pet'),
+			'label'    => __('Copiar enlace', 'nova-pet'),
 			'url'      => $url,
 			'external' => false,
 		),
 		array(
 			'key'      => 'linkedin',
-			'label'    => __('Share on LinkedIn', 'nova-pet'),
+			'label'    => __('Compartir en LinkedIn', 'nova-pet'),
 			'url'      => 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url),
 			'external' => true,
 		),
 		array(
 			'key'      => 'x',
-			'label'    => __('Share on X', 'nova-pet'),
+			'label'    => __('Compartir en X', 'nova-pet'),
 			'url'      => 'https://twitter.com/intent/tweet?url=' . rawurlencode($url) . '&text=' . rawurlencode($title),
 			'external' => true,
 		),
 		array(
 			'key'      => 'facebook',
-			'label'    => __('Share on Facebook', 'nova-pet'),
+			'label'    => __('Compartir en Facebook', 'nova-pet'),
 			'url'      => 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($url),
 			'external' => true,
 		),
@@ -323,11 +323,11 @@ function nova_pet_render_post_footer_share($post_id = null) {
 		return;
 	}
 	?>
-	<section class="nova-post-share" aria-label="<?php esc_attr_e('Share this article', 'nova-pet'); ?>">
+	<section class="nova-post-share" aria-label="<?php esc_attr_e('Compartir este artículo', 'nova-pet'); ?>">
 		<div class="nova-post-share__inner site-container">
 			<div class="nova-post-share__row">
 				<div class="nova-post-share__primary">
-					<h2 class="nova-post-share__title"><?php esc_html_e('Share this article', 'nova-pet'); ?></h2>
+					<h2 class="nova-post-share__title"><?php esc_html_e('Compartir este artículo', 'nova-pet'); ?></h2>
 					<?php if (!empty($links)) : ?>
 						<?php nova_pet_render_post_share_buttons($post_id); ?>
 					<?php endif; ?>
@@ -389,7 +389,7 @@ function nova_pet_render_single_post_hero($post_id = null) {
 					</p>
 					<?php if (!empty(nova_pet_get_post_share_links($post_id))) : ?>
 						<div class="nova-post-hero__share">
-							<p class="nova-post-hero__share-label"><?php esc_html_e('Share article', 'nova-pet'); ?></p>
+							<p class="nova-post-hero__share-label"><?php esc_html_e('Compartir artículo', 'nova-pet'); ?></p>
 							<?php nova_pet_render_post_share_buttons($post_id); ?>
 						</div>
 					<?php endif; ?>
