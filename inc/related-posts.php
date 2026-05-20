@@ -101,7 +101,7 @@ function nova_pet_render_post_card($post_id = null, $read_more = '') {
 	}
 
 	if ('' === $read_more) {
-		$read_more = __('Read more', 'nova-pet');
+		$read_more = __('Ver más', 'nova-pet');
 	}
 
 	$category = nova_pet_get_post_card_category_label($post_id);
@@ -232,11 +232,11 @@ function nova_pet_render_related_posts_section($args = array()) {
 		'count'              => 3,
 		'columns'            => 3,
 		'label'              => '',
-		'title'              => __('Related articles', 'nova-pet'),
-		'subtitle'           => __('Continue reading on veterinary nutrition and animal health', 'nova-pet'),
+		'title'              => __('Artículos relacionados', 'nova-pet'),
+		'subtitle'           => __('Continua leyendo sobre nutrición veterinaria y salud animal', 'nova-pet'),
 		'view_all_url'       => '',
-		'view_all_text'      => __('View all', 'nova-pet'),
-		'read_more_text'     => __('Read more', 'nova-pet'),
+		'view_all_text'      => __('Ver todos', 'nova-pet'),
+		'read_more_text'     => __('Ver más', 'nova-pet'),
 		'section_class'      => '',
 		'show_empty_message' => false,
 	);

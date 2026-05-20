@@ -113,7 +113,7 @@ function nova_pet_render_blog_archive_filters() {
 					href="<?php echo esc_url($blog_url); ?>"
 					<?php echo $view_all ? ' aria-current="page"' : ''; ?>
 				>
-					<?php esc_html_e('View all', 'nova-pet'); ?>
+					<?php esc_html_e('Ver todos', 'nova-pet'); ?>
 				</a>
 			</li>
 			<?php foreach ($categories as $term) : ?>
