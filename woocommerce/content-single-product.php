@@ -101,12 +101,17 @@ if (post_password_required()) {
 	</section>
 	<!-- FAQ section -->
 	<?php
-	 // if the product has a FAQ section, show it
-	 if (has_action('nova_pet_after_product_related', $product)) :
+	$product_faqs = function_exists('nova_pet_get_product_faq_items')
+		? nova_pet_get_product_faq_items($product)
+		: array();
+	$show_product_faq = function_exists('get_theme_mod')
+		? (bool) get_theme_mod('nova_pet_show_product_faq', true)
+		: true;
+	if (!empty($product_faqs) && $show_product_faq && function_exists('nova_pet_render_product_faq_section')) :
 		?>
 		<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php esc_attr_e('Product questions', 'nova-pet'); ?>">
 			<?php
-			do_action('nova_pet_after_product_related', $product);
+			nova_pet_render_product_faq_section($product);
 			?>
 		</section>
 	<?php endif; ?>

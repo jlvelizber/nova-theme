@@ -94,17 +94,17 @@ function nova_pet_single_product_accordion_sections($product) {
 	$sections = array(
 		array(
 			'id'       => 'ingredients',
-			'label'    => __('Formulation', 'nova-pet'),
+			'label'    => __('Formula', 'nova-pet'),
 			'meta_key' => 'nova_product_ingredients',
 		),
 		array(
 			'id'       => 'presentation',
-			'label'    => __('Information', 'nova-pet'),
+			'label'    => __('Presentación', 'nova-pet'),
 			'meta_key' => 'nova_product_presentation',
 		),
 		array(
 			'id'       => 'benefits',
-			'label'    => __('Support', 'nova-pet'),
+			'label'    => __('Beneficios', 'nova-pet'),
 			'meta_key' => 'nova_product_beneffits',
 		),
 	);

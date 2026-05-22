@@ -56,6 +56,12 @@ function nova_pet_normalize_faq_items($raw) {
 			return array();
 		}
 		$decoded = json_decode($raw, true);
+		if (!is_array($decoded)) {
+			$decoded = json_decode(wp_unslash($raw), true);
+		}
+		if (!is_array($decoded)) {
+			$decoded = json_decode(html_entity_decode(wp_unslash($raw), ENT_QUOTES, get_bloginfo('charset')), true);
+		}
 		$items   = is_array($decoded) ? $decoded : array();
 	} elseif (is_array($raw)) {
 		$items = $raw;
