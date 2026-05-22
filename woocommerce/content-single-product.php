@@ -89,7 +89,14 @@ if (post_password_required()) {
 	</section>
 	
 	<!-- Related products section -->
-	<?php if (function_exists('nova_pet_single_product_output_related_section')) : ?>
+	 
+	<?php 
+	
+	$related_products_section = function_exists('nova_pet_single_product_output_related_section')
+		? nova_pet_render_related_products_section()
+		: '';
+	if (!empty($related_products_section)) :
+	?>
 		<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php esc_attr_e('Related products', 'nova-pet'); ?>">
 			<div class="nova-single-product__strip-inner">
 				<?php
