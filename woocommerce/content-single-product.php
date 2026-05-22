@@ -87,18 +87,22 @@ if (post_password_required()) {
 			</div>
 		</div>
 	</section>
-
-	<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php esc_attr_e('Related products', 'nova-pet'); ?>">
-		<div class="nova-single-product__strip-inner">
-			<?php
-			/**
-			 * Upsells (WooCommerce default) then related grid (see `nova_pet_single_product_output_related_section`
-			 * in `inc/related-products-shortcode.php`, replaces `woocommerce_output_related_products`).
-			 */
-			do_action('woocommerce_after_single_product_summary');
-			?>
-		</div>
-	</section>
+	
+	<!-- Related products section -->
+	<?php if (function_exists('nova_pet_single_product_output_related_section')) : ?>
+		<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php esc_attr_e('Related products', 'nova-pet'); ?>">
+			<div class="nova-single-product__strip-inner">
+				<?php
+				/**
+				 * Upsells (WooCommerce default) then related grid (see `nova_pet_single_product_output_related_section`
+				 * in `inc/related-products-shortcode.php`, replaces `woocommerce_output_related_products`).
+				 */
+				do_action('woocommerce_after_single_product_summary');
+				?>
+			</div>
+		</section>
+	<?php endif; ?>
+	<!-- End related products section -->
 	<!-- FAQ section -->
 	<?php
 	$product_faqs = function_exists('nova_pet_get_product_faq_items')
