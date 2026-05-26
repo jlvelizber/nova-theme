@@ -8,7 +8,7 @@
  * Custom product meta (optional):
  * - `nova_pet_banner_background`: attachment ID or full `https://…` URL for card background (overrides product image).
  * - `_nova_pet_loop_pet_image_id`: attachment ID for center “pet” image.
- * - `_nova_pet_loop_tagline`: short line above title.
+ * Tagline above title: child category under parent `linea` (see `nova_pet_get_product_category_name_under_parent`).
  */
 
 defined('ABSPATH') || exit;
@@ -30,8 +30,9 @@ $bg_url = function_exists('nova_pet_get_product_shop_banner_background_url')
 	: '';
 
 $pet_image_id = (int) $product->get_meta('_nova_pet_loop_pet_image_id');
-$terms   = get_the_terms( $product->get_id(), 'product_cat' );
-$tagline      =  !empty($terms) ? reset($terms)->name : '';
+$tagline      = function_exists('nova_pet_get_product_category_name_under_parent')
+	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea')
+	: '';
 
 $short = $product->get_short_description();
 $short = $short ? wp_strip_all_tags($short) : '';
@@ -53,7 +54,6 @@ $permalink = apply_filters('woocommerce_loop_product_link', $product->get_permal
 >
 	<a class="nova-loop-banner nova-loop-banner--product-link" href="<?php echo esc_url($permalink); ?>">
 		<?php if ($bg_url) : ?>
-			<div class="nova-loop-banner__bg" style="background-image:url('<?php echo esc_url($bg_url); ?>');" aria-hidden="true"></div>
 			<div class="nova-loop-banner__bg" style="background-image:url('<?php echo esc_url($bg_url); ?>');" aria-hidden="true"></div>
 		<?php endif; ?>
 		<div class="nova-loop-banner__scrim" aria-hidden="true"></div>

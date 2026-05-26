@@ -118,6 +118,69 @@ function nova_pet_wc_product_category_slugs_under_parent($product_id, $parent_sl
 }
 
 /**
+ * Product category display name under a parent tree (e.g. línea de producto).
+ *
+ * Returns the name of the most specific assigned child category under the given
+ * parent slug. Used for the shop banner tagline.
+ *
+ * @param int         $product_id  Product post ID.
+ * @param string|null $parent_slug Parent `product_cat` slug. Defaults to the `linea` axis slug.
+ * @return string
+ */
+function nova_pet_get_product_category_name_under_parent($product_id, $parent_slug = null) {
+	$product_id = (int) $product_id;
+	if ($product_id <= 0) {
+		return '';
+	}
+
+	if (null === $parent_slug || '' === $parent_slug) {
+		$axes        = nova_pet_shop_filter_category_parent_slugs();
+		$parent_slug = isset($axes['linea']) ? $axes['linea'] : 'linea';
+	}
+
+	$parent = nova_pet_shop_filter_parent_term($parent_slug);
+	if (!$parent) {
+		return '';
+	}
+
+	$terms = get_the_terms($product_id, 'product_cat');
+	if (!$terms || is_wp_error($terms)) {
+		return '';
+	}
+
+	$parent_id  = (int) $parent->term_id;
+	$candidates = array();
+
+	foreach ($terms as $term) {
+		if ((int) $term->term_id === $parent_id) {
+			continue;
+		}
+		if (term_is_ancestor_of($parent_id, (int) $term->term_id, 'product_cat')) {
+			$candidates[] = $term;
+		}
+	}
+
+	if (empty($candidates)) {
+		return '';
+	}
+
+	if (1 === count($candidates)) {
+		return $candidates[0]->name;
+	}
+
+	usort(
+		$candidates,
+		static function ($a, $b) {
+			$depth_a = count(get_ancestors((int) $a->term_id, 'product_cat', 'taxonomy'));
+			$depth_b = count(get_ancestors((int) $b->term_id, 'product_cat', 'taxonomy'));
+			return $depth_b <=> $depth_a;
+		}
+	);
+
+	return $candidates[0]->name;
+}
+
+/**
  * Terms for filter dropdowns (all descendants of each axis parent in `product_cat`).
  *
  * @return array<string, array<int, array{slug: string, name: string}>>
