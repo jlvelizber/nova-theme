@@ -34,12 +34,13 @@ $tagline      = function_exists('nova_pet_get_product_category_name_under_parent
 	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea')
 	: '';
 
-$short = $product->get_short_description();
-$short = $short ? wp_strip_all_tags($short) : '';
-if ('' === $short) {
-	$short = wp_strip_all_tags(get_the_excerpt($product->get_id()));
-}
-$short = wp_trim_words($short, 36, '…');
+$second_line_product_category = function_exists('nova_pet_get_product_category_name_under_parent')
+	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea2')
+	: '';
+
+$species_product_category = function_exists('nova_pet_get_product_category_name_under_parent')
+	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'especie')
+	: '';
 
 $title = get_the_title();
 
@@ -82,8 +83,12 @@ $permalink = apply_filters('woocommerce_loop_product_link', $product->get_permal
 					<span class="nova-loop-banner__title-text"><?php echo esc_html($title); ?></span>
 				</h2>
 
-				<?php if ('' !== $short) : ?>
-					<p class="nova-loop-banner__excerpt"><?php echo esc_html($short); ?></p>
+				<?php if ('' !== $second_line_product_category) : ?>
+					<p class="nova-loop-banner__excerpt"><?php echo esc_html($second_line_product_category); ?></p>
+				<?php endif; ?>
+				
+				<?php if ('' !== $species_product_category) : ?>
+					<p class="nova-loop-banner__excerpt"><?php echo esc_html($species_product_category); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>
