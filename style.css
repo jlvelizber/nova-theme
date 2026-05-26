@@ -2640,12 +2640,6 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   z-index: 0;
 }
 
-.nova-loop-banner__bg--blur {
-  filter: blur(14px);
-  transform: scale(1.06);
-  opacity: 0.9;
-}
-
 .nova-loop-banner__scrim {
   position: absolute;
   inset: 0;
