@@ -76,7 +76,7 @@ a {
   --nova-footer-bg: #A7A8A9;
   --nova-footer-fg: #ffffff;
   --nova-footer-rule: rgba(255, 255, 255, 0.35);
-  --nova-border: var(--nova-border);
+  --nova-border: #e5e7eb;
 }
 
 body {
