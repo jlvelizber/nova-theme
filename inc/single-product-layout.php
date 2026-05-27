@@ -101,7 +101,7 @@ function nova_pet_render_single_product_breadcrumb($product) {
 	$shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '';
 	if ($shop_url && !is_wp_error($shop_url)) {
 		$items[] = array(
-			'label' => __('Shop', 'woocommerce'),
+			'label' => __('Productos', 'woocommerce'),
 			'url'   => $shop_url,
 		);
 	}
