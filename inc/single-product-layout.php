@@ -81,6 +81,67 @@ function nova_pet_single_product_primary_category_html($product) {
 }
 
 /**
+ * Render the single product breadcrumb using the product's category under `linea`.
+ *
+ * @param WC_Product $product Product.
+ * @return void
+ */
+function nova_pet_render_single_product_breadcrumb($product) {
+	if (!$product instanceof WC_Product) {
+		return;
+	}
+
+	$items = array(
+		array(
+			'label' => __('Home', 'woocommerce'),
+			'url'   => home_url('/'),
+		),
+	);
+
+	$shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '';
+	if ($shop_url && !is_wp_error($shop_url)) {
+		$items[] = array(
+			'label' => __('Shop', 'woocommerce'),
+			'url'   => $shop_url,
+		);
+	}
+
+	$linea_term = function_exists('nova_pet_get_product_category_term_under_parent')
+		? nova_pet_get_product_category_term_under_parent($product->get_id(), 'linea')
+		: null;
+
+	if ($linea_term instanceof WP_Term) {
+		$term_link = get_term_link($linea_term);
+		if (!is_wp_error($term_link)) {
+			$items[] = array(
+				'label' => $linea_term->name,
+				'url'   => $term_link,
+			);
+		}
+	}
+
+	$items[] = array(
+		'label' => get_the_title($product->get_id()),
+		'url'   => '',
+	);
+
+	echo '<nav class="woocommerce-breadcrumb nova-single-product__breadcrumb" aria-label="' . esc_attr__('Breadcrumb', 'woocommerce') . '">';
+	foreach ($items as $index => $item) {
+		if (0 < $index) {
+			echo ' <span class="nova-single-product__bc-delimiter" aria-hidden="true">&gt;</span> ';
+		}
+
+		if (!empty($item['url'])) {
+			echo '<a href="' . esc_url($item['url']) . '">' . esc_html($item['label']) . '</a>';
+			continue;
+		}
+
+		echo '<span aria-current="page">' . esc_html($item['label']) . '</span>';
+	}
+	echo '</nav>';
+}
+
+/**
  * Accordion sections from product meta (filterable).
  *
  * @param WC_Product $product Product.

@@ -32,13 +32,9 @@ if (post_password_required()) {
 			<div class="nova-single-product__shell">
 
 				<?php
-				woocommerce_breadcrumb(
-					array(
-						'delimiter'   => ' <span class="nova-single-product__bc-delimiter" aria-hidden="true">&gt;</span> ',
-						'wrap_before' => '<nav class="woocommerce-breadcrumb nova-single-product__breadcrumb" aria-label="' . esc_attr__('Breadcrumb', 'woocommerce') . '">',
-						'wrap_after'  => '</nav>',
-					)
-				);
+				if (function_exists('nova_pet_render_single_product_breadcrumb')) {
+					nova_pet_render_single_product_breadcrumb($product);
+				}
 				?>
 
 				<div class="nova-single-product__gallery-wrap">

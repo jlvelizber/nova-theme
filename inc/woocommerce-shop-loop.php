@@ -118,19 +118,18 @@ function nova_pet_wc_product_category_slugs_under_parent($product_id, $parent_sl
 }
 
 /**
- * Product category display name under a parent tree (e.g. línea de producto).
+ * Product category term under a parent tree (e.g. línea de producto).
  *
- * Returns the name of the most specific assigned child category under the given
- * parent slug. Used for the shop banner tagline.
+ * Returns the most specific assigned child category under the given parent slug.
  *
  * @param int         $product_id  Product post ID.
  * @param string|null $parent_slug Parent `product_cat` slug. Defaults to the `linea` axis slug.
- * @return string
+ * @return WP_Term|null
  */
-function nova_pet_get_product_category_name_under_parent($product_id, $parent_slug = null) {
+function nova_pet_get_product_category_term_under_parent($product_id, $parent_slug = null) {
 	$product_id = (int) $product_id;
 	if ($product_id <= 0) {
-		return '';
+		return null;
 	}
 
 	if (null === $parent_slug || '' === $parent_slug) {
@@ -140,12 +139,12 @@ function nova_pet_get_product_category_name_under_parent($product_id, $parent_sl
 
 	$parent = nova_pet_shop_filter_parent_term($parent_slug);
 	if (!$parent) {
-		return '';
+		return null;
 	}
 
 	$terms = get_the_terms($product_id, 'product_cat');
 	if (!$terms || is_wp_error($terms)) {
-		return '';
+		return null;
 	}
 
 	$parent_id  = (int) $parent->term_id;
@@ -161,11 +160,11 @@ function nova_pet_get_product_category_name_under_parent($product_id, $parent_sl
 	}
 
 	if (empty($candidates)) {
-		return '';
+		return null;
 	}
 
 	if (1 === count($candidates)) {
-		return $candidates[0]->name;
+		return $candidates[0];
 	}
 
 	usort(
@@ -177,7 +176,19 @@ function nova_pet_get_product_category_name_under_parent($product_id, $parent_sl
 		}
 	);
 
-	return $candidates[0]->name;
+	return $candidates[0];
+}
+
+/**
+ * Product category display name under a parent tree (e.g. línea de producto).
+ *
+ * @param int         $product_id  Product post ID.
+ * @param string|null $parent_slug Parent `product_cat` slug. Defaults to the `linea` axis slug.
+ * @return string
+ */
+function nova_pet_get_product_category_name_under_parent($product_id, $parent_slug = null) {
+	$term = nova_pet_get_product_category_term_under_parent($product_id, $parent_slug);
+	return $term instanceof WP_Term ? $term->name : '';
 }
 
 /**
