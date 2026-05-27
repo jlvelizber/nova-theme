@@ -298,6 +298,21 @@ function nova_pet_shop_loop_assets() {
 add_action('wp_enqueue_scripts', 'nova_pet_shop_loop_assets', 20);
 
 /**
+ * Show every product in the custom shop loop so client-side filters can see the full catalog.
+ *
+ * @param WP_Query $query WooCommerce product query.
+ * @return void
+ */
+function nova_pet_shop_loop_show_all_products($query) {
+	if (!nova_pet_is_shop_loop_context()) {
+		return;
+	}
+
+	$query->set('posts_per_page', -1);
+}
+add_action('woocommerce_product_query', 'nova_pet_shop_loop_show_all_products', 20);
+
+/**
  * Single column banner loop.
  *
  * @param int $cols Columns.
