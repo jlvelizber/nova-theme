@@ -2624,7 +2624,15 @@ a.nova-menu-link:focus-visible {
   border-radius: 22px;
   overflow: hidden;
   min-height: 260px;
-  border: 1px solid var(--nova-accent-lime);
+  border: 1px solid var(--nova-border);
+}
+
+.nova-loop-banner:hover,
+.nova-loop-banner:focus-visible {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  outline: none;
+  
 }
 
 a.nova-loop-banner--product-link {
