@@ -57,8 +57,7 @@ $permalink = apply_filters('woocommerce_loop_product_link', $product->get_permal
 		<?php if ($bg_url) : ?>
 			<div class="nova-loop-banner__bg" style="background-image:url('<?php echo esc_url($bg_url); ?>');" aria-hidden="true"></div>
 		<?php endif; ?>
-		<div class="nova-loop-banner__scrim" aria-hidden="true"></div>
-
+		
 		<div class="nova-loop-banner__inner">
 			<div class="nova-loop-banner__pack">
 				<span class="nova-loop-banner__pack-frame">
