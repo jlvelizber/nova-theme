@@ -88,20 +88,24 @@ if (post_password_required()) {
 	 
 	<?php 
 	
-	$related_products_section = function_exists('nova_pet_single_product_output_related_section')
-		? nova_pet_render_related_products_section()
+	$related_products_section = function_exists('nova_pet_render_related_products_section')
+		? nova_pet_render_related_products_section(
+			array(
+				'count'              => apply_filters('nova_pet_single_related_count', 3, $product),
+				'columns'            => 3,
+				'product_id'         => $product->get_id(),
+				'title'              => __('También te puede interesar', 'nova-pet'),
+				'section_class'      => 'nova-related-products--single-strip',
+				'filter_by_category' => 'linea',
+				'show_empty_message' => false,
+			)
+		)
 		: '';
 	if (!empty($related_products_section)) :
 	?>
 		<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php esc_attr_e('Related products', 'nova-pet'); ?>">
 			<div class="nova-single-product__strip-inner">
-				<?php
-				/**
-				 * Upsells (WooCommerce default) then related grid (see `nova_pet_single_product_output_related_section`
-				 * in `inc/related-products-shortcode.php`, replaces `woocommerce_output_related_products`).
-				 */
-				do_action('woocommerce_after_single_product_summary');
-				?>
+				<?php echo $related_products_section; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 		</section>
 	<?php endif; ?>
