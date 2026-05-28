@@ -2649,10 +2649,6 @@ a.nova-loop-banner--product-link:focus-visible {
   outline-offset: 3px;
 }
 
-a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
-  text-decoration: underline;
-}
-
 .nova-loop-banner__bg {
   position: absolute;
   inset: 0;
@@ -2752,6 +2748,7 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   margin: 0 0 0.55rem;
+  text-align: left;
 }
 
 .nova-loop-banner__title-text {
@@ -2767,6 +2764,7 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 }
 
 .nova-loop-banner__type {
+  text-align: left;
   margin: 0;
   color: #fff;
   font-size: clamp(1rem, 2vw, 1.45rem);
