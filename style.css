@@ -3276,6 +3276,11 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   color: #4b5563;
 }
 
+.nova-product-accordion__content ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
 .nova-product-accordion__content p:last-child {
   margin-bottom: 0;
 }
