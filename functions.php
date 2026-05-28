@@ -213,21 +213,38 @@ function nova_pet_render_product_lines($args = array()) {
 	}
 
 	$defaults = array(
-		'limit'   => 4,
-		'columns' => 4,
-		'title'   => esc_html__('', 'nova-pet'),
+		'limit'        => 4,
+		'columns'      => 4,
+		'title'        => esc_html__('', 'nova-pet'),
+		'product_ids'  => array(),
 	);
 
 	$args = wp_parse_args($args, $defaults);
 
-	$query = new WP_Query(
-		array(
-			'post_type'           => 'product',
-			'post_status'         => 'publish',
-			'posts_per_page'      => absint($args['limit']),
-			'ignore_sticky_posts' => true,
+	$product_ids = is_array($args['product_ids']) ? $args['product_ids'] : array();
+	$product_ids = array_values(
+		array_unique(
+			array_filter(
+				array_map('absint', $product_ids)
+			)
 		)
 	);
+
+	$query_args = array(
+		'post_type'           => 'product',
+		'post_status'         => 'publish',
+		'ignore_sticky_posts' => true,
+	);
+
+	if (!empty($product_ids)) {
+		$query_args['post__in']       = $product_ids;
+		$query_args['orderby']        = 'post__in';
+		$query_args['posts_per_page'] = count($product_ids);
+	} else {
+		$query_args['posts_per_page'] = absint($args['limit']);
+	}
+
+	$query = new WP_Query($query_args);
 
 	ob_start();
 	?>
@@ -299,6 +316,7 @@ function nova_pet_render_product_lines($args = array()) {
  * Product lines shortcode.
  *
  * Usage: [nova_product_lines limit="4" columns="4" title="Our Product Lines"]
+ *        [nova_product_lines ids="12,34,56"] or product_ids="12,34,56"
  *
  * @param array $atts Shortcode attributes.
  * @return string
@@ -306,15 +324,31 @@ function nova_pet_render_product_lines($args = array()) {
 function nova_pet_product_lines_shortcode($atts) {
 	$atts = shortcode_atts(
 		array(
-			'limit'   => 4,
-			'columns' => 4,
-			'title'   => esc_html__('', 'nova-pet'),
+			'limit'        => 4,
+			'columns'      => 4,
+			'title'        => esc_html__('', 'nova-pet'),
+			'product_ids'  => '',
+			'ids'          => '',
 		),
 		$atts,
 		'nova_product_lines'
 	);
 
-	return nova_pet_render_product_lines($atts);
+	$ids_raw = '' !== trim((string) $atts['ids']) ? (string) $atts['ids'] : (string) $atts['product_ids'];
+	$product_ids = array();
+	if ('' !== trim($ids_raw)) {
+		$product_ids = array_map('absint', array_map('trim', explode(',', $ids_raw)));
+		$product_ids = array_values(array_filter($product_ids));
+	}
+
+	return nova_pet_render_product_lines(
+		array(
+			'limit'       => absint($atts['limit']),
+			'columns'     => absint($atts['columns']),
+			'title'       => (string) $atts['title'],
+			'product_ids' => $product_ids,
+		)
+	);
 }
 add_shortcode('nova_product_lines', 'nova_pet_product_lines_shortcode');
 
