@@ -2722,17 +2722,26 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
 }
 
 .nova-loop-banner__tagline {
-  font-size: 0.8125rem;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 0.85rem;
+  padding: 0.25rem 0.75rem;
+  color: #111827;
+  font-size: clamp(1rem, 2vw, 1.45rem);
   font-weight: 500;
-  margin-bottom: 0.5rem;
-  opacity: 0.95;
+  line-height: 1.05;
+  text-align: center;
+  text-shadow: none;
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .nova-loop-banner__title {
-  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 0.65rem;
+  font-size: clamp(2.6rem, 7.25vw, 5rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem;
 }
 
 .nova-loop-banner__title-text {
@@ -2745,6 +2754,22 @@ a.nova-loop-banner--product-link:hover .nova-loop-banner__title-text {
   margin: 0;
   opacity: 0.92;
   max-width: 42ch;
+}
+
+.nova-loop-banner__type {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.nova-loop-banner__type--animal-species {
+  margin-top: 0.75rem;
+  font-size: clamp(1rem, 2.1vw, 1.55rem);
+  font-weight: 400;
 }
 
 @media (max-width: 782px) {

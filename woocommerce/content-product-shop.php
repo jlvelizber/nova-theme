@@ -8,7 +8,9 @@
  * Custom product meta (optional):
  * - `nova_pet_banner_background`: attachment ID or full `https://…` URL for card background (overrides product image).
  * - `_nova_pet_loop_pet_image_id`: attachment ID for center “pet” image.
- * Tagline above title: child category under parent `linea` (see `nova_pet_get_product_category_name_under_parent`).
+ * - `nova_product_custom_line`: support/type line below title.
+ * - `nova_custom_animal_species`: animal species line below title.
+ * Top label above title: child category under parent `linea` (see `nova_pet_get_product_category_name_under_parent`).
  */
 
 defined('ABSPATH') || exit;
@@ -34,13 +36,8 @@ $tagline      = function_exists('nova_pet_get_product_category_name_under_parent
 	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea')
 	: '';
 
-$second_line_product_category = function_exists('nova_pet_get_product_category_name_under_parent')
-	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea2')
-	: '';
-
-$species_product_category = function_exists('nova_pet_get_product_category_name_under_parent')
-	? nova_pet_get_product_category_name_under_parent($product->get_id(), 'especie')
-	: '';
+$custom_line            = trim((string) $product->get_meta('nova_product_custom_line', true));
+$custom_animal_species  = trim((string) $product->get_meta('nova_custom_animal_species', true));
 
 $title = get_the_title();
 
@@ -82,12 +79,12 @@ $permalink = apply_filters('woocommerce_loop_product_link', $product->get_permal
 					<span class="nova-loop-banner__title-text"><?php echo esc_html($title); ?></span>
 				</h2>
 
-				<?php if ('' !== $second_line_product_category) : ?>
-					<p class="nova-loop-banner__excerpt"><?php echo esc_html($second_line_product_category); ?></p>
+				<?php if ('' !== $custom_line) : ?>
+					<p class="nova-loop-banner__type nova-loop-banner__type--custom-line"><?php echo esc_html($custom_line); ?></p>
 				<?php endif; ?>
 				
-				<?php if ('' !== $species_product_category) : ?>
-					<p class="nova-loop-banner__excerpt"><?php echo esc_html($species_product_category); ?></p>
+				<?php if ('' !== $custom_animal_species) : ?>
+					<p class="nova-loop-banner__type nova-loop-banner__type--animal-species"><?php echo esc_html($custom_animal_species); ?></p>
 				<?php endif; ?>
 			</div>
 		</div>
