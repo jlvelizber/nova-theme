@@ -2719,7 +2719,7 @@ a.nova-loop-banner--product-link:focus-visible {
 .nova-loop-banner__copy {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 51%;
   width: min(42vw, 420px);
   transform: translate(-50%, -50%);
   color: #fff;
