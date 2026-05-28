@@ -138,9 +138,12 @@ if (function_exists('wc_get_page_id')) {
 					/* translators: 1: year, 2: site name */
 					esc_html__('© %1$s %2$s. Todos los derechos reservados.', 'nova-pet'),
 					esc_html(gmdate('Y')),
-					esc_html($blog_name ? $blog_name : 'NOVA Pet Care')
+					esc_html($blog_name ? $blog_name : 'NOVA Pet Care'),
+					esc_html_e('Powered by', 'nova-pet'),
+					'<a href="https://www.jorgeveliz.dev" target="_blank">Jorge Veliz</a>'
 				);
 				?>
+				<?php esc_html_e('Powered by', 'nova-pet'); ?> <a href="https://www.jorgeveliz.dev" target="_blank">Jorge Veliz</a>
 			</p>
 			<?php if (has_nav_menu('footer-legal')): ?>
 				<nav class="footer-legal-nav" aria-label="<?php esc_attr_e('Legal', 'nova-pet'); ?>">
