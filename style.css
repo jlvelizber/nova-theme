@@ -2749,7 +2749,7 @@ a.nova-loop-banner--product-link:focus-visible {
 }
 
 .nova-loop-banner__title {
-  font-size: clamp(2.15rem, 4.9vw, 3.9rem);
+  font-size: clamp(2.15rem, 4.9vw, 3.0rem);
   font-weight: 300;
   line-height: 0.92;
   letter-spacing: 0.1em;
