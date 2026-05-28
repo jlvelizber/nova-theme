@@ -2738,7 +2738,14 @@ a.nova-loop-banner--product-link:focus-visible {
   line-height: 1.05;
   text-align: center;
   text-shadow: none;
-  background: rgba(255, 255, 255, 0.86);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.82) 28%,
+    rgba(255, 255, 255, 0.92) 50%,
+    rgba(255, 255, 255, 0.82) 72%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 .nova-loop-banner__title {
