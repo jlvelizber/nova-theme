@@ -55,19 +55,19 @@ add_action('wp', 'nova_pet_single_product_layout_wp', 5);
  * Primary product category label (first term), linked.
  *
  * @param WC_Product $product Product.
+ * @param string $parent_slug Parent category slug.
  * @return string HTML safe string (empty if none).
  */
-function nova_pet_single_product_primary_category_html($product) {
+function nova_pet_single_product_primary_category_html($product, $parent_slug = 'linea') {
 	if (!$product instanceof WC_Product) {
 		return '';
 	}
 
-	$terms = get_the_terms($product->get_id(), 'product_cat');
-	if (!$terms || is_wp_error($terms)) {
-		return '';
+	if (empty($parent_slug)) {
+		$parent_slug = 'linea';
 	}
 
-	$term = reset($terms);
+	$term = nova_pet_get_product_category_term_under_parent($product->get_id(), $parent_slug);
 	if (!$term instanceof WP_Term) {
 		return '';
 	}
