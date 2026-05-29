@@ -265,6 +265,10 @@ function nova_pet_render_product_lines($args = array()) {
 						global $product;
 
 						$short_desc = '';
+						$category = '';
+						if ($product instanceof WC_Product && function_exists('nova_pet_get_product_category_name_under_parent')) {
+							$category = nova_pet_get_product_category_name_under_parent($product->get_id(), 'linea');
+						}
 						if ($product instanceof WC_Product && $product->get_short_description()) {
 							$short_desc = wp_trim_words(wp_strip_all_tags($product->get_short_description()), 22);
 						}
@@ -281,6 +285,9 @@ function nova_pet_render_product_lines($args = array()) {
 								<div class="nova-product-card__inner">
 									<div class="nova-product-card__text">
 										<h3 class="nova-product-title"><?php the_title(); ?></h3>
+										<?php if ('' !== $category) : ?>
+											<p class="nova-product-line"><?php echo esc_html($category); ?></p>
+										<?php endif; ?>
 										<?php if ('' !== $short_desc) : ?>
 											<p class="nova-product-desc"><?php echo esc_html($short_desc); ?></p>
 										<?php endif; ?>
