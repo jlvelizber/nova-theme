@@ -202,6 +202,53 @@ function nova_pet_register_elementor_locations($elementor_theme_manager) {
 add_action('elementor/theme/register_locations', 'nova_pet_register_elementor_locations');
 
 /**
+ * Required plugin status for this theme.
+ *
+ * @return array<string, string> Plugin labels keyed by requirement slug.
+ */
+function nova_pet_missing_required_plugins() {
+	$missing = array();
+
+	if (!class_exists('WooCommerce')) {
+		$missing['woocommerce'] = 'WooCommerce';
+	}
+
+	if (!function_exists('pll_home_url')) {
+		$missing['polylang'] = 'Polylang';
+	}
+
+	return $missing;
+}
+
+/**
+ * Admin notice for required plugins.
+ *
+ * @return void
+ */
+function nova_pet_required_plugins_admin_notice() {
+	if (!current_user_can('activate_plugins')) {
+		return;
+	}
+
+	$missing = nova_pet_missing_required_plugins();
+	if (empty($missing)) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-error"><p>%s</p></div>',
+		esc_html(
+			sprintf(
+				/* translators: %s: comma-separated plugin names. */
+				__('Nova Pet requiere los siguientes plugins activos para funcionar correctamente: %s.', 'nova-pet'),
+				implode(', ', $missing)
+			)
+		)
+	);
+}
+add_action('admin_notices', 'nova_pet_required_plugins_admin_notice');
+
+/**
  * Polylang home URL for header language switcher (see header.php filters).
  *
  * @param string $slug Language slug (e.g. es, en).
