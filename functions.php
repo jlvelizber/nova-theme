@@ -202,6 +202,44 @@ function nova_pet_register_elementor_locations($elementor_theme_manager) {
 add_action('elementor/theme/register_locations', 'nova_pet_register_elementor_locations');
 
 /**
+ * Polylang home URL for header language switcher (see header.php filters).
+ *
+ * @param string $slug Language slug (e.g. es, en).
+ * @param string $fallback URL if Polylang is unavailable.
+ * @return string
+ */
+function nova_pet_polylang_home_url($slug, $fallback) {
+	if (!function_exists('pll_home_url')) {
+		return $fallback;
+	}
+
+	$url = pll_home_url($slug);
+	if (!is_string($url) || '' === $url) {
+		return $fallback;
+	}
+
+	return $url;
+}
+
+/**
+ * @param string $url Default URL from header.php.
+ * @return string
+ */
+function nova_pet_filter_lang_es_url($url) {
+	return nova_pet_polylang_home_url('es', $url);
+}
+add_filter('nova_pet_lang_es_url', 'nova_pet_filter_lang_es_url');
+
+/**
+ * @param string $url Default URL from header.php.
+ * @return string
+ */
+function nova_pet_filter_lang_en_url($url) {
+	return nova_pet_polylang_home_url('en', $url);
+}
+add_filter('nova_pet_lang_en_url', 'nova_pet_filter_lang_en_url');
+
+/**
  * Render product line cards.
  *
  * @param array $args Product query arguments.
