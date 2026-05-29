@@ -286,7 +286,7 @@ function nova_pet_render_product_lines($args = array()) {
 									<div class="nova-product-card__text">
 										<h3 class="nova-product-title"><?php the_title(); ?></h3>
 										<?php if ('' !== $category) : ?>
-											<p class="nova-product-line"><?php echo esc_html($category); ?></p>
+											<p class="nova-product-line-name"><?php echo esc_html($category); ?></p>
 										<?php endif; ?>
 										<?php if ('' !== $short_desc) : ?>
 											<p class="nova-product-desc"><?php echo esc_html($short_desc); ?></p>

@@ -1842,6 +1842,13 @@ a.nova-menu-link:focus-visible {
   color: #111111;
 }
 
+.nova-product-line-name {
+  margin: 0 0 1rem;
+  font-size: 0.8375rem;
+  font-weight: 400;
+  line-height: 1.55;
+  color: #111111;
+}
 .nova-product-desc {
   margin: 0 0 1rem;
   font-size: 0.9375rem;
