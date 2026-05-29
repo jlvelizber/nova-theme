@@ -1652,7 +1652,7 @@ a.nova-menu-link:focus-visible {
 
 /* Horizontal: image left, copy right */
 .nova-card--split {
-  min-height: clamp(19rem, 32vw, 25rem);
+  min-height: clamp(19rem, 32vw, 19rem);
 }
 
 .nova-card--split .nova-card__link {
