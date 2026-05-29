@@ -1528,11 +1528,11 @@ a.nova-menu-link:focus-visible {
   height: 100%!important;
   object-fit: cover!important;
   display: block;
-  object-position: right center!important;
+  object-position: center center!important;
 }
 
 .nova-card__body {
-  padding: clamp(1.25rem, 3vw, 1rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -1651,15 +1651,25 @@ a.nova-menu-link:focus-visible {
 }
 
 /* Horizontal: image left, copy right */
+.nova-card--split {
+  min-height: clamp(19rem, 32vw, 25rem);
+}
+
 .nova-card--split .nova-card__link {
   flex-direction: row;
   align-items: stretch;
+  min-height: inherit;
 }
 
 .nova-card--split .nova-card__media {
   flex: 0 0 50%;
   max-width: 50%;
   min-height: 8rem;
+}
+
+.nova-card--split .nova-card__img {
+  position: absolute;
+  inset: 0;
 }
 
 .nova-card--split .nova-card__body {
