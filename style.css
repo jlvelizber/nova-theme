@@ -359,11 +359,11 @@ body.nova-post-detail .site-main {
   margin-block: 1.5rem;
 }
 
-body:not(.elementor-page) .site-main.site-container {
+body.page:not(.elementor-page) .site-main.site-container {
   padding-block: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-body:not(.elementor-page) .site-main.site-container > article {
+body.page:not(.elementor-page) .site-main.site-container > article {
   max-width: 54rem;
   margin-inline: auto;
   padding: clamp(1.75rem, 4vw, 3.25rem);
@@ -373,7 +373,7 @@ body:not(.elementor-page) .site-main.site-container > article {
   box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
 }
 
-body:not(.elementor-page) .entry-title {
+body.page:not(.elementor-page) .entry-title {
   margin: 0 0 1.25rem;
   font-size: clamp(1.85rem, 4vw, 2.75rem);
   line-height: 1.1;
@@ -381,20 +381,20 @@ body:not(.elementor-page) .entry-title {
   color: #111827;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content {
   font-size: clamp(1rem, 1.4vw, 1.075rem);
   line-height: 1.8;
   color: #374151;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content > *:first-child {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content > *:first-child {
   margin-top: 0;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h1,
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h2,
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h3,
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h4 {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h1,
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h2,
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h3,
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h4 {
   margin-top: clamp(1.5rem, 4vw, 2.5rem);
   margin-bottom: 0.75rem;
   color: #111827;
@@ -402,33 +402,33 @@ body:not(.elementor-page) .site-main.site-container > article > .entry-content h
   letter-spacing: -0.02em;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h1 {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h1 {
   font-size: clamp(1.85rem, 4vw, 2.75rem);
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h2 {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h2 {
   font-size: clamp(1.45rem, 3vw, 2rem);
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content h3 {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content h3 {
   font-size: clamp(1.2rem, 2.2vw, 1.55rem);
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content p {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content p {
   margin-bottom: 1.15rem;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content ul,
-body:not(.elementor-page) .site-main.site-container > article > .entry-content ol {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content ul,
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content ol {
   margin: 0 0 1.35rem 1.35rem;
   padding-left: 0.5rem;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content li {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content li {
   margin-bottom: 0.45rem;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content a {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content a {
   color: #1f2937;
   font-weight: 600;
   text-decoration: underline;
@@ -436,7 +436,7 @@ body:not(.elementor-page) .site-main.site-container > article > .entry-content a
   text-underline-offset: 0.18em;
 }
 
-body:not(.elementor-page) .site-main.site-container > article > .entry-content blockquote {
+body.page:not(.elementor-page) .site-main.site-container > article > .entry-content blockquote {
   margin: clamp(1.75rem, 4vw, 2.5rem) 0;
   padding: 1.25rem 1.5rem;
   border-left: 4px solid #c8e632;

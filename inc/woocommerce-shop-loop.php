@@ -48,6 +48,49 @@ function nova_pet_is_shop_loop_context() {
 }
 
 /**
+ * Active language slug used by category-axis helpers.
+ *
+ * @return string
+ */
+function nova_pet_current_language_slug() {
+	if (function_exists('pll_current_language')) {
+		$lang = pll_current_language('slug');
+		if (is_string($lang) && '' !== $lang) {
+			return strtolower($lang);
+		}
+	}
+
+	$locale = function_exists('determine_locale') ? determine_locale() : get_locale();
+	return is_string($locale) ? strtolower(substr($locale, 0, 2)) : 'es';
+}
+
+/**
+ * Product category parent slug map by language.
+ *
+ * Keys (`pais`, `especie`, `linea`) are stable theme axes. Values are the
+ * actual parent `product_cat` slugs for the active language.
+ *
+ * @return array<string, array<string, string>>
+ */
+function nova_pet_shop_filter_category_parent_slug_maps() {
+	return apply_filters(
+		'nova_pet_shop_filter_category_parent_slug_maps',
+		array(
+			'es' => array(
+				'pais'    => 'pais',
+				'especie' => 'especie',
+				'linea'   => 'linea',
+			),
+			'en' => array(
+				'pais'    => 'country',
+				'especie' => 'specie',
+				'linea'   => 'line',
+			),
+		)
+	);
+}
+
+/**
  * Map each filter axis to the slug of its parent product category (`product_cat`).
  * Create three parent categories (e.g. País, Especie, Linea) and assign products to
  * child categories under the correct tree.
@@ -55,13 +98,73 @@ function nova_pet_is_shop_loop_context() {
  * @return array<string, string> Keys: pais, especie, linea. Values: parent category slug.
  */
 function nova_pet_shop_filter_category_parent_slugs() {
+	$lang = nova_pet_current_language_slug();
+	$maps = nova_pet_shop_filter_category_parent_slug_maps();
+
+	$slugs = isset($maps[$lang]) ? $maps[$lang] : array();
+	if (empty($slugs) && false !== strpos($lang, '_')) {
+		$lang  = substr($lang, 0, 2);
+		$slugs = isset($maps[$lang]) ? $maps[$lang] : array();
+	}
+	if (empty($slugs)) {
+		$slugs = isset($maps['es']) ? $maps['es'] : array();
+	}
+
 	return apply_filters(
 		'nova_pet_shop_filter_category_parent_slugs',
-		array(
-			'pais'    => 'pais',
-			'especie' => 'especie',
-			'linea'   => 'linea',
-		)
+		$slugs,
+		$lang,
+		$maps
+	);
+}
+
+/**
+ * Resolve a canonical axis key or parent slug to the active-language parent slug.
+ *
+ * @param string $parent_slug Canonical axis (`linea`, `especie`, `pais`) or raw slug.
+ * @return string
+ */
+function nova_pet_resolve_shop_filter_parent_slug($parent_slug) {
+	$parent_slug = sanitize_title((string) $parent_slug);
+	if ('' === $parent_slug) {
+		return '';
+	}
+
+	$axes = nova_pet_shop_filter_category_parent_slugs();
+	if (isset($axes[$parent_slug])) {
+		return $axes[$parent_slug];
+	}
+
+	return $parent_slug;
+}
+
+/**
+ * Filter axis labels by active language.
+ *
+ * @return array<string, string>
+ */
+function nova_pet_shop_filter_axis_labels() {
+	$lang = nova_pet_current_language_slug();
+	$lang = substr($lang, 0, 2);
+
+	$labels = array(
+		'es' => array(
+			'pais'    => __('País', 'nova-pet'),
+			'especie' => __('Especie', 'nova-pet'),
+			'linea'   => __('Línea', 'nova-pet'),
+		),
+		'en' => array(
+			'pais'    => __('Country', 'nova-pet'),
+			'especie' => __('Specie', 'nova-pet'),
+			'linea'   => __('Line', 'nova-pet'),
+		),
+	);
+
+	return apply_filters(
+		'nova_pet_shop_filter_axis_labels',
+		isset($labels[$lang]) ? $labels[$lang] : $labels['es'],
+		$lang,
+		$labels
 	);
 }
 
@@ -76,9 +179,13 @@ function nova_pet_shop_filter_parent_term($parent_slug) {
 		return null;
 	}
 
-	$term = get_term_by('slug', $parent_slug, 'product_cat');
+	$resolved_slug = nova_pet_resolve_shop_filter_parent_slug($parent_slug);
+	$term          = get_term_by('slug', $resolved_slug, 'product_cat');
 	if (!$term || is_wp_error($term)) {
-		return null;
+		$term = get_term_by('slug', $parent_slug, 'product_cat');
+		if (!$term || is_wp_error($term)) {
+			return null;
+		}
 	}
 
 	return $term;
@@ -353,12 +460,7 @@ function nova_pet_shop_output_filter_bar() {
 
 	$axes    = nova_pet_shop_filter_category_parent_slugs();
 	$options = nova_pet_shop_filter_term_options();
-
-	$labels = array(
-		'pais'    => __('País', 'nova-pet'),
-		'especie' => __('Especie', 'nova-pet'),
-		'linea'   => __('Linea', 'nova-pet'),
-	);
+	$labels  = nova_pet_shop_filter_axis_labels();
 
 	?>
 	<div class="nova-shop-filters" data-nova-shop-filters>
