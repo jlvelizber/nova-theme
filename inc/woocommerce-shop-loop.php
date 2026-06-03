@@ -83,7 +83,7 @@ function nova_pet_shop_filter_category_parent_slug_maps() {
 			),
 			'en' => array(
 				'pais'    => 'country',
-				'especie' => 'specie',
+				'especie' => 'species',
 				'linea'   => 'line',
 			),
 		)
