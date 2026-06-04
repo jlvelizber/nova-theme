@@ -105,6 +105,7 @@ if (function_exists('wc_get_page_id')) {
 
 			<div class="footer-col footer-col--company">
 				<?php if (has_nav_menu('footer-company')): ?>
+					<h3 class="footer-widget-title"><?php esc_html_e('Nosotros', 'nova-pet'); ?></h3>
 					<?php wp_nav_menu(array(
 						'theme_location' => 'footer-company',
 						'menu_id' => 'footer-company-menu',
