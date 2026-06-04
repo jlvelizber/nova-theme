@@ -588,12 +588,19 @@ class Nova_Pet_Faq_Section_Widget extends WP_Widget {
 		if (!empty($instance['items_json'])) {
 			$items = nova_pet_normalize_faq_items($instance['items_json']);
 		}
+		if (function_exists('nova_pet_polylang_translate_faq_items')) {
+			$items = nova_pet_polylang_translate_faq_items($items);
+		}
 
 		$pid = !empty($instance['product_id']) ? absint($instance['product_id']) : 0;
 		if ($pid && function_exists('wc_get_product')) {
 			$product = wc_get_product($pid);
 			if ($product instanceof WC_Product) {
-				$items = array_merge($items, nova_pet_get_product_faq_items($product));
+				$product_items = nova_pet_get_product_faq_items($product);
+				if (function_exists('nova_pet_polylang_translate_faq_items')) {
+					$product_items = nova_pet_polylang_translate_faq_items($product_items);
+				}
+				$items = array_merge($items, $product_items);
 			}
 		}
 

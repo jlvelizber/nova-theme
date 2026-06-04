@@ -18,6 +18,7 @@ require_once get_template_directory() . '/inc/blog-archive.php';
 require_once get_template_directory() . '/inc/customizer.php';
 require_once get_template_directory() . '/inc/single-product-layout.php';
 require_once get_template_directory() . '/inc/related-products-shortcode.php';
+require_once get_template_directory() . '/inc/polylang-widgets.php';
 require_once get_template_directory() . '/inc/product-faq-section.php';
 require_once get_template_directory() . '/inc/woocommerce-shop-loop.php';
 
