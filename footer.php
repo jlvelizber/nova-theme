@@ -104,7 +104,7 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--company">
-				<?php if (is_active_nav_menu('footer-company')): ?>
+				<?php if (has_nav_menu('footer-company')): ?>
 					<?php wp_nav_menu(array(
 						'theme_location' => 'footer-company',
 						'menu_id' => 'footer-company-menu',
