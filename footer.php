@@ -104,8 +104,15 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--company">
-				<?php if (is_active_sidebar('footer-company')): ?>
-					<?php dynamic_sidebar('footer-company'); ?>
+				<?php if (is_active_nav_menu('footer-company')): ?>
+					<?php wp_nav_menu(array(
+						'theme_location' => 'footer-company',
+						'menu_id' => 'footer-company-menu',
+						'menu_class' => 'footer-menu footer-link-list',
+						'container' => false,
+						'depth' => 1,
+						'fallback_cb' => false,
+					)); ?>
 				<?php else: ?>
 					<div class="footer-fallback footer-fallback--company">
 						<h3 class="footer-widget-title"><?php echo esc_html($blog_name ? $blog_name : 'NOVA'); ?></h3>
