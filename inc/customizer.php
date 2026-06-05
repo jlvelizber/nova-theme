@@ -520,11 +520,11 @@ add_filter(
 	function ($headings) {
 		$t = get_theme_mod('nova_pet_blog_archive_title');
 		if (is_string($t) && '' !== trim($t)) {
-			$headings['title'] = $t;
+			$headings['title'] = nova_pet_translate_theme_string($t, 'Customizer: blog archive title', false, 'Nova Pet Customizer');
 		}
 		$s = get_theme_mod('nova_pet_blog_archive_subtitle');
 		if (is_string($s) && '' !== trim($s)) {
-			$headings['subtitle'] = $s;
+			$headings['subtitle'] = nova_pet_translate_theme_string($s, 'Customizer: blog archive subtitle', true, 'Nova Pet Customizer');
 		}
 		return $headings;
 	}
@@ -552,11 +552,11 @@ add_filter(
 	function ($data) {
 		$t = get_theme_mod('nova_pet_blog_hero_title_override');
 		if (is_string($t) && '' !== trim($t)) {
-			$data['title'] = $t;
+			$data['title'] = nova_pet_translate_theme_string($t, 'Customizer: blog hero title override', false, 'Nova Pet Customizer');
 		}
 		$d = get_theme_mod('nova_pet_blog_hero_subtitle_override');
 		if (is_string($d) && '' !== trim($d)) {
-			$data['deck'] = $d;
+			$data['deck'] = nova_pet_translate_theme_string($d, 'Customizer: blog hero subtitle override', true, 'Nova Pet Customizer');
 		}
 		$img = get_theme_mod('nova_pet_blog_hero_image_url');
 		if (is_string($img) && '' !== trim($img)) {
@@ -622,11 +622,11 @@ add_filter(
 		unset($_product);
 		$t = get_theme_mod('nova_pet_product_faq_title');
 		if (is_string($t) && '' !== trim($t)) {
-			$defaults['title'] = $t;
+			$defaults['title'] = nova_pet_translate_theme_string($t, 'Customizer: product FAQ title', false, 'Nova Pet Customizer');
 		}
 		$s = get_theme_mod('nova_pet_product_faq_subtitle');
 		if (is_string($s) && '' !== trim($s)) {
-			$defaults['subtitle'] = $s;
+			$defaults['subtitle'] = nova_pet_translate_theme_string($s, 'Customizer: product FAQ subtitle', true, 'Nova Pet Customizer');
 		}
 		return $defaults;
 	},

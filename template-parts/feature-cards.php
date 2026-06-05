@@ -15,7 +15,7 @@ if (function_exists('nova_pet_feature_cards_apply_grid_layout')) {
 
 $split_row = 0;
 ?>
-<section class="nova-feature-cards" aria-label="<?php esc_attr_e('Highlights', 'nova-pet'); ?>">
+<section class="nova-feature-cards" aria-label="<?php echo nova_pet_translate_theme_string_attr('Highlights', 'Feature cards: aria label'); ?>">
 	<div class="site-container nova-feature-cards__inner">
 		<div class="nova-feature-cards__grid<?php echo nova_pet_feature_cards_grid_has_lead($cards) ? '' : ' nova-feature-cards__grid--flat'; ?>">
 			<?php foreach ($cards as $card) : ?>

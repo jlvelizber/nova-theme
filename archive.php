@@ -37,7 +37,7 @@ if (function_exists('nova_pet_is_blog_listing_screen') && nova_pet_is_blog_listi
 
 		<?php the_posts_navigation(); ?>
 	<?php else : ?>
-		<p><?php esc_html_e('Nothing found here.', 'nova-pet'); ?></p>
+		<p><?php echo nova_pet_translate_theme_string_html('Nothing found here.', 'Archive: empty message'); ?></p>
 	<?php endif; ?>
 </main>
 

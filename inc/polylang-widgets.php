@@ -55,6 +55,59 @@ function nova_pet_polylang_translate_string($value) {
 }
 
 /**
+ * Translate fixed theme/template strings through Polylang, with gettext fallback.
+ *
+ * @param string $value     Original string.
+ * @param string $name      Optional string name shown in Polylang.
+ * @param bool   $multiline Whether the field is multiline.
+ * @param string $group     String group.
+ * @return string
+ */
+function nova_pet_translate_theme_string($value, $name = '', $multiline = false, $group = 'Nova Pet Theme') {
+	if (!is_string($value) || '' === $value) {
+		return $value;
+	}
+
+	$string_name = '' !== $name ? $name : 'theme-string-' . md5($value);
+	nova_pet_polylang_register_string($string_name, $value, $group, $multiline);
+
+	if (function_exists('pll__')) {
+		$translated = pll__($value);
+		if (is_string($translated) && $translated !== $value) {
+			return $translated;
+		}
+	}
+
+	return __($value, 'nova-pet');
+}
+
+/**
+ * Escaped HTML version of nova_pet_translate_theme_string().
+ *
+ * @param string $value     Original string.
+ * @param string $name      Optional string name shown in Polylang.
+ * @param bool   $multiline Whether the field is multiline.
+ * @param string $group     String group.
+ * @return string
+ */
+function nova_pet_translate_theme_string_html($value, $name = '', $multiline = false, $group = 'Nova Pet Theme') {
+	return esc_html(nova_pet_translate_theme_string($value, $name, $multiline, $group));
+}
+
+/**
+ * Escaped attribute version of nova_pet_translate_theme_string().
+ *
+ * @param string $value     Original string.
+ * @param string $name      Optional string name shown in Polylang.
+ * @param bool   $multiline Whether the field is multiline.
+ * @param string $group     String group.
+ * @return string
+ */
+function nova_pet_translate_theme_string_attr($value, $name = '', $multiline = false, $group = 'Nova Pet Theme') {
+	return esc_attr(nova_pet_translate_theme_string($value, $name, $multiline, $group));
+}
+
+/**
  * Widget instance fields that commonly contain user-facing text.
  *
  * @return string[]

@@ -101,10 +101,19 @@ function nova_pet_get_product_faq_items($product) {
 
 	$key = nova_pet_product_faq_meta_key();
 	$raw = $product->get_meta($key, true);
+	$items = nova_pet_normalize_faq_items($raw);
+	foreach ($items as $index => $item) {
+		if (!empty($item['question'])) {
+			nova_pet_polylang_register_string('Product ' . $product->get_id() . ' - FAQ ' . ($index + 1) . ' question', $item['question'], 'Nova Pet Products');
+		}
+		if (!empty($item['answer'])) {
+			nova_pet_polylang_register_string('Product ' . $product->get_id() . ' - FAQ ' . ($index + 1) . ' answer', $item['answer'], 'Nova Pet Products', true);
+		}
+	}
 
 	return apply_filters(
 		'nova_pet_product_faq_items',
-		nova_pet_normalize_faq_items($raw),
+		nova_pet_polylang_translate_faq_items($items),
 		$product
 	);
 }
@@ -117,8 +126,8 @@ function nova_pet_get_product_faq_items($product) {
  */
 function nova_pet_get_faq_section_headings($product = null) {
 	$defaults = array(
-		'title'    => __('Questions', 'nova-pet'),
-		'subtitle' => __('Find answers to common questions from veterinary professionals', 'nova-pet'),
+		'title'    => nova_pet_translate_theme_string('Questions', 'FAQ: default title'),
+		'subtitle' => nova_pet_translate_theme_string('Find answers to common questions from veterinary professionals', 'FAQ: default subtitle'),
 	);
 
 	return apply_filters('nova_pet_product_faq_section_headings', $defaults, $product);
@@ -177,7 +186,7 @@ function nova_pet_parse_faq_section_args($args) {
 	}
 
 	if ('' === trim((string) $args['aria_label'])) {
-		$args['aria_label'] = __('Frequently asked questions', 'nova-pet');
+		$args['aria_label'] = nova_pet_translate_theme_string('Frequently asked questions', 'FAQ: aria label');
 	}
 
 	return apply_filters('nova_pet_faq_section_args', $args);

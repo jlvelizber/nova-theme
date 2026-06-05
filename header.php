@@ -17,7 +17,7 @@
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
 
-	<a class="screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'nova-pet'); ?></a>
+	<a class="screen-reader-text" href="#primary"><?php echo nova_pet_translate_theme_string_html('Skip to content', 'Header: skip to content'); ?></a>
 
 	<header id="masthead" class="site-header">
 		<div class="site-container site-header-inner">
@@ -46,10 +46,10 @@
 
 			<div class="header-middle">
 				<nav id="site-navigation" class="main-navigation"
-					aria-label="<?php esc_attr_e('Primary menu', 'nova-pet'); ?>">
+					aria-label="<?php echo nova_pet_translate_theme_string_attr('Primary menu', 'Header: primary menu aria label'); ?>">
 					<button type="button" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
 						<span class="menu-toggle-bars" aria-hidden="true"><span></span></span>
-						<span class="menu-toggle-label"><?php esc_html_e('Menu', 'nova-pet'); ?></span>
+						<span class="menu-toggle-label"><?php echo nova_pet_translate_theme_string_html('Menu', 'Header: menu toggle label'); ?></span>
 					</button>
 					<?php
 					wp_nav_menu(
@@ -69,16 +69,16 @@
 				<form class="header-search js-header-search<?php echo get_search_query() ? ' is-open' : ''; ?>"
 					role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
 					<label class="screen-reader-text"
-						for="nova-header-search"><?php esc_html_e('Search', 'nova-pet'); ?></label>
+						for="nova-header-search"><?php echo nova_pet_translate_theme_string_html('Search', 'Header: search label'); ?></label>
 					<input type="search" id="nova-header-search" class="header-search-input" name="s"
 						value="<?php echo esc_attr(get_search_query()); ?>"
-						placeholder="<?php esc_attr_e('Search…', 'nova-pet'); ?>" autocomplete="off" <?php echo get_search_query() ? '' : 'tabindex="-1"'; ?>>
+						placeholder="<?php echo nova_pet_translate_theme_string_attr('Search...', 'Header: search placeholder'); ?>" autocomplete="off" <?php echo get_search_query() ? '' : 'tabindex="-1"'; ?>>
 					<button type="button" class="header-search-submit header-search-toggle"
 						aria-expanded="<?php echo get_search_query() ? 'true' : 'false'; ?>"
 						aria-controls="nova-header-search"
-						aria-label="<?php echo esc_attr(get_search_query() ? __('Close search', 'nova-pet') : __('Open search', 'nova-pet')); ?>"
-						data-label-open="<?php echo esc_attr__('Open search', 'nova-pet'); ?>"
-						data-label-close="<?php echo esc_attr__('Close search', 'nova-pet'); ?>">
+						aria-label="<?php echo get_search_query() ? nova_pet_translate_theme_string_attr('Close search', 'Header: close search label') : nova_pet_translate_theme_string_attr('Open search', 'Header: open search label'); ?>"
+						data-label-open="<?php echo nova_pet_translate_theme_string_attr('Open search', 'Header: open search label'); ?>"
+						data-label-close="<?php echo nova_pet_translate_theme_string_attr('Close search', 'Header: close search label'); ?>">
 						<svg class="header-search-icon header-search-icon-search" width="20" height="20"
 							viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
 							focusable="false">
@@ -108,7 +108,7 @@
 					echo $lang_html;
 				} else {
 					?>
-					<div class="header-lang" role="navigation" aria-label="<?php esc_attr_e('Languages', 'nova-pet'); ?>">
+					<div class="header-lang" role="navigation" aria-label="<?php echo nova_pet_translate_theme_string_attr('Languages', 'Header: languages aria label'); ?>">
 						<a class="header-lang-pill" href="<?php echo esc_url($lang_es_url); ?>">
 							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
 								<path fill="#f1c142" d="M1 10H31V22H1z"></path>
@@ -134,7 +134,7 @@
 									d="M12.531,14.533h-4.28l.003,2.572v1.485c0,.432,.226,.822,.591,1.019,.473,.252,1.024,.391,1.552,.391s1.064-.135,1.544-.391c.364-.197,.591-.587,.591-1.019v-4.057Z"
 									fill="#a0251e"></path>
 							</svg>
-							<span class="header-lang-name"><?php esc_html_e('ES', 'nova-pet'); ?></span>
+							<span class="header-lang-name"><?php echo nova_pet_translate_theme_string_html('ES', 'Header: Spanish language label'); ?></span>
 						</a>
 						<a class="header-lang-pill" href="<?php echo esc_url($lang_en_url); ?>">
 							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 32 32">
@@ -216,7 +216,7 @@
 									d="M13.539 14.744L14.13 14.315 13.399 14.315 13.173 13.619 12.947 14.315 12.216 14.315 12.808 14.744 12.582 15.44 13.173 15.01 13.765 15.44 13.539 14.744z">
 								</path>
 							</svg>
-							<span class="header-lang-name"><?php esc_html_e('EN', 'nova-pet'); ?></span>
+							<span class="header-lang-name"><?php echo nova_pet_translate_theme_string_html('EN', 'Header: English language label'); ?></span>
 						</a>
 					</div>
 					<?php

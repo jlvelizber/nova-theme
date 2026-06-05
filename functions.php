@@ -296,7 +296,7 @@ add_filter('nova_pet_lang_en_url', 'nova_pet_filter_lang_en_url');
  */
 function nova_pet_render_product_lines($args = array()) {
 	if (!class_exists('WooCommerce')) {
-		return '<p>' . esc_html__('WooCommerce is required to show product lines.', 'nova-pet') . '</p>';
+		return '<p>' . nova_pet_translate_theme_string_html('WooCommerce is required to show product lines.', 'Product lines: WooCommerce missing message') . '</p>';
 	}
 
 	$defaults = array(
@@ -379,7 +379,7 @@ function nova_pet_render_product_lines($args = array()) {
 											<p class="nova-product-desc"><?php echo esc_html($short_desc); ?></p>
 										<?php endif; ?>
 										<span class="nova-product-learn">
-											<?php esc_html_e('Ver más', 'nova-pet'); ?>
+											<?php echo nova_pet_translate_theme_string_html('Ver más', 'Product lines: card CTA'); ?>
 											<span class="nova-product-learn__chevron" aria-hidden="true">&gt;</span>
 										</span>
 									</div>
@@ -397,7 +397,7 @@ function nova_pet_render_product_lines($args = array()) {
 					?>
 				</div>
 			<?php else : ?>
-				<p><?php esc_html_e('No products found.', 'nova-pet'); ?></p>
+				<p><?php echo nova_pet_translate_theme_string_html('No products found.', 'Product lines: empty message'); ?></p>
 			<?php endif; ?>
 		</div>
 	</section>

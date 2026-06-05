@@ -149,14 +149,14 @@ function nova_pet_shop_filter_axis_labels() {
 
 	$labels = array(
 		'es' => array(
-			'pais'    => __('País', 'nova-pet'),
-			'especie' => __('Especie', 'nova-pet'),
-			'linea'   => __('Línea', 'nova-pet'),
+			'pais'    => nova_pet_translate_theme_string('País', 'Shop filters: country label ES'),
+			'especie' => nova_pet_translate_theme_string('Especie', 'Shop filters: species label ES'),
+			'linea'   => nova_pet_translate_theme_string('Línea', 'Shop filters: line label ES'),
 		),
 		'en' => array(
-			'pais'    => __('Country', 'nova-pet'),
-			'especie' => __('Specie', 'nova-pet'),
-			'linea'   => __('Line', 'nova-pet'),
+			'pais'    => nova_pet_translate_theme_string('Country', 'Shop filters: country label EN'),
+			'especie' => nova_pet_translate_theme_string('Specie', 'Shop filters: species label EN'),
+			'linea'   => nova_pet_translate_theme_string('Line', 'Shop filters: line label EN'),
 		),
 	);
 
@@ -481,7 +481,7 @@ function nova_pet_shop_output_filter_bar() {
 							data-filter-key="<?php echo esc_attr($key); ?>"
 							<?php echo $disabled ? ' disabled' : ''; ?>
 						>
-							<option value=""><?php esc_html_e('Seleccione', 'nova-pet'); ?></option>
+							<option value=""><?php echo nova_pet_translate_theme_string_html('Seleccione', 'Shop filters: default option'); ?></option>
 							<?php
 							if (!empty($options[$key])) {
 								foreach ($options[$key] as $term) {
@@ -499,12 +499,12 @@ function nova_pet_shop_output_filter_bar() {
 			<?php endforeach; ?>
 			<div class="nova-shop-filters__actions">
 				<button type="button" class="nova-shop-filters__submit button nova-button-submit">
-					<?php esc_html_e('Filtrar', 'nova-pet'); ?>
+					<?php echo nova_pet_translate_theme_string_html('Filtrar', 'Shop filters: submit button'); ?>
 				</button>
 			</div>
 		</div>
 		<p class="nova-shop-filters__empty site-container screen-reader-text" data-nova-filter-empty hidden>
-			<?php esc_html_e('No hay productos que coincidan con los filtros.', 'nova-pet'); ?>
+			<?php echo nova_pet_translate_theme_string_html('No hay productos que coincidan con los filtros.', 'Shop filters: empty message'); ?>
 		</p>
 	</div>
 	<?php

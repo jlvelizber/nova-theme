@@ -166,7 +166,7 @@ function nova_pet_render_related_products_section($args = array()) {
 
 	if (empty($ids)) {
 		if (!empty($args['show_empty_message'])) {
-			return '<p class="nova-related-products__empty">' . esc_html__('No hay productos para mostrar.', 'nova-pet') . '</p>';
+			return '<p class="nova-related-products__empty">' . nova_pet_translate_theme_string_html('No hay productos para mostrar.', 'Related products: empty message') . '</p>';
 		}
 		return '';
 	}
@@ -186,7 +186,7 @@ function nova_pet_render_related_products_section($args = array()) {
 	$subtitle      = trim((string) $args['subtitle']);
 	$link_text     = trim((string) $args['link_text']);
 	if ('' === $link_text) {
-		$link_text = __('Ver más', 'nova-pet');
+		$link_text = nova_pet_translate_theme_string('Ver más', 'Related products: card CTA');
 	}
 
 	$section_classes = array('nova-related-products');
@@ -333,7 +333,7 @@ function nova_pet_single_product_output_related_section() {
 		'columns'             => 3,
 		'random'              => false,
 		'product_id'          => $product->get_id(),
-		'title'               => __('También te puede interesar', 'nova-pet'),
+		'title'               => nova_pet_translate_theme_string('También te puede interesar', 'Single product: related products title'),
 		'subtitle'            => '',
 		'link_text'           => '',
 		'section_class'       => 'nova-related-products--single-strip',

@@ -23,7 +23,7 @@ get_header();
 
 		<?php the_posts_navigation(); ?>
 	<?php else : ?>
-		<p><?php esc_html_e('No posts found.', 'nova-pet'); ?></p>
+		<p><?php echo nova_pet_translate_theme_string_html('No posts found.', 'Index: empty message'); ?></p>
 	<?php endif; ?>
 </main>
 

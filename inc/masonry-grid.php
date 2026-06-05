@@ -377,7 +377,7 @@ function nova_pet_render_masonry_grid($tiles, $grid) {
 
 	$aria = !empty($grid['aria_label'])
 		? $grid['aria_label']
-		: __('Image and text highlights', 'nova-pet');
+		: nova_pet_translate_theme_string('Image and text highlights', 'Masonry grid: aria label');
 
 	$style = sprintf(
 		'--nova-masonry-cols:%1$d;--nova-masonry-gap:%2$spx;--nova-masonry-grey-bg:%3$s;--nova-masonry-grey-fg:%4$s;--nova-masonry-white-bg:%5$s;--nova-masonry-white-fg:%6$s;--nova-masonry-radius:%7$dpx;--nova-masonry-row-base:minmax(%8$dpx, auto);',

@@ -21,7 +21,7 @@ if (function_exists('wc_get_page_id')) {
 	<?php do_action('nova_pet_footer_before'); ?>
 
 	<div class="site-container site-footer-inner">
-		<div class="footer-columns" role="navigation" aria-label="<?php esc_attr_e('Footer', 'nova-pet'); ?>">
+		<div class="footer-columns" role="navigation" aria-label="<?php echo nova_pet_translate_theme_string_attr('Footer', 'Footer: columns aria label'); ?>">
 			<div class="footer-col footer-col--brand">
 				<?php if (is_active_sidebar('footer-brand')): ?>
 					<?php dynamic_sidebar('footer-brand'); ?>
@@ -48,9 +48,10 @@ if (function_exists('wc_get_page_id')) {
 							if ($desc) {
 								echo esc_html($desc);
 							} else {
-								echo esc_html__(
+								echo nova_pet_translate_theme_string_html(
 									'NOVA Pet Care maintains certifications from leading international bodies. Our manufacturing processes comply with pharmaceutical-grade standards and quality assurance protocols.',
-									'nova-pet'
+									'Footer: brand fallback text',
+									true
 								);
 							}
 							?>
@@ -61,7 +62,7 @@ if (function_exists('wc_get_page_id')) {
 			</div>
 
 			<div class="footer-col footer-col--products">
-				<h3 class="footer-widget-title"><?php esc_html_e('Productos', 'nova-pet'); ?></h3>
+				<h3 class="footer-widget-title"><?php echo nova_pet_translate_theme_string_html('Productos', 'Footer: products title'); ?></h3>
 				<?php if (has_nav_menu('footer')): ?>
 					<?php
 					wp_nav_menu(
@@ -80,22 +81,22 @@ if (function_exists('wc_get_page_id')) {
 					<div class="footer-fallback footer-fallback--products">
 						<ul class="footer-link-list">
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Todos Los productos', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Todos Los productos', 'Footer: all products link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Comportamiento', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Comportamiento', 'Footer: comportamiento link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Flora Intestinal', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Flora Intestinal', 'Footer: flora intestinal link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Articular', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Articular', 'Footer: articular link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Sustituto Lácteo', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Sustituto Lácteo', 'Footer: sustituto lacteo link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url($shop_url); ?>"><?php esc_html_e('Soporte Energético', 'nova-pet'); ?></a>
+									href="<?php echo esc_url($shop_url); ?>"><?php echo nova_pet_translate_theme_string_html('Soporte Energético', 'Footer: soporte energetico link'); ?></a>
 							</li>
 						</ul>
 					</div>
@@ -105,7 +106,7 @@ if (function_exists('wc_get_page_id')) {
 
 			<div class="footer-col footer-col--company">
 				<?php if (has_nav_menu('footer-company')): ?>
-					<h3 class="footer-widget-title"><?php esc_html_e('Nosotros', 'nova-pet'); ?></h3>
+					<h3 class="footer-widget-title"><?php echo nova_pet_translate_theme_string_html('Nosotros', 'Footer: company title'); ?></h3>
 					<?php wp_nav_menu(array(
 						'theme_location' => 'footer-company',
 						'menu_id' => 'footer-company-menu',
@@ -119,16 +120,16 @@ if (function_exists('wc_get_page_id')) {
 						<h3 class="footer-widget-title"><?php echo esc_html($blog_name ? $blog_name : 'NOVA'); ?></h3>
 						<ul class="footer-link-list">
 							<li><a
-									href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('Nosotros', 'nova-pet'); ?></a>
+									href="<?php echo esc_url(home_url('/')); ?>"><?php echo nova_pet_translate_theme_string_html('Nosotros', 'Footer: about link'); ?></a>
 							</li>
 							<li><a
-									href="<?php echo esc_url(home_url('/contacto/')); ?>"><?php esc_html_e('Contacto', 'nova-pet'); ?></a>
+									href="<?php echo esc_url(home_url('/contacto/')); ?>"><?php echo nova_pet_translate_theme_string_html('Contacto', 'Footer: contact link'); ?></a>
 							</li>
 							<?php
 							$posts_page = get_option('page_for_posts');
 							$blog_url = $posts_page ? get_permalink((int) $posts_page) : home_url('/');
 							?>
-							<li><a href="<?php echo esc_url($blog_url); ?>"><?php esc_html_e('Blog', 'nova-pet'); ?></a>
+							<li><a href="<?php echo esc_url($blog_url); ?>"><?php echo nova_pet_translate_theme_string_html('Blog', 'Footer: blog link'); ?></a>
 							</li>
 						</ul>
 					</div>
@@ -144,17 +145,15 @@ if (function_exists('wc_get_page_id')) {
 				<?php
 				printf(
 					/* translators: 1: year, 2: site name */
-					esc_html__('© %1$s %2$s. Todos los derechos reservados.', 'nova-pet'),
+					nova_pet_translate_theme_string_html('© %1$s %2$s. Todos los derechos reservados.', 'Footer: copyright text'),
 					esc_html(gmdate('Y')),
-					esc_html($blog_name ? $blog_name : 'NOVA Pet Care'),
-					esc_html_e('Powered by', 'nova-pet'),
-					'<a href="https://www.jorgeveliz.dev" target="_blank">Jorge Veliz</a>'
+					esc_html($blog_name ? $blog_name : 'NOVA Pet Care')
 				);
 				?>
-				<?php esc_html_e('Powered by', 'nova-pet'); ?> <a href="https://www.jorgeveliz.dev" target="_blank">Jorge Veliz</a>
+				<?php echo nova_pet_translate_theme_string_html('Powered by', 'Footer: powered by text'); ?> <a href="https://www.jorgeveliz.dev" target="_blank">Jorge Veliz</a>
 			</p>
 			<?php if (has_nav_menu('footer-legal')): ?>
-				<nav class="footer-legal-nav" aria-label="<?php esc_attr_e('Legal', 'nova-pet'); ?>">
+				<nav class="footer-legal-nav" aria-label="<?php echo nova_pet_translate_theme_string_attr('Legal', 'Footer: legal aria label'); ?>">
 					<?php
 					wp_nav_menu(
 						array(
@@ -175,16 +174,16 @@ if (function_exists('wc_get_page_id')) {
 					?>
 					<li>
 						<a href="<?php echo $privacy ? esc_url($privacy) : esc_url(home_url('/privacy-policy/')); ?>">
-							<?php esc_html_e('Privacy policy', 'nova-pet'); ?>
+							<?php echo nova_pet_translate_theme_string_html('Privacy policy', 'Footer: privacy policy link'); ?>
 						</a>
 					</li>
 					<li>
 						<a
-							href="<?php echo esc_url(home_url('/terms-of-service/')); ?>"><?php esc_html_e('Terms of service', 'nova-pet'); ?></a>
+							href="<?php echo esc_url(home_url('/terms-of-service/')); ?>"><?php echo nova_pet_translate_theme_string_html('Terms of service', 'Footer: terms link'); ?></a>
 					</li>
 					<li>
 						<a
-							href="<?php echo esc_url(home_url('/cookie-settings/')); ?>"><?php esc_html_e('Cookie settings', 'nova-pet'); ?></a>
+							href="<?php echo esc_url(home_url('/cookie-settings/')); ?>"><?php echo nova_pet_translate_theme_string_html('Cookie settings', 'Footer: cookie settings link'); ?></a>
 					</li>
 				</ul>
 			<?php endif; ?>

@@ -36,8 +36,8 @@ function nova_pet_get_blog_archive_section_headings() {
 	return apply_filters(
 		'nova_pet_blog_archive_section_headings',
 		array(
-			'title'    => __('Recent insights from our research', 'nova-pet'),
-			'subtitle' => __('Explore articles on nutrition, formulation, and clinical application', 'nova-pet'),
+			'title'    => nova_pet_translate_theme_string('Recent insights from our research', 'Blog archive: section title'),
+			'subtitle' => nova_pet_translate_theme_string('Explore articles on nutrition, formulation, and clinical application', 'Blog archive: section subtitle'),
 		)
 	);
 }
@@ -105,7 +105,7 @@ function nova_pet_render_blog_archive_filters() {
 	$blog_url   = nova_pet_get_blog_index_url();
 	$view_all   = nova_pet_blog_archive_is_view_all_active();
 	?>
-	<nav class="nova-blog-filters" aria-label="<?php esc_attr_e('Filter articles by category', 'nova-pet'); ?>">
+	<nav class="nova-blog-filters" aria-label="<?php echo nova_pet_translate_theme_string_attr('Filter articles by category', 'Blog archive: filters aria label'); ?>">
 		<ul class="nova-blog-filters__list">
 			<li class="nova-blog-filters__item">
 				<a
@@ -113,7 +113,7 @@ function nova_pet_render_blog_archive_filters() {
 					href="<?php echo esc_url($blog_url); ?>"
 					<?php echo $view_all ? ' aria-current="page"' : ''; ?>
 				>
-					<?php esc_html_e('Ver todos', 'nova-pet'); ?>
+					<?php echo nova_pet_translate_theme_string_html('Ver todos', 'Blog archive: view all filter'); ?>
 				</a>
 			</li>
 			<?php foreach ($categories as $term) : ?>
@@ -151,8 +151,8 @@ function nova_pet_render_blog_archive_pagination() {
 	the_posts_pagination(
 		array(
 			'mid_size'  => 2,
-			'prev_text' => esc_html__('Previous', 'nova-pet'),
-			'next_text' => esc_html__('Next', 'nova-pet'),
+			'prev_text' => nova_pet_translate_theme_string_html('Previous', 'Blog archive: previous pagination'),
+			'next_text' => nova_pet_translate_theme_string_html('Next', 'Blog archive: next pagination'),
 			'class'     => 'nova-blog-archive__pagination',
 		)
 	);
@@ -185,7 +185,7 @@ function nova_pet_render_blog_archive_content() {
 				<?php nova_pet_render_post_cards_grid(null, $columns); ?>
 				<?php nova_pet_render_blog_archive_pagination(); ?>
 			<?php else : ?>
-				<p class="nova-blog-archive__empty"><?php esc_html_e('No articles found in this category.', 'nova-pet'); ?></p>
+				<p class="nova-blog-archive__empty"><?php echo nova_pet_translate_theme_string_html('No articles found in this category.', 'Blog archive: empty message'); ?></p>
 			<?php endif; ?>
 
 			<?php if (is_active_sidebar('nova-blog-archive-below')) : ?>

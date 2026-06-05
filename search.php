@@ -14,7 +14,7 @@ get_header();
 			<?php
 			printf(
 				/* translators: %s: search query. */
-				esc_html__('Search Results for: %s', 'nova-pet'),
+				nova_pet_translate_theme_string_html('Search Results for: %s', 'Search: results title'),
 				'<span>' . esc_html(get_search_query()) . '</span>'
 			);
 			?>
@@ -31,7 +31,7 @@ get_header();
 
 		<?php the_posts_navigation(); ?>
 	<?php else : ?>
-		<p><?php esc_html_e('No results found.', 'nova-pet'); ?></p>
+		<p><?php echo nova_pet_translate_theme_string_html('No results found.', 'Search: empty message'); ?></p>
 	<?php endif; ?>
 </main>
 

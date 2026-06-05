@@ -24,7 +24,7 @@ $url    = isset($card['url']) ? esc_url($card['url']) : '#';
 $label  = isset($card['label']) ? $card['label'] : '';
 $title  = isset($card['title']) ? $card['title'] : '';
 $text   = isset($card['text']) ? $card['text'] : '';
-$action = isset($card['action']) ? $card['action'] : __('Learn', 'nova-pet');
+$action = isset($card['action']) ? $card['action'] : nova_pet_translate_theme_string('Learn', 'Feature cards: default action');
 $image  = isset($card['image']) ? esc_url($card['image']) : '';
 $alt    = isset($card['image_alt']) ? $card['image_alt'] : '';
 if ('' === $alt && $title) {

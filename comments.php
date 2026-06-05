@@ -18,13 +18,13 @@ if (post_password_required()) {
 			if ('1' === $nova_pet_comment_count) {
 				printf(
 					/* translators: 1: title. */
-					esc_html__('One thought on "%1$s"', 'nova-pet'),
+					nova_pet_translate_theme_string_html('One thought on "%1$s"', 'Comments: one comment title'),
 					'<span>' . wp_kses_post(get_the_title()) . '</span>'
 				);
 			} else {
 				printf(
 					/* translators: 1: comment count number, 2: title. */
-					esc_html(_nx('%1$s thought on "%2$s"', '%1$s thoughts on "%2$s"', $nova_pet_comment_count, 'comments title', 'nova-pet')),
+					nova_pet_translate_theme_string_html('%1$s thoughts on "%2$s"', 'Comments: multiple comments title'),
 					number_format_i18n($nova_pet_comment_count),
 					'<span>' . wp_kses_post(get_the_title()) . '</span>'
 				);
@@ -51,7 +51,7 @@ if (post_password_required()) {
 	<?php
 	if (!comments_open() && get_comments_number() && post_type_supports(get_post_type(), 'comments')) :
 		?>
-		<p class="no-comments"><?php esc_html_e('Comments are closed.', 'nova-pet'); ?></p>
+		<p class="no-comments"><?php echo nova_pet_translate_theme_string_html('Comments are closed.', 'Comments: closed message'); ?></p>
 	<?php endif; ?>
 
 	<?php comment_form(); ?>

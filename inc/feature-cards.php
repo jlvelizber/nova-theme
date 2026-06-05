@@ -44,7 +44,7 @@ function nova_pet_normalize_feature_card($raw) {
 	$label     = isset($raw['label']) ? sanitize_text_field((string) $raw['label']) : '';
 	$title     = isset($raw['title']) ? sanitize_text_field((string) $raw['title']) : '';
 	$text      = isset($raw['text']) ? sanitize_textarea_field((string) $raw['text']) : '';
-	$action    = isset($raw['action']) ? sanitize_text_field((string) $raw['action']) : __('Learn', 'nova-pet');
+	$action    = isset($raw['action']) ? sanitize_text_field((string) $raw['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action');
 
 	if ('' === $image_alt && $title) {
 		$image_alt = $title;
@@ -79,7 +79,7 @@ function nova_pet_sanitize_normalized_card(array $c) {
 		'label'             => isset($c['label']) ? sanitize_text_field((string) $c['label']) : '',
 		'title'             => isset($c['title']) ? sanitize_text_field((string) $c['title']) : '',
 		'text'              => isset($c['text']) ? sanitize_textarea_field((string) $c['text']) : '',
-		'action'            => isset($c['action']) ? sanitize_text_field((string) $c['action']) : __('Learn', 'nova-pet'),
+		'action'            => isset($c['action']) ? sanitize_text_field((string) $c['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action'),
 		'url'               => !empty($c['url']) ? esc_url_raw((string) $c['url']) : '#',
 		'image'             => isset($c['image']) ? esc_url_raw((string) $c['image']) : '',
 		'image_alt'         => isset($c['image_alt']) ? sanitize_text_field((string) $c['image_alt']) : '',
@@ -109,7 +109,7 @@ function nova_pet_render_feature_cards(array $cards) {
 	if (!nova_pet_feature_cards_grid_has_lead($cards)) {
 		$grid_classes[] = 'nova-feature-cards__grid--flat';
 	}
-	echo '<section class="nova-feature-cards" aria-label="' . esc_attr__('Highlights', 'nova-pet') . '">';
+	echo '<section class="nova-feature-cards" aria-label="' . nova_pet_translate_theme_string_attr('Highlights', 'Feature cards: aria label') . '">';
 	echo '<div class="site-container nova-feature-cards__inner">';
 	echo '<div class="' . esc_attr(implode(' ', $grid_classes)) . '">';
 
@@ -435,7 +435,7 @@ function nova_pet_render_feature_card_article(array $card, $split_row = 0, $plac
 	$label  = isset($card['label']) ? $card['label'] : '';
 	$title  = isset($card['title']) ? $card['title'] : '';
 	$text   = isset($card['text']) ? $card['text'] : '';
-	$action = isset($card['action']) ? $card['action'] : __('Learn', 'nova-pet');
+	$action = isset($card['action']) ? $card['action'] : nova_pet_translate_theme_string('Learn', 'Feature cards: default action');
 	$image  = isset($card['image']) ? esc_url($card['image']) : '';
 	$alt    = isset($card['image_alt']) ? $card['image_alt'] : '';
 	if ('' === $alt && $title) {

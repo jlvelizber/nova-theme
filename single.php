@@ -40,8 +40,8 @@ while (have_posts()) :
 			<?php
 			the_post_navigation(
 				array(
-					'prev_text' => '<span class="nova-post-nav__label">' . esc_html__('Previo', 'nova-pet') . '</span><span class="nova-post-nav__title">%title</span>',
-					'next_text' => '<span class="nova-post-nav__label">' . esc_html__('Siguiente', 'nova-pet') . '</span><span class="nova-post-nav__title">%title</span>',
+					'prev_text' => '<span class="nova-post-nav__label">' . nova_pet_translate_theme_string_html('Previo', 'Single post navigation: previous') . '</span><span class="nova-post-nav__title">%title</span>',
+					'next_text' => '<span class="nova-post-nav__label">' . nova_pet_translate_theme_string_html('Siguiente', 'Single post navigation: next') . '</span><span class="nova-post-nav__title">%title</span>',
 				)
 			);
 			?>

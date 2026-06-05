@@ -32,7 +32,7 @@ function nova_pet_get_blog_index_label() {
 	if ($page_for_posts > 0) {
 		return get_the_title($page_for_posts);
 	}
-	return __('Blog', 'nova-pet');
+	return nova_pet_translate_theme_string('Blog', 'Post breadcrumb: blog label');
 }
 
 /**
@@ -98,7 +98,7 @@ function nova_pet_get_post_author_line($post_id = null) {
 	return apply_filters(
 		'nova_pet_post_author_line',
 		/* translators: %s: author display name */
-		sprintf(__('Por %s', 'nova-pet'), $name),
+		sprintf(nova_pet_translate_theme_string('Por %s', 'Single post: author line'), $name),
 		$post_id,
 		$name
 	);
@@ -132,25 +132,25 @@ function nova_pet_get_post_share_links($post_id) {
 	$links = array(
 		array(
 			'key'      => 'copy',
-			'label'    => __('Copiar enlace', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Copiar enlace', 'Single post share: copy link'),
 			'url'      => $url,
 			'external' => false,
 		),
 		array(
 			'key'      => 'linkedin',
-			'label'    => __('Compartir en LinkedIn', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Compartir en LinkedIn', 'Single post share: LinkedIn label'),
 			'url'      => 'https://www.linkedin.com/sharing/share-offsite/?url=' . rawurlencode($url),
 			'external' => true,
 		),
 		array(
 			'key'      => 'x',
-			'label'    => __('Compartir en X', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Compartir en X', 'Single post share: X label'),
 			'url'      => 'https://twitter.com/intent/tweet?url=' . rawurlencode($url) . '&text=' . rawurlencode($title),
 			'external' => true,
 		),
 		array(
 			'key'      => 'facebook',
-			'label'    => __('Compartir en Facebook', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Compartir en Facebook', 'Single post share: Facebook label'),
 			'url'      => 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode($url),
 			'external' => true,
 		),
@@ -198,7 +198,7 @@ function nova_pet_render_post_breadcrumbs($post_id = null) {
 	$blog_label = nova_pet_get_blog_index_label();
 	$categories = get_the_category($post_id);
 	?>
-	<nav class="nova-post-hero__breadcrumb" aria-label="<?php esc_attr_e('Breadcrumb', 'nova-pet'); ?>">
+	<nav class="nova-post-hero__breadcrumb" aria-label="<?php echo nova_pet_translate_theme_string_attr('Breadcrumb', 'Single post breadcrumb: aria label'); ?>">
 		<ol class="nova-post-hero__breadcrumb-list">
 			<li class="nova-post-hero__breadcrumb-item">
 				<a href="<?php echo esc_url($blog_url); ?>"><?php echo esc_html($blog_label); ?></a>
@@ -246,7 +246,7 @@ function nova_pet_render_post_share_buttons($post_id = null) {
 						type="button"
 						class="nova-post-share__btn nova-post-share__btn--copy"
 						data-copy-url="<?php echo esc_url($link['url']); ?>"
-						data-copied-label="<?php esc_attr_e('Link copied', 'nova-pet'); ?>"
+						data-copied-label="<?php echo nova_pet_translate_theme_string_attr('Link copied', 'Single post share: copied label'); ?>"
 						aria-label="<?php echo esc_attr($link['label']); ?>"
 					>
 						<?php echo nova_pet_get_post_share_icon_svg('copy'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -288,7 +288,7 @@ function nova_pet_render_post_tags($post_id = null) {
 		return;
 	}
 	?>
-	<ul class="nova-post-share__tags" aria-label="<?php esc_attr_e('Post tags', 'nova-pet'); ?>">
+	<ul class="nova-post-share__tags" aria-label="<?php echo nova_pet_translate_theme_string_attr('Post tags', 'Single post: tags aria label'); ?>">
 		<?php foreach ($tags as $tag) : ?>
 			<li>
 				<a class="nova-post-share__tag" href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>">
@@ -323,11 +323,11 @@ function nova_pet_render_post_footer_share($post_id = null) {
 		return;
 	}
 	?>
-	<section class="nova-post-share" aria-label="<?php esc_attr_e('Compartir este artículo', 'nova-pet'); ?>">
+	<section class="nova-post-share" aria-label="<?php echo nova_pet_translate_theme_string_attr('Compartir este artículo', 'Single post share: section aria label'); ?>">
 		<div class="nova-post-share__inner site-container">
 			<div class="nova-post-share__row">
 				<div class="nova-post-share__primary">
-					<h2 class="nova-post-share__title"><?php esc_html_e('Compartir este artículo', 'nova-pet'); ?></h2>
+					<h2 class="nova-post-share__title"><?php echo nova_pet_translate_theme_string_html('Compartir este artículo', 'Single post share: section title'); ?></h2>
 					<?php if (!empty($links)) : ?>
 						<?php nova_pet_render_post_share_buttons($post_id); ?>
 					<?php endif; ?>
@@ -362,7 +362,7 @@ function nova_pet_render_single_post_hero($post_id = null) {
 	$date        = nova_pet_get_post_display_date($post_id);
 	$minutes     = nova_pet_get_reading_time_minutes($post_id);
 	?>
-	<section class="nova-post-hero" aria-label="<?php esc_attr_e('Post header', 'nova-pet'); ?>">
+	<section class="nova-post-hero" aria-label="<?php echo nova_pet_translate_theme_string_attr('Post header', 'Single post hero: aria label'); ?>">
 		<div class="nova-post-hero__inner site-container">
 			<div class="nova-post-hero__grid">
 				<div class="nova-post-hero__content">
@@ -380,7 +380,7 @@ function nova_pet_render_single_post_hero($post_id = null) {
 						$meta_bits[] = '<span class="nova-post-hero__meta-read">' . esc_html(
 							sprintf(
 								/* translators: %d: minutes */
-								_n('%d min de lectura', '%d min de lectura', $minutes, 'nova-pet'),
+								nova_pet_translate_theme_string('%d min de lectura', 'Single post: reading time'),
 								$minutes
 							)
 						) . '</span>';
@@ -389,7 +389,7 @@ function nova_pet_render_single_post_hero($post_id = null) {
 					</p>
 					<?php if (!empty(nova_pet_get_post_share_links($post_id))) : ?>
 						<div class="nova-post-hero__share">
-							<p class="nova-post-hero__share-label"><?php esc_html_e('Compartir artículo', 'nova-pet'); ?></p>
+							<p class="nova-post-hero__share-label"><?php echo nova_pet_translate_theme_string_html('Compartir artículo', 'Single post hero: share label'); ?></p>
 							<?php nova_pet_render_post_share_buttons($post_id); ?>
 						</div>
 					<?php endif; ?>

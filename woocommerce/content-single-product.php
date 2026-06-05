@@ -27,7 +27,7 @@ if (post_password_required()) {
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class('nova-single-product', $product); ?>>
 
-	<section class="nova-single-product__strip nova-single-product__strip--primary" aria-label="<?php esc_attr_e('Product details', 'nova-pet'); ?>">
+	<section class="nova-single-product__strip nova-single-product__strip--primary" aria-label="<?php echo nova_pet_translate_theme_string_attr('Product details', 'Single product: details strip aria label'); ?>">
 		<div class="nova-single-product__canvas">
 			<div class="nova-single-product__shell">
 
@@ -94,7 +94,7 @@ if (post_password_required()) {
 				'count'              => apply_filters('nova_pet_single_related_count', 3, $product),
 				'columns'            => 3,
 				'product_id'         => $product->get_id(),
-				'title'              => __('También te puede interesar', 'nova-pet'),
+				'title'              => nova_pet_translate_theme_string('También te puede interesar', 'Single product: related products title'),
 				'section_class'      => 'nova-related-products--single-strip',
 				'filter_by_category' => 'linea',
 				'show_empty_message' => false,
@@ -103,7 +103,7 @@ if (post_password_required()) {
 		: '';
 	if (!empty($related_products_section)) :
 	?>
-		<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php esc_attr_e('Related products', 'nova-pet'); ?>">
+		<section class="nova-single-product__strip nova-single-product__strip--secondary" aria-label="<?php echo nova_pet_translate_theme_string_attr('Related products', 'Single product: related strip aria label'); ?>">
 			<div class="nova-single-product__strip-inner">
 				<?php echo $related_products_section; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
@@ -120,7 +120,7 @@ if (post_password_required()) {
 		: true;
 	if (!empty($product_faqs) && $show_product_faq && function_exists('nova_pet_render_product_faq_section')) :
 		?>
-		<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php esc_attr_e('Product questions', 'nova-pet'); ?>">
+		<section class="nova-single-product__strip nova-single-product__strip--faq" aria-label="<?php echo nova_pet_translate_theme_string_attr('Product questions', 'Single product: FAQ strip aria label'); ?>">
 			<?php
 			nova_pet_render_product_faq_section($product);
 			?>

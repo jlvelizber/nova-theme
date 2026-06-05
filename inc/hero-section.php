@@ -55,7 +55,7 @@ function nova_pet_render_post_hero($post_id = null) {
 			'image_url'  => $hero_thumb,
 			'title_html' => get_the_title($post_id),
 			'deck'       => $deck,
-			'aria_label' => __('Encabezado de página', 'nova-pet'),
+			'aria_label' => nova_pet_translate_theme_string('Encabezado de página', 'Hero: page aria label'),
 		)
 	);
 }
@@ -92,16 +92,17 @@ function nova_pet_get_blog_archive_hero_data() {
 	if ('' === $title) {
 		$title = apply_filters(
 			'nova_pet_blog_archive_hero_title',
-			__('The life of pets', 'nova-pet')
+			nova_pet_translate_theme_string('The life of pets', 'Blog hero: fallback title')
 		);
 	}
 
 	if ('' === $deck) {
 		$deck = apply_filters(
 			'nova_pet_blog_archive_hero_deck',
-			__(
+			nova_pet_translate_theme_string(
 				'Science-based perspectives on pet health, nutrition, and wellness from NOVA Pet Care',
-				'nova-pet'
+				'Blog hero: fallback deck',
+				true
 			)
 		);
 	}
@@ -141,7 +142,7 @@ function nova_pet_render_blog_archive_hero() {
 			'image_url'  => $data['image_url'],
 			'title_html' => $data['title'],
 			'deck'       => $data['deck'],
-			'aria_label' => __('Blog header', 'nova-pet'),
+			'aria_label' => nova_pet_translate_theme_string('Blog header', 'Hero: blog aria label'),
 		)
 	);
 }
@@ -192,7 +193,7 @@ function nova_pet_render_woocommerce_archive_hero() {
 			'image_url'  => $image_url,
 			'title_html' => $title,
 			'deck'       => $deck,
-			'aria_label' => __('Encabezado de tienda', 'nova-pet'),
+			'aria_label' => nova_pet_translate_theme_string('Encabezado de tienda', 'Hero: shop aria label'),
 		)
 	);
 }
@@ -215,7 +216,7 @@ function nova_pet_render_hero_markup($args) {
 			'image_url'  => '',
 			'title_html' => '',
 			'deck'       => '',
-			'aria_label' => __('Encabezado', 'nova-pet'),
+			'aria_label' => nova_pet_translate_theme_string('Encabezado', 'Hero: default aria label'),
 		)
 	);
 

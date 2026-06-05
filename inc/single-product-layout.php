@@ -93,7 +93,7 @@ function nova_pet_render_single_product_breadcrumb($product) {
 
 	$items = array(
 		array(
-			'label' => __('Home', 'woocommerce'),
+			'label' => nova_pet_translate_theme_string('Home', 'Single product breadcrumb: home'),
 			'url'   => home_url('/'),
 		),
 	);
@@ -101,7 +101,7 @@ function nova_pet_render_single_product_breadcrumb($product) {
 	$shop_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '';
 	if ($shop_url && !is_wp_error($shop_url)) {
 		$items[] = array(
-			'label' => __('Productos', 'woocommerce'),
+			'label' => nova_pet_translate_theme_string('Productos', 'Single product breadcrumb: shop'),
 			'url'   => $shop_url,
 		);
 	}
@@ -125,7 +125,7 @@ function nova_pet_render_single_product_breadcrumb($product) {
 		'url'   => '',
 	);
 
-	echo '<nav class="woocommerce-breadcrumb nova-single-product__breadcrumb" aria-label="' . esc_attr__('Breadcrumb', 'woocommerce') . '">';
+	echo '<nav class="woocommerce-breadcrumb nova-single-product__breadcrumb" aria-label="' . nova_pet_translate_theme_string_attr('Breadcrumb', 'Single product breadcrumb: aria label') . '">';
 	foreach ($items as $index => $item) {
 		if (0 < $index) {
 			echo ' <span class="nova-single-product__bc-delimiter" aria-hidden="true">&gt;</span> ';
@@ -155,17 +155,17 @@ function nova_pet_single_product_accordion_sections($product) {
 	$sections = array(
 		array(
 			'id'       => 'ingredients',
-			'label'    => __('Ingredientes destacados', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Ingredientes destacados', 'Single product accordion: ingredients label'),
 			'meta_key' => 'nova_product_ingredients',
 		),
 		array(
 			'id'       => 'presentation',
-			'label'    => __('Presentación', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Presentación', 'Single product accordion: presentation label'),
 			'meta_key' => 'nova_product_presentation',
 		),
 		array(
 			'id'       => 'benefits',
-			'label'    => __('Beneficios', 'nova-pet'),
+			'label'    => nova_pet_translate_theme_string('Beneficios', 'Single product accordion: benefits label'),
 			'meta_key' => 'nova_product_beneffits',
 		),
 	);
@@ -185,6 +185,13 @@ function nova_pet_single_product_accordion_sections($product) {
 		if ('' === $raw) {
 			continue;
 		}
+		nova_pet_polylang_register_string(
+			'Product ' . $product->get_id() . ' - ' . (string) $row['meta_key'],
+			$raw,
+			'Nova Pet Products',
+			true
+		);
+		$raw = nova_pet_polylang_translate_string($raw);
 		$row['content'] = $raw;
 		$row['id']      = isset($row['id']) ? sanitize_title((string) $row['id']) : sanitize_title((string) $row['meta_key']);
 		$out[]          = $row;

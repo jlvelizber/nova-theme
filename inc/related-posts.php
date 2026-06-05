@@ -101,7 +101,7 @@ function nova_pet_render_post_card($post_id = null, $read_more = '') {
 	}
 
 	if ('' === $read_more) {
-		$read_more = __('Ver más', 'nova-pet');
+		$read_more = nova_pet_translate_theme_string('Ver más', 'Post cards: read more');
 	}
 
 	$category = nova_pet_get_post_card_category_label($post_id);
@@ -137,7 +137,7 @@ function nova_pet_render_post_card($post_id = null, $read_more = '') {
 						echo esc_html(
 							sprintf(
 								/* translators: %d: minutes */
-								_n('%d min de lectura', '%d min de lectura', $minutes, 'nova-pet'),
+								nova_pet_translate_theme_string('%d min de lectura', 'Post cards: reading time'),
 								$minutes
 							)
 						);
@@ -232,11 +232,11 @@ function nova_pet_render_related_posts_section($args = array()) {
 		'count'              => 3,
 		'columns'            => 3,
 		'label'              => '',
-		'title'              => __('Artículos relacionados', 'nova-pet'),
-		'subtitle'           => __('Continua leyendo sobre nutrición veterinaria y salud animal', 'nova-pet'),
+		'title'              => nova_pet_translate_theme_string('Artículos relacionados', 'Related posts: default title'),
+		'subtitle'           => nova_pet_translate_theme_string('Continua leyendo sobre nutrición veterinaria y salud animal', 'Related posts: default subtitle'),
 		'view_all_url'       => '',
-		'view_all_text'      => __('Ver todos', 'nova-pet'),
-		'read_more_text'     => __('Ver más', 'nova-pet'),
+		'view_all_text'      => nova_pet_translate_theme_string('Ver todos', 'Related posts: view all'),
+		'read_more_text'     => nova_pet_translate_theme_string('Ver más', 'Related posts: read more'),
 		'section_class'      => '',
 		'show_empty_message' => false,
 	);
@@ -254,7 +254,7 @@ function nova_pet_render_related_posts_section($args = array()) {
 
 	if (empty($ids)) {
 		if (!empty($args['show_empty_message'])) {
-			return '<p class="nova-post-related__empty">' . esc_html__('No se encontraron artículos relacionados.', 'nova-pet') . '</p>';
+			return '<p class="nova-post-related__empty">' . nova_pet_translate_theme_string_html('No se encontraron artículos relacionados.', 'Related posts: empty message') . '</p>';
 		}
 		return '';
 	}
@@ -344,11 +344,11 @@ function nova_pet_output_single_post_related($post_id = null) {
 		'count'              => apply_filters('nova_pet_single_related_posts_count', 3, $post_id),
 		'columns'            => 3,
 		'label'              => nova_pet_get_blog_index_label(),
-		'title'              => __('Artículos relacionados', 'nova-pet'),
-		'subtitle'           => __('Continua leyendo sobre nutrición veterinaria y salud animal', 'nova-pet'),
+		'title'              => nova_pet_translate_theme_string('Artículos relacionados', 'Related posts: default title'),
+		'subtitle'           => nova_pet_translate_theme_string('Continua leyendo sobre nutrición veterinaria y salud animal', 'Related posts: default subtitle'),
 		'view_all_url'       => nova_pet_get_blog_index_url(),
-		'view_all_text'      => __('Ver todos', 'nova-pet'),
-		'read_more_text'     => __('Ver más', 'nova-pet'),
+		'view_all_text'      => nova_pet_translate_theme_string('Ver todos', 'Related posts: view all'),
+		'read_more_text'     => nova_pet_translate_theme_string('Ver más', 'Related posts: read more'),
 		'section_class'      => 'nova-post-related--single',
 		'show_empty_message' => false,
 	);
@@ -391,7 +391,7 @@ function nova_pet_related_posts_shortcode($atts) {
 			'post_id'            => $post_id,
 			'count'              => absint($atts['count']),
 			'columns'            => absint($atts['columns']),
-			'title'              => (string) $atts['title'] ?: __('Artículos relacionados', 'nova-pet'),
+			'title'              => (string) $atts['title'] ?: nova_pet_translate_theme_string('Artículos relacionados', 'Related posts: default title'),
 			'subtitle'           => (string) $atts['subtitle'],
 			'show_empty_message' => true,
 		)
