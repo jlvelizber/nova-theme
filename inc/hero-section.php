@@ -231,7 +231,7 @@ function nova_pet_render_hero_markup($args) {
 		style="<?php echo esc_attr($style); ?>"
 		aria-label="<?php echo esc_attr($args['aria_label']); ?>"
 	>
-		<div class="nova-single-hero__overlay" aria-hidden="true"></div>
+		<div aria-hidden="true"></div>
 		<div class="nova-single-hero__inner site-container">
 			<h1 class="nova-single-hero__title"><?php echo esc_html($args['title_html']); ?></h1>
 			<?php if ('' !== $args['deck']) : ?>
