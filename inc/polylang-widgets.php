@@ -166,6 +166,7 @@ function nova_pet_polylang_theme_string_catalog() {
 		array('name' => 'Single product accordion: ingredients label', 'value' => 'Ingredientes destacados'),
 		array('name' => 'Single product accordion: presentation label', 'value' => 'Presentación'),
 		array('name' => 'Single product accordion: benefits label', 'value' => 'Beneficios'),
+		array('name' => 'Single product accordion: dosification label', 'value' => 'Dosificación'),
 		array('name' => 'Single product: details strip aria label', 'value' => 'Product details'),
 		array('name' => 'Single product: related products title', 'value' => 'También te puede interesar'),
 		array('name' => 'Single product: related strip aria label', 'value' => 'Related products'),
