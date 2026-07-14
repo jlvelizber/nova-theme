@@ -168,6 +168,12 @@ function nova_pet_single_product_accordion_sections($product) {
 			'label'    => nova_pet_translate_theme_string('Beneficios', 'Single product accordion: benefits label'),
 			'meta_key' => 'nova_product_beneffits',
 		),
+
+		array(
+			'id'       => 'dosification',
+			'label'    => nova_pet_translate_theme_string('Dosificación', 'Single product accordion: dosification label'),
+			'meta_key' => 'nova_product_dosification',
+		),
 	);
 
 	$sections = apply_filters('nova_pet_single_product_accordion_sections', $sections, $product);

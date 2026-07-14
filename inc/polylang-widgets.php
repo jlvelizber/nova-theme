@@ -302,7 +302,7 @@ function nova_pet_polylang_register_product_meta_strings() {
 			continue;
 		}
 
-		foreach (array('nova_product_ingredients', 'nova_product_presentation', 'nova_product_beneffits') as $meta_key) {
+		foreach (array('nova_product_ingredients', 'nova_product_presentation', 'nova_product_beneffits', 'nova_product_dosification') as $meta_key) {
 			$value = $product->get_meta($meta_key, true);
 			if (is_string($value) && '' !== trim($value)) {
 				nova_pet_polylang_register_string('Product ' . $product->get_id() . ' - ' . $meta_key, $value, 'Nova Pet Products', true);
