@@ -25,7 +25,7 @@ function nova_pet_hero_deck_from_post($post_id) {
 		return get_the_excerpt($post_id);
 	}
 
-	return wp_trim_words(get_post_field('post_content', $post_id), 28, '…');
+	return "";
 }
 
 /**
