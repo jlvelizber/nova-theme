@@ -3256,8 +3256,9 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
 
 /* Fixed stage so switching gallery images does not resize the layout.
    WooCommerce FlexSlider often sets an inline height from the active image;
-   keep the stage stable and let images fit inside. */
+   keep the stage stable and center each image inside the slide. */
 .nova-single-product__gallery-wrap .flex-viewport {
+  position: relative;
   margin: 0 auto 1.75rem !important;
   width: 100%;
   height: auto !important;
@@ -3273,31 +3274,66 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   margin: 0;
 }
 
-.nova-single-product__gallery-wrap .woocommerce-product-gallery__image {
+/* Keep FlexSlider float/slide layout; do not turn slides into flex containers. */
+.nova-single-product__gallery-wrap .flex-viewport .woocommerce-product-gallery__image {
+  position: relative !important;
+  float: left;
   margin: 0 !important;
-  width: 100% !important;
   height: 100% !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
   background: #ffffff;
+  overflow: hidden;
 }
 
-.nova-single-product__gallery-wrap .woocommerce-product-gallery__image a {
+.nova-single-product__gallery-wrap .flex-viewport .woocommerce-product-gallery__image > a {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.nova-single-product__gallery-wrap .woocommerce-product-gallery__image img {
+.nova-single-product__gallery-wrap .flex-viewport .woocommerce-product-gallery__image img {
+  position: relative;
+  top: auto;
+  left: auto;
+  display: block;
   width: auto !important;
   height: auto !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain;
-  object-position: center;
+  object-position: center center;
+  margin: 0 auto !important;
+}
+
+/* Non-slider fallback (single image, no FlexSlider viewport). */
+.nova-single-product__gallery-wrap .woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 1.75rem;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.nova-single-product__gallery-wrap .woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image > a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nova-single-product__gallery-wrap .woocommerce-product-gallery:not(:has(.flex-viewport)) .woocommerce-product-gallery__image img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
   margin: 0 auto;
 }
 
@@ -3323,6 +3359,8 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   object-fit: contain;
   object-position: center;
   background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  border-radius: 10px;
   opacity: 0.72;
   cursor: pointer;
   transition: opacity 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
