@@ -3323,8 +3323,6 @@ body.nova-pet-single-product #primary.site-main.site-main--wc-product > .woocomm
   object-fit: contain;
   object-position: center;
   background: #ffffff;
-  border: 1px solid rgba(17, 24, 39, 0.1);
-  border-radius: 10px;
   opacity: 0.72;
   cursor: pointer;
   transition: opacity 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
