@@ -104,15 +104,15 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 			'image_position_mobile',
 			array(
 				'label'       => esc_html__('Image position (mobile)', 'nova-pet'),
-				'description' => esc_html__('Overrides desktop image position below 900px. Leave empty to keep the current mobile adaptation.', 'nova-pet'),
+				'description' => esc_html__('Overrides desktop image position on tablet/mobile (≤1024px).', 'nova-pet'),
 				'type'        => \Elementor\Controls_Manager::SELECT,
-				'default'     => '',
+				'default'     => 'inherit',
 				'options'     => array(
-					''       => esc_html__('Same as desktop (auto)', 'nova-pet'),
-					'top'    => esc_html__('Top', 'nova-pet'),
-					'bottom' => esc_html__('Bottom', 'nova-pet'),
-					'left'   => esc_html__('Left', 'nova-pet'),
-					'right'  => esc_html__('Right', 'nova-pet'),
+					'inherit' => esc_html__('Same as desktop (auto)', 'nova-pet'),
+					'top'     => esc_html__('Top', 'nova-pet'),
+					'bottom'  => esc_html__('Bottom', 'nova-pet'),
+					'left'    => esc_html__('Left', 'nova-pet'),
+					'right'   => esc_html__('Right', 'nova-pet'),
 				),
 			)
 		);
@@ -215,6 +215,11 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 				$lead = 'yes';
 			}
 
+			$mobile_pos = isset($item['image_position_mobile']) ? (string) $item['image_position_mobile'] : 'inherit';
+			if ('inherit' === $mobile_pos || '' === $mobile_pos) {
+				$mobile_pos = '';
+			}
+
 			$n = nova_pet_normalize_feature_card(
 				array(
 					'image'                 => $img_url,
@@ -225,7 +230,7 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 					'action'                => isset($item['action']) ? $item['action'] : '',
 					'url'                   => $url,
 					'image_position'        => $pos,
-					'image_position_mobile' => isset($item['image_position_mobile']) ? $item['image_position_mobile'] : '',
+					'image_position_mobile' => $mobile_pos,
 					'lead'                  => $lead,
 				)
 			);

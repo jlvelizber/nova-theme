@@ -36,6 +36,9 @@ function nova_pet_normalize_feature_card($raw) {
 	}
 
 	$pos_mobile = isset($raw['image_position_mobile']) ? strtolower((string) $raw['image_position_mobile']) : '';
+	if ('inherit' === $pos_mobile) {
+		$pos_mobile = '';
+	}
 	if (!in_array($pos_mobile, array('', 'top', 'bottom', 'left', 'right'), true)) {
 		$pos_mobile = '';
 	}
@@ -462,7 +465,12 @@ function nova_pet_render_feature_card_article(array $card, $split_row = 0, $plac
 	}
 
 	$classes = nova_pet_get_feature_card_classes($card, (int) $split_row, $placement);
-	echo '<article class="' . esc_attr(implode(' ', $classes)) . '">';
+	$mobile_pos = isset($card['image_position_mobile']) ? sanitize_key((string) $card['image_position_mobile']) : '';
+	$data_mobile = in_array($mobile_pos, array('top', 'bottom', 'left', 'right'), true)
+		? ' data-nova-image-mobile="' . esc_attr($mobile_pos) . '"'
+		: '';
+
+	echo '<article class="' . esc_attr(implode(' ', $classes)) . '"' . $data_mobile . '>';
 	echo '<a href="' . esc_url($url) . '" class="nova-card__link">';
 
 	if ('stack' === $layout && !empty($card['stack_media_first'])) {

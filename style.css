@@ -1778,7 +1778,7 @@ a.nova-menu-link:focus-visible {
   flex-direction: row-reverse;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .nova-feature-cards__grid {
     grid-template-columns: 1fr;
     grid-template-rows: none;
@@ -1811,69 +1811,100 @@ a.nova-menu-link:focus-visible {
     flex-direction: column;
   }
 
-  /* Explicit mobile image position overrides. */
-  .nova-card--mobile-top .nova-card__link,
-  .nova-card--mobile-bottom .nova-card__link {
+  /*
+   * Mobile image position overrides.
+   * DOM can be media→body (split / stack top) or body→media (stack bottom).
+   * Use flex-direction reverse variants so the override always wins.
+   */
+  .nova-card[data-nova-image-mobile] > .nova-card__link,
+  .nova-card.nova-card--mobile-top > .nova-card__link,
+  .nova-card.nova-card--mobile-bottom > .nova-card__link,
+  .nova-card.nova-card--mobile-left > .nova-card__link,
+  .nova-card.nova-card--mobile-right > .nova-card__link {
+    display: flex !important;
+  }
+
+  /* Image on top */
+  .nova-card.nova-card--mobile-top:not(.nova-card--stack-media-last) > .nova-card__link,
+  .nova-card[data-nova-image-mobile="top"]:not(.nova-card--stack-media-last) > .nova-card__link {
     flex-direction: column !important;
   }
 
-  .nova-card--mobile-top .nova-card__media {
-    order: -1;
+  .nova-card.nova-card--mobile-top.nova-card--stack-media-last > .nova-card__link,
+  .nova-card[data-nova-image-mobile="top"].nova-card--stack-media-last > .nova-card__link {
+    flex-direction: column-reverse !important;
+  }
+
+  /* Image on bottom */
+  .nova-card.nova-card--mobile-bottom:not(.nova-card--stack-media-last) > .nova-card__link,
+  .nova-card[data-nova-image-mobile="bottom"]:not(.nova-card--stack-media-last) > .nova-card__link {
+    flex-direction: column-reverse !important;
+  }
+
+  .nova-card.nova-card--mobile-bottom.nova-card--stack-media-last > .nova-card__link,
+  .nova-card[data-nova-image-mobile="bottom"].nova-card--stack-media-last > .nova-card__link {
+    flex-direction: column !important;
+  }
+
+  .nova-card.nova-card--mobile-top > .nova-card__link > .nova-card__media,
+  .nova-card.nova-card--mobile-bottom > .nova-card__link > .nova-card__media,
+  .nova-card[data-nova-image-mobile="top"] > .nova-card__link > .nova-card__media,
+  .nova-card[data-nova-image-mobile="bottom"] > .nova-card__link > .nova-card__media {
     flex: 0 0 auto !important;
     max-width: none !important;
     width: 100% !important;
     min-height: clamp(11rem, 40vw, 14rem);
   }
 
-  .nova-card--mobile-top .nova-card__body {
-    order: 1;
-  }
-
-  .nova-card--mobile-bottom .nova-card__media {
-    order: 2;
-    flex: 0 0 auto !important;
-    max-width: none !important;
-    width: 100% !important;
-    min-height: clamp(11rem, 40vw, 14rem);
-  }
-
-  .nova-card--mobile-bottom .nova-card__body {
-    order: 1;
-  }
-
-  .nova-card--mobile-left .nova-card__link,
-  .nova-card--mobile-right .nova-card__link {
+  /* Image on left */
+  .nova-card.nova-card--mobile-left:not(.nova-card--stack-media-last) > .nova-card__link,
+  .nova-card[data-nova-image-mobile="left"]:not(.nova-card--stack-media-last) > .nova-card__link {
     flex-direction: row !important;
-    align-items: stretch;
+    align-items: stretch !important;
   }
 
-  .nova-card--mobile-left .nova-card__media,
-  .nova-card--mobile-right .nova-card__media {
+  .nova-card.nova-card--mobile-left.nova-card--stack-media-last > .nova-card__link,
+  .nova-card[data-nova-image-mobile="left"].nova-card--stack-media-last > .nova-card__link {
+    flex-direction: row-reverse !important;
+    align-items: stretch !important;
+  }
+
+  /* Image on right */
+  .nova-card.nova-card--mobile-right:not(.nova-card--stack-media-last) > .nova-card__link,
+  .nova-card[data-nova-image-mobile="right"]:not(.nova-card--stack-media-last) > .nova-card__link {
+    flex-direction: row-reverse !important;
+    align-items: stretch !important;
+  }
+
+  .nova-card.nova-card--mobile-right.nova-card--stack-media-last > .nova-card__link,
+  .nova-card[data-nova-image-mobile="right"].nova-card--stack-media-last > .nova-card__link {
+    flex-direction: row !important;
+    align-items: stretch !important;
+  }
+
+  .nova-card.nova-card--mobile-left > .nova-card__link > .nova-card__media,
+  .nova-card.nova-card--mobile-right > .nova-card__link > .nova-card__media,
+  .nova-card[data-nova-image-mobile="left"] > .nova-card__link > .nova-card__media,
+  .nova-card[data-nova-image-mobile="right"] > .nova-card__link > .nova-card__media {
     flex: 0 0 42% !important;
     max-width: 42% !important;
     width: 42% !important;
-    min-height: 9rem;
+    min-height: 9rem !important;
     position: relative;
   }
 
-  .nova-card--mobile-left .nova-card__media {
-    order: -1;
+  .nova-card.nova-card--mobile-left > .nova-card__link > .nova-card__body,
+  .nova-card.nova-card--mobile-right > .nova-card__link > .nova-card__body,
+  .nova-card[data-nova-image-mobile="left"] > .nova-card__link > .nova-card__body,
+  .nova-card[data-nova-image-mobile="right"] > .nova-card__link > .nova-card__body {
+    flex: 1 1 58% !important;
+    max-width: 58% !important;
   }
 
-  .nova-card--mobile-left .nova-card__body {
-    order: 1;
-  }
-
-  .nova-card--mobile-right .nova-card__media {
-    order: 2;
-  }
-
-  .nova-card--mobile-right .nova-card__body {
-    order: 1;
-  }
-
-  .nova-card--mobile-left .nova-card__img,
-  .nova-card--mobile-right .nova-card__img {
+  .nova-card.nova-card--mobile-left .nova-card__img,
+  .nova-card.nova-card--mobile-right .nova-card__img,
+  .nova-card[data-nova-image-mobile="left"] .nova-card__img,
+  .nova-card[data-nova-image-mobile="right"] .nova-card__img {
     position: absolute;
     inset: 0;
   }
