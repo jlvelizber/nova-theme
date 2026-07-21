@@ -14,7 +14,8 @@ if (!defined('ABSPATH')) {
  *
  * image_position: top | bottom | left | right
  *   - top/bottom → columna (stack); left/right → fila (split).
- * image_position_mobile: same values, or empty to keep the desktop layout on mobile.
+ * image_fit / image_fit_mobile: cover | contain
+ * image_focus / image_focus_mobile: center | top | bottom | left | right
  * lead: tarjeta alta en la columna izquierda del grid (solo tiene sentido con top/bottom).
  *
  * @param array<string, string|bool> $raw Raw attributes.
@@ -35,12 +36,30 @@ function nova_pet_normalize_feature_card($raw) {
 		$pos = 'left';
 	}
 
-	$pos_mobile = isset($raw['image_position_mobile']) ? strtolower((string) $raw['image_position_mobile']) : '';
-	if ('inherit' === $pos_mobile) {
-		$pos_mobile = '';
+	$fit = isset($raw['image_fit']) ? strtolower((string) $raw['image_fit']) : 'cover';
+	if (!in_array($fit, array('cover', 'contain'), true)) {
+		$fit = 'cover';
 	}
-	if (!in_array($pos_mobile, array('', 'top', 'bottom', 'left', 'right'), true)) {
-		$pos_mobile = '';
+
+	$focus = isset($raw['image_focus']) ? strtolower((string) $raw['image_focus']) : 'center';
+	if (!in_array($focus, array('center', 'top', 'bottom', 'left', 'right'), true)) {
+		$focus = 'center';
+	}
+
+	$fit_mobile = isset($raw['image_fit_mobile']) ? strtolower((string) $raw['image_fit_mobile']) : 'contain';
+	if ('inherit' === $fit_mobile) {
+		$fit_mobile = '';
+	}
+	if (!in_array($fit_mobile, array('', 'cover', 'contain'), true)) {
+		$fit_mobile = 'contain';
+	}
+
+	$focus_mobile = isset($raw['image_focus_mobile']) ? strtolower((string) $raw['image_focus_mobile']) : '';
+	if ('inherit' === $focus_mobile) {
+		$focus_mobile = '';
+	}
+	if (!in_array($focus_mobile, array('', 'center', 'top', 'bottom', 'left', 'right'), true)) {
+		$focus_mobile = '';
 	}
 
 	$is_vertical = in_array($pos, array('top', 'bottom'), true);
@@ -60,19 +79,22 @@ function nova_pet_normalize_feature_card($raw) {
 	}
 
 	return array(
-		'label'                 => $label,
-		'title'                 => $title,
-		'text'                  => $text,
-		'action'                => $action,
-		'url'                   => $url ? $url : '#',
-		'image'                 => $image,
-		'image_alt'             => $image_alt,
-		'image_position'        => $pos,
-		'image_position_mobile' => $pos_mobile,
-		'lead'                  => $lead && $is_vertical,
-		'layout'                => $is_vertical ? 'stack' : 'split',
-		'stack_media_first'     => $is_vertical ? ('top' === $pos) : true,
-		'split_reverse'         => $is_vertical ? false : ('right' === $pos),
+		'label'              => $label,
+		'title'              => $title,
+		'text'               => $text,
+		'action'             => $action,
+		'url'                => $url ? $url : '#',
+		'image'              => $image,
+		'image_alt'          => $image_alt,
+		'image_position'     => $pos,
+		'image_fit'          => $fit,
+		'image_focus'        => $focus,
+		'image_fit_mobile'   => $fit_mobile,
+		'image_focus_mobile' => $focus_mobile,
+		'lead'               => $lead && $is_vertical,
+		'layout'             => $is_vertical ? 'stack' : 'split',
+		'stack_media_first'  => $is_vertical ? ('top' === $pos) : true,
+		'split_reverse'      => $is_vertical ? false : ('right' === $pos),
 	);
 }
 
@@ -85,25 +107,49 @@ function nova_pet_normalize_feature_card($raw) {
 function nova_pet_sanitize_normalized_card(array $c) {
 	$layout = isset($c['layout']) && 'stack' === $c['layout'] ? 'stack' : 'split';
 
-	$pos_mobile = isset($c['image_position_mobile']) ? sanitize_key((string) $c['image_position_mobile']) : '';
-	if (!in_array($pos_mobile, array('', 'top', 'bottom', 'left', 'right'), true)) {
-		$pos_mobile = '';
+	$fit = isset($c['image_fit']) ? sanitize_key((string) $c['image_fit']) : 'cover';
+	if (!in_array($fit, array('cover', 'contain'), true)) {
+		$fit = 'cover';
+	}
+
+	$focus = isset($c['image_focus']) ? sanitize_key((string) $c['image_focus']) : 'center';
+	if (!in_array($focus, array('center', 'top', 'bottom', 'left', 'right'), true)) {
+		$focus = 'center';
+	}
+
+	$fit_mobile = isset($c['image_fit_mobile']) ? sanitize_key((string) $c['image_fit_mobile']) : 'contain';
+	if ('inherit' === $fit_mobile) {
+		$fit_mobile = '';
+	}
+	if (!in_array($fit_mobile, array('', 'cover', 'contain'), true)) {
+		$fit_mobile = 'contain';
+	}
+
+	$focus_mobile = isset($c['image_focus_mobile']) ? sanitize_key((string) $c['image_focus_mobile']) : '';
+	if ('inherit' === $focus_mobile) {
+		$focus_mobile = '';
+	}
+	if (!in_array($focus_mobile, array('', 'center', 'top', 'bottom', 'left', 'right'), true)) {
+		$focus_mobile = '';
 	}
 
 	return array(
-		'label'                 => isset($c['label']) ? sanitize_text_field((string) $c['label']) : '',
-		'title'                 => isset($c['title']) ? sanitize_text_field((string) $c['title']) : '',
-		'text'                  => isset($c['text']) ? sanitize_textarea_field((string) $c['text']) : '',
-		'action'                => isset($c['action']) ? sanitize_text_field((string) $c['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action'),
-		'url'                   => !empty($c['url']) ? esc_url_raw((string) $c['url']) : '#',
-		'image'                 => isset($c['image']) ? esc_url_raw((string) $c['image']) : '',
-		'image_alt'             => isset($c['image_alt']) ? sanitize_text_field((string) $c['image_alt']) : '',
-		'image_position'        => isset($c['image_position']) ? sanitize_key((string) $c['image_position']) : '',
-		'image_position_mobile' => $pos_mobile,
-		'lead'                  => !empty($c['lead']) && 'stack' === $layout,
-		'layout'                => $layout,
-		'stack_media_first'     => !empty($c['stack_media_first']),
-		'split_reverse'         => !empty($c['split_reverse']),
+		'label'              => isset($c['label']) ? sanitize_text_field((string) $c['label']) : '',
+		'title'              => isset($c['title']) ? sanitize_text_field((string) $c['title']) : '',
+		'text'               => isset($c['text']) ? sanitize_textarea_field((string) $c['text']) : '',
+		'action'             => isset($c['action']) ? sanitize_text_field((string) $c['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action'),
+		'url'                => !empty($c['url']) ? esc_url_raw((string) $c['url']) : '#',
+		'image'              => isset($c['image']) ? esc_url_raw((string) $c['image']) : '',
+		'image_alt'          => isset($c['image_alt']) ? sanitize_text_field((string) $c['image_alt']) : '',
+		'image_position'     => isset($c['image_position']) ? sanitize_key((string) $c['image_position']) : '',
+		'image_fit'          => $fit,
+		'image_focus'        => $focus,
+		'image_fit_mobile'   => $fit_mobile,
+		'image_focus_mobile' => $focus_mobile,
+		'lead'               => !empty($c['lead']) && 'stack' === $layout,
+		'layout'             => $layout,
+		'stack_media_first'  => !empty($c['stack_media_first']),
+		'split_reverse'      => !empty($c['split_reverse']),
 	);
 }
 
@@ -228,16 +274,19 @@ function nova_pet_nova_card_shortcode($atts, $content = null, $tag = '') {
 
 	$atts = shortcode_atts(
 		array(
-			'image'                 => '',
-			'alt'                   => '',
-			'label'                 => '',
-			'title'                 => '',
-			'text'                  => '',
-			'action'                => '',
-			'url'                   => '',
-			'image_position'        => 'left',
-			'image_position_mobile' => '',
-			'lead'                  => '',
+			'image'              => '',
+			'alt'                => '',
+			'label'              => '',
+			'title'              => '',
+			'text'               => '',
+			'action'             => '',
+			'url'                => '',
+			'image_position'     => 'left',
+			'image_fit'          => 'cover',
+			'image_focus'        => 'center',
+			'image_fit_mobile'   => 'contain',
+			'image_focus_mobile' => '',
+			'lead'               => '',
 		),
 		$atts
 	);
@@ -342,12 +391,41 @@ function nova_pet_get_feature_card_classes(array $card, $split_row = 0, $placeme
 		}
 	}
 
-	$mobile_pos = isset($card['image_position_mobile']) ? sanitize_key((string) $card['image_position_mobile']) : '';
-	if (in_array($mobile_pos, array('top', 'bottom', 'left', 'right'), true)) {
-		$classes[] = 'nova-card--mobile-' . $mobile_pos;
+	return $classes;
+}
+
+/**
+ * CSS classes for the card image (object-fit / object-position).
+ *
+ * @param array<string, mixed> $card Normalized card.
+ * @return string
+ */
+function nova_pet_get_feature_card_img_classes(array $card) {
+	$classes = array('nova-card__img');
+
+	$fit = isset($card['image_fit']) ? sanitize_key((string) $card['image_fit']) : 'cover';
+	if (!in_array($fit, array('cover', 'contain'), true)) {
+		$fit = 'cover';
+	}
+	$classes[] = 'nova-card__img--fit-' . $fit;
+
+	$focus = isset($card['image_focus']) ? sanitize_key((string) $card['image_focus']) : 'center';
+	if (!in_array($focus, array('center', 'top', 'bottom', 'left', 'right'), true)) {
+		$focus = 'center';
+	}
+	$classes[] = 'nova-card__img--focus-' . $focus;
+
+	$fit_mobile = isset($card['image_fit_mobile']) ? sanitize_key((string) $card['image_fit_mobile']) : '';
+	if (in_array($fit_mobile, array('cover', 'contain'), true)) {
+		$classes[] = 'nova-card__img--mobile-fit-' . $fit_mobile;
 	}
 
-	return $classes;
+	$focus_mobile = isset($card['image_focus_mobile']) ? sanitize_key((string) $card['image_focus_mobile']) : '';
+	if (in_array($focus_mobile, array('center', 'top', 'bottom', 'left', 'right'), true)) {
+		$classes[] = 'nova-card__img--mobile-focus-' . $focus_mobile;
+	}
+
+	return implode(' ', $classes);
 }
 
 /**
@@ -464,20 +542,18 @@ function nova_pet_render_feature_card_article(array $card, $split_row = 0, $plac
 		$alt = wp_strip_all_tags($title);
 	}
 
-	$classes = nova_pet_get_feature_card_classes($card, (int) $split_row, $placement);
-	$mobile_pos = isset($card['image_position_mobile']) ? sanitize_key((string) $card['image_position_mobile']) : '';
-	$data_mobile = in_array($mobile_pos, array('top', 'bottom', 'left', 'right'), true)
-		? ' data-nova-image-mobile="' . esc_attr($mobile_pos) . '"'
+	$classes    = nova_pet_get_feature_card_classes($card, (int) $split_row, $placement);
+	$img_class  = nova_pet_get_feature_card_img_classes($card);
+	$img_markup = $image
+		? '<img class="' . esc_attr($img_class) . '" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">'
 		: '';
 
-	echo '<article class="' . esc_attr(implode(' ', $classes)) . '"' . $data_mobile . '>';
+	echo '<article class="' . esc_attr(implode(' ', $classes)) . '">';
 	echo '<a href="' . esc_url($url) . '" class="nova-card__link">';
 
 	if ('stack' === $layout && !empty($card['stack_media_first'])) {
 		echo '<div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
-		if ($image) {
-			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
-		}
+		echo $img_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 		echo '</div><div class="nova-card__body">';
 		nova_pet_feature_cards_render_body($label, $title, $text, $action);
 		echo '</div>';
@@ -485,15 +561,11 @@ function nova_pet_render_feature_card_article(array $card, $split_row = 0, $plac
 		echo '<div class="nova-card__body">';
 		nova_pet_feature_cards_render_body($label, $title, $text, $action);
 		echo '</div><div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
-		if ($image) {
-			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
-		}
+		echo $img_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 		echo '</div>';
 	} else {
 		echo '<div class="nova-card__media' . ($image ? '' : ' nova-card__media--placeholder') . '">';
-		if ($image) {
-			echo '<img class="nova-card__img" src="' . esc_url($image) . '" alt="' . esc_attr($alt) . '" loading="lazy" decoding="async" width="600" height="400">';
-		}
+		echo $img_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 		echo '</div><div class="nova-card__body">';
 		nova_pet_feature_cards_render_body($label, $title, $text, $action);
 		echo '</div>';

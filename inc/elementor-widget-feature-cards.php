@@ -101,14 +101,60 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 		);
 
 		$repeater->add_control(
-			'image_position_mobile',
+			'image_fit',
 			array(
-				'label'       => esc_html__('Image position (mobile)', 'nova-pet'),
-				'description' => esc_html__('Overrides desktop image position on tablet/mobile (≤1024px).', 'nova-pet'),
+				'label'       => esc_html__('Image fit', 'nova-pet'),
+				'description' => esc_html__('Cover fills the frame (may crop). Contain shows the full image.', 'nova-pet'),
 				'type'        => \Elementor\Controls_Manager::SELECT,
-				'default'     => 'inherit',
+				'default'     => 'cover',
 				'options'     => array(
-					'inherit' => esc_html__('Same as desktop (auto)', 'nova-pet'),
+					'cover'   => esc_html__('Cover (fill / may crop)', 'nova-pet'),
+					'contain' => esc_html__('Contain (full image)', 'nova-pet'),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'image_focus',
+			array(
+				'label'       => esc_html__('Image focus', 'nova-pet'),
+				'description' => esc_html__('Which part of the photo stays visible when using Cover.', 'nova-pet'),
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'center',
+				'options'     => array(
+					'center' => esc_html__('Center', 'nova-pet'),
+					'top'    => esc_html__('Top', 'nova-pet'),
+					'bottom' => esc_html__('Bottom', 'nova-pet'),
+					'left'   => esc_html__('Left', 'nova-pet'),
+					'right'  => esc_html__('Right', 'nova-pet'),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'image_fit_mobile',
+			array(
+				'label'       => esc_html__('Image fit (mobile)', 'nova-pet'),
+				'description' => esc_html__('Default shows the full image on tablet/mobile so it is not cropped.', 'nova-pet'),
+				'type'        => \Elementor\Controls_Manager::SELECT,
+				'default'     => 'contain',
+				'options'     => array(
+					'inherit' => esc_html__('Same as desktop', 'nova-pet'),
+					'contain' => esc_html__('Contain (full image)', 'nova-pet'),
+					'cover'   => esc_html__('Cover (fill / may crop)', 'nova-pet'),
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'image_focus_mobile',
+			array(
+				'label'   => esc_html__('Image focus (mobile)', 'nova-pet'),
+				'type'    => \Elementor\Controls_Manager::SELECT,
+				'default' => 'inherit',
+				'options' => array(
+					'inherit' => esc_html__('Same as desktop', 'nova-pet'),
+					'center'  => esc_html__('Center', 'nova-pet'),
 					'top'     => esc_html__('Top', 'nova-pet'),
 					'bottom'  => esc_html__('Bottom', 'nova-pet'),
 					'left'    => esc_html__('Left', 'nova-pet'),
@@ -215,23 +261,21 @@ class Nova_Pet_Elementor_Feature_Cards_Widget extends \Elementor\Widget_Base {
 				$lead = 'yes';
 			}
 
-			$mobile_pos = isset($item['image_position_mobile']) ? (string) $item['image_position_mobile'] : 'inherit';
-			if ('inherit' === $mobile_pos || '' === $mobile_pos) {
-				$mobile_pos = '';
-			}
-
 			$n = nova_pet_normalize_feature_card(
 				array(
-					'image'                 => $img_url,
-					'alt'                   => isset($item['title']) ? $item['title'] : '',
-					'label'                 => isset($item['label']) ? $item['label'] : '',
-					'title'                 => isset($item['title']) ? $item['title'] : '',
-					'text'                  => isset($item['text']) ? $item['text'] : '',
-					'action'                => isset($item['action']) ? $item['action'] : '',
-					'url'                   => $url,
-					'image_position'        => $pos,
-					'image_position_mobile' => $mobile_pos,
-					'lead'                  => $lead,
+					'image'              => $img_url,
+					'alt'                => isset($item['title']) ? $item['title'] : '',
+					'label'              => isset($item['label']) ? $item['label'] : '',
+					'title'              => isset($item['title']) ? $item['title'] : '',
+					'text'               => isset($item['text']) ? $item['text'] : '',
+					'action'             => isset($item['action']) ? $item['action'] : '',
+					'url'                => $url,
+					'image_position'     => $pos,
+					'image_fit'          => isset($item['image_fit']) ? $item['image_fit'] : 'cover',
+					'image_focus'        => isset($item['image_focus']) ? $item['image_focus'] : 'center',
+					'image_fit_mobile'   => isset($item['image_fit_mobile']) ? $item['image_fit_mobile'] : 'contain',
+					'image_focus_mobile' => isset($item['image_focus_mobile']) ? $item['image_focus_mobile'] : 'inherit',
+					'lead'               => $lead,
 				)
 			);
 			if ($n) {
