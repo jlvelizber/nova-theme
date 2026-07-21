@@ -4,7 +4,7 @@ Theme URI: https://example.com/nova-pet
 Author: Nova Pet Team
 Author URI: https://example.com
 Description: Tema base ligero y compatible con Elementor y WooCommerce.
-Version: 1.0.0
+Version: 1.0.1
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
@@ -1839,39 +1839,90 @@ a.nova-menu-link:focus-visible {
     flex-direction: column;
   }
 
-  /* Mobile image framing: avoid cropped photos by default (contain). */
-  .nova-card__img--mobile-fit-contain {
-    object-fit: contain !important;
+  /*
+   * Mobile: show full photo by default (natural height).
+   * Fixed min-heights + object-fit:cover were cropping images into a short strip.
+   */
+  .nova-card .nova-card__media,
+  .nova-card--stack .nova-card__media,
+  .nova-card--stack-media-last .nova-card__media,
+  .nova-card--split .nova-card__media,
+  .nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--lead.nova-card--stack .nova-card__media,
+  .nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split .nova-card__media {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-width: none !important;
+    width: 100% !important;
+    position: relative;
+    overflow: hidden;
   }
 
-  .nova-card__img--mobile-fit-cover {
+  .nova-card .nova-card__img,
+  .nova-feature-cards__grid:not(.nova-feature-cards__grid--flat) .nova-card--split .nova-card__img {
+    position: static !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    object-fit: unset !important;
+  }
+
+  /* Optional: crop to a fixed aspect ratio on mobile */
+  .nova-card--mobile-crop .nova-card__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .nova-card--mobile-crop.nova-card--mobile-aspect-16-9 .nova-card__media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .nova-card--mobile-crop.nova-card--mobile-aspect-4-3 .nova-card__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .nova-card--mobile-crop.nova-card--mobile-aspect-1-1 .nova-card__media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .nova-card--mobile-crop.nova-card--mobile-aspect-3-4 .nova-card__media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .nova-card--mobile-crop .nova-card__img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: cover !important;
-  }
-
-  .nova-card__img--mobile-focus-center {
     object-position: center center !important;
   }
 
-  .nova-card__img--mobile-focus-top {
+  .nova-card--mobile-crop.nova-card--mobile-focus-top .nova-card__img {
     object-position: center top !important;
   }
 
-  .nova-card__img--mobile-focus-bottom {
+  .nova-card--mobile-crop.nova-card--mobile-focus-bottom .nova-card__img {
     object-position: center bottom !important;
   }
 
-  .nova-card__img--mobile-focus-left {
+  .nova-card--mobile-crop.nova-card--mobile-focus-left .nova-card__img {
     object-position: left center !important;
   }
 
-  .nova-card__img--mobile-focus-right {
+  .nova-card--mobile-crop.nova-card--mobile-focus-right .nova-card__img {
     object-position: right center !important;
+  }
+
+  .nova-card--mobile-crop.nova-card--mobile-focus-center .nova-card__img {
+    object-position: center center !important;
   }
 }
 
 @media (max-width: 640px) {
   .nova-card--stack .nova-card__media {
-    min-height: 11rem;
+    min-height: 0;
   }
 }
 
