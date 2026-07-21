@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
  *
  * image_position: top | bottom | left | right
  *   - top/bottom → columna (stack); left/right → fila (split).
+ * image_position_mobile: same values, or empty to keep the desktop layout on mobile.
  * lead: tarjeta alta en la columna izquierda del grid (solo tiene sentido con top/bottom).
  *
  * @param array<string, string|bool> $raw Raw attributes.
@@ -34,6 +35,11 @@ function nova_pet_normalize_feature_card($raw) {
 		$pos = 'left';
 	}
 
+	$pos_mobile = isset($raw['image_position_mobile']) ? strtolower((string) $raw['image_position_mobile']) : '';
+	if (!in_array($pos_mobile, array('', 'top', 'bottom', 'left', 'right'), true)) {
+		$pos_mobile = '';
+	}
+
 	$is_vertical = in_array($pos, array('top', 'bottom'), true);
 	$lead_raw    = isset($raw['lead']) ? $raw['lead'] : '';
 	$lead        = in_array(strtolower((string) $lead_raw), array('1', 'yes', 'true', 'on'), true);
@@ -51,18 +57,19 @@ function nova_pet_normalize_feature_card($raw) {
 	}
 
 	return array(
-		'label'              => $label,
-		'title'              => $title,
-		'text'               => $text,
-		'action'             => $action,
-		'url'                => $url ? $url : '#',
-		'image'              => $image,
-		'image_alt'          => $image_alt,
-		'image_position'     => $pos,
-		'lead'               => $lead && $is_vertical,
-		'layout'             => $is_vertical ? 'stack' : 'split',
-		'stack_media_first'  => $is_vertical ? ('top' === $pos) : true,
-		'split_reverse'      => $is_vertical ? false : ('right' === $pos),
+		'label'                 => $label,
+		'title'                 => $title,
+		'text'                  => $text,
+		'action'                => $action,
+		'url'                   => $url ? $url : '#',
+		'image'                 => $image,
+		'image_alt'             => $image_alt,
+		'image_position'        => $pos,
+		'image_position_mobile' => $pos_mobile,
+		'lead'                  => $lead && $is_vertical,
+		'layout'                => $is_vertical ? 'stack' : 'split',
+		'stack_media_first'     => $is_vertical ? ('top' === $pos) : true,
+		'split_reverse'         => $is_vertical ? false : ('right' === $pos),
 	);
 }
 
@@ -75,19 +82,25 @@ function nova_pet_normalize_feature_card($raw) {
 function nova_pet_sanitize_normalized_card(array $c) {
 	$layout = isset($c['layout']) && 'stack' === $c['layout'] ? 'stack' : 'split';
 
+	$pos_mobile = isset($c['image_position_mobile']) ? sanitize_key((string) $c['image_position_mobile']) : '';
+	if (!in_array($pos_mobile, array('', 'top', 'bottom', 'left', 'right'), true)) {
+		$pos_mobile = '';
+	}
+
 	return array(
-		'label'             => isset($c['label']) ? sanitize_text_field((string) $c['label']) : '',
-		'title'             => isset($c['title']) ? sanitize_text_field((string) $c['title']) : '',
-		'text'              => isset($c['text']) ? sanitize_textarea_field((string) $c['text']) : '',
-		'action'            => isset($c['action']) ? sanitize_text_field((string) $c['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action'),
-		'url'               => !empty($c['url']) ? esc_url_raw((string) $c['url']) : '#',
-		'image'             => isset($c['image']) ? esc_url_raw((string) $c['image']) : '',
-		'image_alt'         => isset($c['image_alt']) ? sanitize_text_field((string) $c['image_alt']) : '',
-		'image_position'    => isset($c['image_position']) ? sanitize_key((string) $c['image_position']) : '',
-		'lead'              => !empty($c['lead']) && 'stack' === $layout,
-		'layout'            => $layout,
-		'stack_media_first' => !empty($c['stack_media_first']),
-		'split_reverse'     => !empty($c['split_reverse']),
+		'label'                 => isset($c['label']) ? sanitize_text_field((string) $c['label']) : '',
+		'title'                 => isset($c['title']) ? sanitize_text_field((string) $c['title']) : '',
+		'text'                  => isset($c['text']) ? sanitize_textarea_field((string) $c['text']) : '',
+		'action'                => isset($c['action']) ? sanitize_text_field((string) $c['action']) : nova_pet_translate_theme_string('Learn', 'Feature cards: default action'),
+		'url'                   => !empty($c['url']) ? esc_url_raw((string) $c['url']) : '#',
+		'image'                 => isset($c['image']) ? esc_url_raw((string) $c['image']) : '',
+		'image_alt'             => isset($c['image_alt']) ? sanitize_text_field((string) $c['image_alt']) : '',
+		'image_position'        => isset($c['image_position']) ? sanitize_key((string) $c['image_position']) : '',
+		'image_position_mobile' => $pos_mobile,
+		'lead'                  => !empty($c['lead']) && 'stack' === $layout,
+		'layout'                => $layout,
+		'stack_media_first'     => !empty($c['stack_media_first']),
+		'split_reverse'         => !empty($c['split_reverse']),
 	);
 }
 
@@ -212,15 +225,16 @@ function nova_pet_nova_card_shortcode($atts, $content = null, $tag = '') {
 
 	$atts = shortcode_atts(
 		array(
-			'image'            => '',
-			'alt'              => '',
-			'label'            => '',
-			'title'            => '',
-			'text'             => '',
-			'action'           => '',
-			'url'              => '',
-			'image_position'   => 'left',
-			'lead'             => '',
+			'image'                 => '',
+			'alt'                   => '',
+			'label'                 => '',
+			'title'                 => '',
+			'text'                  => '',
+			'action'                => '',
+			'url'                   => '',
+			'image_position'        => 'left',
+			'image_position_mobile' => '',
+			'lead'                  => '',
 		),
 		$atts
 	);
@@ -323,6 +337,11 @@ function nova_pet_get_feature_card_classes(array $card, $split_row = 0, $placeme
 				$classes[] = 'nova-card--split-r2';
 			}
 		}
+	}
+
+	$mobile_pos = isset($card['image_position_mobile']) ? sanitize_key((string) $card['image_position_mobile']) : '';
+	if (in_array($mobile_pos, array('top', 'bottom', 'left', 'right'), true)) {
+		$classes[] = 'nova-card--mobile-' . $mobile_pos;
 	}
 
 	return $classes;
